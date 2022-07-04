@@ -1,13 +1,15 @@
 package br.com.letscode;
 
+import java.math.BigDecimal;
+
 public class Pessoa {
     private String nome;
     private int idade;
     private Genero genero;
     private String endereco;
     private EstadoCivil estadoCivil;
-    private double altura;
-    private double peso;
+    private BigDecimal altura;
+    private BigDecimal peso;
 
     public String getNome() {
         return nome;
@@ -49,19 +51,20 @@ public class Pessoa {
         this.estadoCivil = estadoCivil;
     }
 
-    public double getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(BigDecimal altura) {
         this.altura = altura;
     }
 
-    public double getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
     }
+
 }

@@ -1,5 +1,7 @@
 package br.com.letscode;
 
+import java.math.BigDecimal;
+
 /**
  * Hello world!
  *
@@ -13,8 +15,8 @@ public class App
         p.setIdade(20);
         p.setGenero(Genero.M);
         p.setEndereco("Sobradinho-DF");
-        p.setAltura(1.75);
-        p.setPeso(65);
+        p.setAltura(BigDecimal.valueOf(1.75));
+        p.setPeso(BigDecimal.valueOf(65));
         p.setEstadoCivil(EstadoCivil.SOLTEIRO);
     }
 }
