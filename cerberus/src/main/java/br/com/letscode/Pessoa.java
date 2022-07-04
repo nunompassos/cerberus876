@@ -11,6 +11,18 @@ public class Pessoa {
     private BigDecimal altura;
     private BigDecimal peso;
 
+    public Pessoa(
+            String nome, int idade, Genero genero, String endereco, EstadoCivil estadoCivil, BigDecimal altura,
+            BigDecimal peso) {
+        this.nome = nome;
+        this.idade = idade;
+        this.genero = genero;
+        this.endereco = endereco;
+        this.estadoCivil = estadoCivil;
+        this.altura = altura;
+        this.peso = peso;
+    }
+
     public String getNome() {
         return nome;
     }
