@@ -5,14 +5,14 @@ import br.com.letscode.excecoes.SaldoInsuficienteException;
 public abstract class Conta {
 	private final int numero;
 	private Pessoa titular;
-	private long limite;
+	private Taxa taxas;
 	protected long saldo;
 
-	Conta(int numero, Pessoa titular) {
+	Conta(int numero, Pessoa titular, Taxa taxa) {
 		this.numero = numero;
 		this.titular = titular;
 		this.saldo = 0;
-		this.limite = 0;
+		this.taxas = taxa;
 	}
 
 	public void depositar(long deposito) {
@@ -20,8 +20,9 @@ public abstract class Conta {
 	}
 
 	public long sacar(long saque) {
-		if (saque < this.saldo) {
-			this.saldo -= saque;
+		long taxa = Math.round(saque * taxas.getSaque());
+		if (saque + taxa < this.saldo) {
+			this.saldo -= saque + taxa;
 			return saque;
 		} else {
 			throw new SaldoInsuficienteException();
@@ -51,26 +52,16 @@ public abstract class Conta {
 		this.titular = titular;
 	}
 
-	public long getLimite() {
-		return limite;
-	}
-
-	public void setLimite(long limite) {
-		this.limite = limite;
-	}
-
 	public int getNumero() {
 		return numero;
 	}
 
 	@Override
 	public String toString() {
-		return "Conta: {" +
-		this.getNumero() + " " +
-		this.getSaldoFormatado() + " " +
-		this.getTitular() + " " +
-		'}';
-		
+		return this.getNumero() + ", " +
+				this.getSaldoFormatado() + ", " +
+				this.getTitular() + ", ";
+
 	}
 
 }
