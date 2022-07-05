@@ -1,61 +1,42 @@
 package br.com.letscode.modelos;
 
-import br.com.letscode.excecoes.IdadeNegativaException;
-
-public class Pessoa {
+public abstract class Pessoa {
 	private String nome;
-	private int idade;
-	private EstadoCivil estadoCivil;
-	private Genero genero;
-	private String profissao;
-	
-	public Pessoa(String nome, int idade) {
-		this.setNome(nome);
-		this.setIdade(idade);
-	}
-	
-	public Pessoa(String nome, int idade, char genero, char estadoCivil, String profissao) {
-		this.setNome(nome);
-		this.setIdade(idade);
-		this.setEstadoCivil(estadoCivil);
-		this.setGenero(genero);
-		this.setProfissao(profissao);
-	}
+	private String endereco;
+	private String telefone;
+	private int documento;
 
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public int getDocumento() {
+		return documento;
+	}
+	public void setDocumento(int documento) {
+		this.documento = documento;
+	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getIdade() {
-		return idade;
+	public String getEndereco() {
+		return endereco;
 	}
-	public void setIdade(int idade) {
-		if (idade < 0) throw new IdadeNegativaException();
-		this.idade = idade;
-	}
-	public EstadoCivil getEstadoCivil() {
-		return estadoCivil;
-	}
-	public void setEstadoCivil(char estado) {
-		this.estadoCivil = EstadoCivil.deChar(estado);
-	}
-	public Genero getGenero() {
-		return genero;
-	}
-	public void setGenero(char genero) {
-		this.genero = Genero.deChar(genero);
-	}
-	public String getProfissao() {
-		return profissao;
-	}
-	public void setProfissao(String profissao) {
-		this.profissao = profissao;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override
 	public String toString() {
-		return '{' + this.nome + ", " + this.idade + " anos, " + this.genero + ", " + this.estadoCivil + ", " + this.profissao + '}';
+		return
+				this.getNome() + ", " +
+				this.getDocumento() + ", " +
+				this.getEndereco() + ", " +
+				this.getTelefone();
 	}
 }
