@@ -1,47 +1,56 @@
 package br.com.letscode.modelos;
 
 import br.com.letscode.excecoes.SaldoInsuficienteException;
+import br.com.letscode.util.ConverteSaldo;
 
 public abstract class Conta {
 	private final int numero;
 	private Pessoa titular;
-	private Taxa taxas;
+	private Taxa taxa;
 	protected long saldo;
-
+	public abstract void passarMes();
+	
 	Conta(int numero, Pessoa titular, Taxa taxa) {
 		this.numero = numero;
 		this.titular = titular;
 		this.saldo = 0;
-		this.taxas = taxa;
+		this.taxa = taxa;
 	}
-
+	
 	public void depositar(long deposito) {
+		validaValor(deposito);
 		this.saldo += deposito;
 	}
 
-	public long sacar(long saque) {
-		long taxa = Math.round(saque * taxas.getSaque());
-		if (saque + taxa < this.saldo) {
-			this.saldo -= saque + taxa;
-			return saque;
-		} else {
-			throw new SaldoInsuficienteException();
+	protected long tirar(long retirada, double taxa) {
+		validaValor(retirada);
+		long tarifa = Math.round(retirada * taxa);
+		if (retirada + tarifa < this.saldo) {
+			this.saldo -= retirada + tarifa;
+			return retirada;
 		}
+		throw new SaldoInsuficienteException();
+	}
+
+	public long sacar(long saque) {
+		validaValor(saque);
+		return tirar(saque, this.getTaxa().getSaque());
 	}
 
 	public void transferir(long transferencia, Conta destino) {
-		destino.depositar(this.sacar(transferencia));
+		destino.depositar(
+				this.tirar(
+						transferencia,
+						this.getTaxa().getTransferencia()));
 	}
+
 
 	public long getSaldoPuro() {
 		return saldo;
 	}
 
 	public String getSaldoFormatado() {
-		String digitos = String.valueOf(this.getSaldoPuro());
-		String reais = digitos.substring(0, digitos.length() - 2);
-		String centavos = digitos.substring(digitos.length() - 2, digitos.length());
-		return "R$ " + reais + ',' + centavos;
+		return ConverteSaldo.comCifrao(this.saldo);
 	}
 
 	public Pessoa getTitular() {
@@ -54,6 +63,15 @@ public abstract class Conta {
 
 	public int getNumero() {
 		return numero;
+	}
+
+	public Taxa getTaxa() {
+		return this.taxa;
+	}
+
+	protected void validaValor(long valor) {
+		if (valor < 0)
+			throw new IllegalArgumentException("Valor deve ser positivo");
 	}
 
 	@Override
