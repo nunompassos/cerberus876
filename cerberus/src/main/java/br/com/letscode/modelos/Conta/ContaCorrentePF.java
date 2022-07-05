@@ -8,7 +8,8 @@ public class ContaCorrentePF extends ContaCorrente {
 		super(numero, titular, Taxa.PF);
 	}
 
-	public PessoaFisica getTitularPessoaFisica() {
+	@Override
+	public PessoaFisica getTitular() {
 		return (PessoaFisica) super.getTitular();
 	}
 }
