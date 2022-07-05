@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Conta {
 
-    private Agencia numeroAgencia;
+    private Agencia agencia;
     private int numeroConta;
     private BigDecimal saldo = BigDecimal.valueOf(0);
 
@@ -20,9 +20,9 @@ public class Conta {
         if (agencia.contaExiste(numeroConta)) {
             throw new ContaException("Conta já existente");
         }
-        this.numeroAgencia = agencia;
+        this.agencia = agencia;
         this.numeroConta = numeroConta;
-        this.numeroAgencia.adicionarConta(this);
+        this.agencia.adicionarConta(this);
     }
 
     public void depositar(BigDecimal valor) {
@@ -65,11 +65,11 @@ public class Conta {
     }
 
     public Agencia getAgencia() {
-        return numeroAgencia;
+        return agencia;
     }
 
     public void setAgencia(Agencia agencia) {
-        this.numeroAgencia = agencia;
+        this.agencia = agencia;
     }
 
     public void setNumeroConta(int numeroConta) {
@@ -86,16 +86,16 @@ public class Conta {
 
     @Override
     public String toString() {
-        return this.numeroAgencia.toString() + "\n"
-                + "Conta: " + this.numeroConta + "\n"
-                + "Saldo: " + this.saldo;
+        return this.agencia.toString() + "\n"
+                + "Conta ......: " + this.numeroConta + "\n"
+                + "Saldo ......: " + this.saldo;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((numeroAgencia == null) ? 0 : numeroAgencia.hashCode());
+        result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
         result = prime * result + numeroConta;
         return result;
     }
@@ -109,10 +109,10 @@ public class Conta {
         if (getClass() != obj.getClass())
             return false;
         Conta other = (Conta) obj;
-        if (numeroAgencia == null) {
-            if (other.numeroAgencia != null)
+        if (agencia == null) {
+            if (other.agencia != null)
                 return false;
-        } else if (!numeroAgencia.equals(other.numeroAgencia))
+        } else if (!agencia.equals(other.agencia))
             return false;
         if (numeroConta != other.numeroConta)
             return false;

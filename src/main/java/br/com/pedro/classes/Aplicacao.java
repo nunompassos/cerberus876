@@ -11,53 +11,60 @@ public class Aplicacao {
 
         Scanner sc = new Scanner(System.in);
 
-        logo();
-
-        switch (menuInicial(sc)) {
-            case 1:
-                menuConsultas(sc);
-                break;
-            case 2:
-                System.out.println("Case 2 escolhido");
-                break;
-            case 3:
-                System.out.println("Case 3 escolhido");
-                break;
-            default:
-                System.out.println("Erro!");
-        }
+        menuInicial(sc);
 
         System.out.println();
         sc.close();
     }
 
-    private static int menuInicial(Scanner sc) {
-        System.out.println("01. Consultas");
-        System.out.println("02. Transações");
-        System.out.println("03. Sair");
+    private static void menuInicial(Scanner sc) {
+        Util.logo();
+        System.out.println("01.   Abertura de Conta");
+        System.out.println("02.   Consultas");
+        System.out.println("03.   Transações");
+        System.out.println("04.   Sair");
         System.out.println();
 
         int escolhido;
         do {
+            System.out.print("Informe a opção:  ");
             while (!sc.hasNextInt()) {
+                System.out.print("Informe a opção:  ");
                 sc.next();
             }
             escolhido = sc.nextInt();
-        } while (escolhido > 3 || escolhido < 1);
+        } while (escolhido > 4 || escolhido < 1);
 
-        return escolhido;
+        switch (escolhido) {
+            case 1:
+                menuAberturaDeConta(sc);
+                return;
+            case 2:
+                menuConsultas(sc);
+                return;
+            case 3:
+                System.out.println("Case 3 escolhido");
+                return;
+            case 4:
+                System.out.println("Case 4 escolhido");
+                return;
+            default:
+                System.out.println("Erro!");
+        }
     }
 
-    private static void menuConsultas(Scanner sc) {
-        logo();
-        System.out.println("01. Consulta Conta Corrente Pessoa Física");
-        System.out.println("02. Consulta Conta Corrente Pessoa Jurídica");
-        System.out.println("03. Sair");
+    private static void menuAberturaDeConta(Scanner sc) {
+        Util.logo();
+        System.out.println("01.   Abrir Conta Corrente Pessoa Física");
+        System.out.println("02.   Abrir Conta Corrente Pessoa Jurídica");
+        System.out.println("03.   Retornar ao menu anterior");
         System.out.println();
 
         int escolhido;
         do {
+            System.out.print("Informe a opção:  ");
             while (!sc.hasNextInt()) {
+                System.out.print("Informe a opção:  ");
                 sc.next();
             }
             escolhido = sc.nextInt();
@@ -65,23 +72,73 @@ public class Aplicacao {
 
         switch (escolhido) {
             case 1:
-                System.out.println(consultaContaCorrentePessoaFisica(sc));
-                ;
-                break;
+                return;
             case 2:
-                System.out.println("Case 2 escolhido");
-                break;
+                return;
             case 3:
-                System.out.println("Case 3 escolhido");
-                break;
+                menuInicial(sc);
+                return;
+            default:
+                System.out.println("Erro!");
+        }
+
+    }
+
+    private static void menuConsultas(Scanner sc) {
+        Util.logo();
+        System.out.println("01.   Consulta Conta Corrente Pessoa Física");
+        System.out.println("02.   Consulta Conta Corrente Pessoa Jurídica");
+        System.out.println("03.   Retornar ao menu anterior");
+        System.out.println();
+
+        int escolhido;
+        do {
+            System.out.print("Informe a opção:  ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Informe a opção:  ");
+                sc.next();
+            }
+            escolhido = sc.nextInt();
+        } while (escolhido > 3 || escolhido < 1);
+
+        switch (escolhido) {
+            case 1:
+                ContaCorrentePessoaFisica pf = (ContaCorrentePessoaFisica) consultaConta(sc);
+                if (pf == null) {
+                    menuConsultas(sc);
+                    return;
+                }
+                Util.logo();
+                System.out.println(pf);
+                System.out.println();
+                System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
+                String retornarpf = sc.next();
+                menuConsultas(sc);
+                return;
+            case 2:
+                ContaCorrentePessoaJuridica pj = (ContaCorrentePessoaJuridica) consultaConta(sc);
+                if (pj == null) {
+                    menuConsultas(sc);
+                    return;
+                }
+                Util.logo();
+                System.out.println(pj);
+                System.out.println();
+                System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
+                String retornarpj = sc.next();
+                menuConsultas(sc);
+                return;
+            case 3:
+                menuInicial(sc);
+                return;
             default:
                 System.out.println("Erro!");
         }
     }
 
-    private static ContaCorrentePessoaFisica consultaContaCorrentePessoaFisica(Scanner sc) {
-        logo();
-        System.out.println("Digite o número da agência:");
+    private static Conta consultaConta(Scanner sc) {
+        Util.logo();
+        System.out.print("Digite o número da agência ..:   ");
 
         int numeroAgencia;
         do {
@@ -93,10 +150,10 @@ public class Aplicacao {
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
             System.out.println("Agência não localizada");
-            menuConsultas(sc);
+            return null;
         }
 
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta ....:   ");
         int numeroConta;
         do {
             while (!sc.hasNextInt()) {
@@ -107,44 +164,9 @@ public class Aplicacao {
 
         if (!Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
             System.out.println("Conta não localizada");
-            menuConsultas(sc);
+            return null;
         }
 
-        return (ContaCorrentePessoaFisica) Agencia.getAgencia(numeroAgencia).getConta(numeroConta);
-    }
-
-    private static void logo() {
-        ClearConsole();
-        System.out.println(" /$$      /$$           /$$$$$$$                      /$$      ");
-        System.out.println("| $$$    /$$$          | $$__  $$                    | $$      ");
-        System.out.println("| $$$$  /$$$$ /$$   /$$| $$  \\ $$  /$$$$$$  /$$$$$$$ | $$   /$$");
-        System.out.println("| $$ $$/$$ $$| $$  | $$| $$$$$$$  |____  $$| $$__  $$| $$  /$$/");
-        System.out.println("| $$  $$$| $$| $$  | $$| $$__  $$  /$$$$$$$| $$  \\ $$| $$$$$$/ ");
-        System.out.println("| $$\\  $ | $$| $$  | $$| $$  \\ $$ /$$__  $$| $$  | $$| $$_  $$ ");
-        System.out.println("| $$ \\/  | $$|  $$$$$$$| $$$$$$$/|  $$$$$$$| $$  | $$| $$ \\  $$");
-        System.out.println("|__/     |__/ \\____  $$|_______/  \\_______/|__/  |__/|__/  \\__/");
-        System.out.println("              /$$  | $$                                        ");
-        System.out.println("             |  $$$$$$/                                        ");
-        System.out.println("              \\______/                                         ");
-        System.out.println();
-    }
-
-    public static void ClearConsole(){
-        try{
-            String operatingSystem = System.getProperty("os.name"); //Check the current operating system
-              
-            if(operatingSystem.contains("Windows")){        
-                ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
-                Process startProcess = pb.inheritIO().start();
-                startProcess.waitFor();
-            } else {
-                ProcessBuilder pb = new ProcessBuilder("clear");
-                Process startProcess = pb.inheritIO().start();
-
-                startProcess.waitFor();
-            } 
-        }catch(Exception e){
-            System.out.println(e);
-        }
+        return Agencia.getAgencia(numeroAgencia).getConta(numeroConta);
     }
 }

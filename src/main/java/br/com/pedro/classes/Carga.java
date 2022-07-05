@@ -25,5 +25,18 @@ public class Carga {
         } catch (ContaException e) {
             e.printStackTrace();
         }
+
+        ClientePessoaJuridica empresa = null;
+        try {
+            empresa = new ClientePessoaJuridica("MyBank", "000.000.001/0001-01");
+        } catch (ClienteException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ContaCorrentePessoaJuridica contaPJ = new ContaCorrentePessoaJuridica(agencia, 55, empresa);
+        } catch (ContaException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,7 @@
 package br.com.pedro.classes;
 
+import java.util.function.Function;
+
 public abstract class Util {
     
     public static void ClearConsole(){
@@ -34,6 +36,14 @@ public abstract class Util {
         System.out.println("              /$$  | $$                                        ");
         System.out.println("             |  $$$$$$/                                        ");
         System.out.println("              \\______/                                         ");
+        System.out.println("\n");
+        System.out.println("-------------------------- Menu ---------------------------------");
         System.out.println();
+    }
+
+    public static void cabecalho() {
+        System.out.println("-------------------------- Menu ---------------------------------");
+        System.out.println();
+
     }
 }
