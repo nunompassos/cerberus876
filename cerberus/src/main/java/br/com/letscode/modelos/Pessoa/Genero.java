@@ -30,6 +30,6 @@ public enum Genero {
 
 	@Override
 	public String toString() {
-		return "" + this.valorCheio;
+		return this.valorCheio;
 	}
 }
