@@ -20,10 +20,11 @@ public abstract class ContaCorrente extends Conta {
 		if (emprestimo + divida > this.limite)
 			throw new LimiteInsuficienteException();
 
-		this.saldo += emprestimo;
+		super.saldo += emprestimo;
 		this.divida += emprestimo;
 	}
 
+	@Override
 	public void passarMes() {
 		long juros = Math.round(this.divida * super.getTaxa().getJuros());
 		this.divida += juros;
@@ -45,9 +46,25 @@ public abstract class ContaCorrente extends Conta {
 		return ConverteSaldo.comCifrao(this.limite);
 	}
 
+	public long getDivida() {
+		return this.divida;
+	}
+
+	public String getDividaFormatada() {
+		return ConverteSaldo.comCifrao(this.divida);
+	}
+
 	public void setLimite(long limite) {
 		super.validaValor(limite);
 		this.limite = limite;
+	}
+
+	@Override
+	public String toString() {
+		return "CC: {" + super.toString() + 
+				"Limite: " + ConverteSaldo.semCifrao(this.limite) + ", " +
+				"Divida: " + ConverteSaldo.semCifrao(this.divida) +
+				'}';
 	}
 
 }

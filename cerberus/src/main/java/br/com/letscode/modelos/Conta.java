@@ -8,15 +8,16 @@ public abstract class Conta {
 	private Pessoa titular;
 	private Taxa taxa;
 	protected long saldo;
+
 	public abstract void passarMes();
-	
+
 	Conta(int numero, Pessoa titular, Taxa taxa) {
 		this.numero = numero;
 		this.titular = titular;
 		this.saldo = 0;
 		this.taxa = taxa;
 	}
-	
+
 	public void depositar(long deposito) {
 		validaValor(deposito);
 		this.saldo += deposito;
@@ -43,7 +44,6 @@ public abstract class Conta {
 						transferencia,
 						this.getTaxa().getTransferencia()));
 	}
-
 
 	public long getSaldoPuro() {
 		return saldo;
@@ -77,9 +77,8 @@ public abstract class Conta {
 	@Override
 	public String toString() {
 		return this.getNumero() + ", " +
-				this.getSaldoFormatado() + ", " +
-				this.getTitular() + ", ";
-
+				this.getTitular().getNome() + ", " +
+				"Saldo: " + ConverteSaldo.semCifrao(this.saldo) + ", ";
 	}
 
 }
