@@ -1,4 +1,4 @@
-package br.com.letscode.modelos;
+package br.com.letscode.modelos.Pessoa;
 
 public abstract class Pessoa {
 	private String nome;

@@ -1,4 +1,6 @@
-package br.com.letscode.modelos;
+package br.com.letscode.modelos.Conta;
+
+import br.com.letscode.modelos.Pessoa.PessoaFisica;
 
 public class ContaCorrentePF extends ContaCorrente {
 	

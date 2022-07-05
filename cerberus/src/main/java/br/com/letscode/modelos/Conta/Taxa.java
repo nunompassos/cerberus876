@@ -1,4 +1,4 @@
-package br.com.letscode.modelos;
+package br.com.letscode.modelos.Conta;
 
 public enum Taxa {
 	PJ(

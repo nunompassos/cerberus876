@@ -1,6 +1,7 @@
-package br.com.letscode.modelos;
+package br.com.letscode.modelos.Conta;
 
 import br.com.letscode.excecoes.SaldoInsuficienteException;
+import br.com.letscode.modelos.Pessoa.Pessoa;
 import br.com.letscode.util.ConverteSaldo;
 
 public abstract class Conta {

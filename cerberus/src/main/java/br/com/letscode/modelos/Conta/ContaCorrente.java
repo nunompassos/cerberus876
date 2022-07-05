@@ -1,7 +1,8 @@
-package br.com.letscode.modelos;
+package br.com.letscode.modelos.Conta;
 
 import br.com.letscode.excecoes.LimiteInsuficienteException;
 import br.com.letscode.excecoes.PagamentoExcessivoException;
+import br.com.letscode.modelos.Pessoa.Pessoa;
 import br.com.letscode.util.ConverteSaldo;
 
 public abstract class ContaCorrente extends Conta {
