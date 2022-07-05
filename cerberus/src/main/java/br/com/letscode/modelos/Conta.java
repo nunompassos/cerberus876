@@ -3,10 +3,10 @@ package br.com.letscode.modelos;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
 
 public abstract class Conta {
-	protected final int numero;
-	protected Pessoa titular;
+	private final int numero;
+	private Pessoa titular;
+	private long limite;
 	protected long saldo;
-	protected long limite;
 
 	Conta(int numero, Pessoa titular) {
 		this.numero = numero;
