@@ -1,5 +1,7 @@
 package br.com.letscode.Models;
 
+import java.math.BigDecimal;
+
 import br.com.letscode.Models.enums.EstadoCivil;
 import br.com.letscode.Models.enums.Sexo;
 
@@ -9,8 +11,8 @@ public class Pessoa {
   private Sexo sexo;
   private String endereco;
   private EstadoCivil estadoCivil;
-  private double altura;
-  private double peso;
+  private BigDecimal altura;
+  private BigDecimal peso;
 
   public String getNome() {
     return nome;
@@ -52,19 +54,19 @@ public class Pessoa {
     this.estadoCivil = estadoCivil;
   }
 
-  public double getAltura() {
+  public BigDecimal getAltura() {
     return altura;
   }
 
-  public void setAltura(double altura) {
+  public void setAltura(BigDecimal altura) {
     this.altura = altura;
   }
 
-  public double getPeso() {
+  public BigDecimal getPeso() {
     return peso;
   }
 
-  public void setPeso(double peso) {
+  public void setPeso(BigDecimal peso) {
     this.peso = peso;
   }
   @Override

@@ -25,12 +25,13 @@ public enum EstadoCivil {
   public static EstadoCivil setEstado(int estado) {
     for (EstadoCivil estadoCivil : EstadoCivil.values()) {
       if (estadoCivil.ordinal() == estado - 1) {
+        System.out.println("Estado civil em sucesso");
         return estadoCivil;
       }
     }
     return null;
   }
-
+  
   public static void whileEstadoCivilNotNull(Scanner scanner, Pessoa pessoa) {
     while (pessoa.getEstadoCivil() == null) {
       System.out.println("Selecione o estado civil");

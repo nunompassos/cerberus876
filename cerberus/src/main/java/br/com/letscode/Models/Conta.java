@@ -2,7 +2,7 @@ package br.com.letscode.Models;
 
 import java.math.BigDecimal;
 
-public class Conta {
+public abstract class Conta {
   private int numeroDaConta;
   private Pessoa titular;
   private BigDecimal saldo;
