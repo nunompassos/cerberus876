@@ -7,8 +7,7 @@ public class ContaInvestimento extends Conta {
 
     public ContaInvestimento(User user) {
         super(user);
-        final BigDecimal rendimento = TipoDeConta.INVESTIMENTO.rendimento;
-        final BigDecimal rendimentoExtra = Personalidade.valueOf(tipoPessoa).rendimentoExtra;
+        super.rendimento = TipoDeConta.INVESTIMENTO.rendimento;
+        this.rendimentoExtra = Personalidade.valueOf(tipoPessoa).rendimentoExtra;
     }
-
 }

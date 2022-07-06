@@ -39,15 +39,16 @@ public class App {
     // }
 
     public static void main(String[] args) {
-        User usuario = new User(1, "Fulano", "JURIDICA");
+        User usuario = new User(1, "Fulano", "FISICA");
         System.out.println(usuario.getNome());
         ContaInvestimento conta = new ContaInvestimento(usuario);
-        conta.depositar("10.50");
-        // conta.fazRender();
+        conta.depositar("10000");
+        System.out.println(conta.getNumeroDaConta());
         System.out.println(conta.getSaldo());
-        // criarConta();
-        // System.out.println(countContas);
-        // ContaCorrente contaCorrente1 = new ContaCorrente(TipoDeConta.valueOf("CORRENTE"));
+        conta.sacar("10001");
+        System.out.println(conta.getSaldo());
+        System.out.println(conta.getRendimento());
+
 
     }
 }
