@@ -5,9 +5,9 @@ public class ContaInvestimento extends Conta {
     BigDecimal rendimento;
     BigDecimal rendimentoExtra;
 
-    public ContaInvestimento(int numero, String tipoPessoa) {
-        super(numero, tipoPessoa);
-        final BigDecimal rendimento = new BigDecimal("1.02");
+    public ContaInvestimento(User user) {
+        super(user);
+        final BigDecimal rendimento = TipoDeConta.INVESTIMENTO.rendimento;
         final BigDecimal rendimentoExtra = Personalidade.valueOf(tipoPessoa).rendimentoExtra;
     }
 

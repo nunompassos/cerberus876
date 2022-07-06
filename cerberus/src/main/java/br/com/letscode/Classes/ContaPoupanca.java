@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 public class ContaPoupanca extends Conta {
     BigDecimal rendimento;
 
-    public ContaPoupanca(int numero, String tipoPessoa) {
-        super(numero, tipoPessoa);
+    public ContaPoupanca(User user) {
+        super(user);
         final BigDecimal rendimento = new BigDecimal("1.005");
     }
 

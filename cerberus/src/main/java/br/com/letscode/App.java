@@ -9,8 +9,8 @@ import br.com.letscode.Classes.TipoDeConta;
 import br.com.letscode.Classes.User;
 
 public class App {
-    public static int countUsers = 0;
-    public static int countContas = 0;
+    public static int countUsers = 1;
+    public static int countContas = 1;
 
     public static ArrayList<User> user = new ArrayList<>();
     public static ArrayList<Conta> contasCorrentes = new ArrayList<>();
@@ -39,6 +39,12 @@ public class App {
     // }
 
     public static void main(String[] args) {
+        User usuario = new User(1, "Fulano", "JURIDICA");
+        System.out.println(usuario.getNome());
+        ContaInvestimento conta = new ContaInvestimento(usuario);
+        conta.depositar("10.50");
+        // conta.fazRender();
+        System.out.println(conta.getSaldo());
         // criarConta();
         // System.out.println(countContas);
         // ContaCorrente contaCorrente1 = new ContaCorrente(TipoDeConta.valueOf("CORRENTE"));

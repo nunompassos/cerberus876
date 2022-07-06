@@ -3,13 +3,13 @@ import java.math.BigDecimal;
 
 
 public enum TipoDeConta {
-    CORRENTE(new BigDecimal("0")),
-    POUPANCA(new BigDecimal ("1")),
-    INVESTIMENTO(new BigDecimal ("1"));
+    CORRENTE(new BigDecimal("1")),
+    POUPANCA(new BigDecimal ("1.005")),
+    INVESTIMENTO(new BigDecimal ("1.02"));
 
-    BigDecimal taxaRendimento;
-    TipoDeConta(BigDecimal taxaRendimento) {
-        this.taxaRendimento = taxaRendimento;
+    BigDecimal rendimento;
+    TipoDeConta(BigDecimal rendimento) {
+        this.rendimento = rendimento;
     }
 
 }
