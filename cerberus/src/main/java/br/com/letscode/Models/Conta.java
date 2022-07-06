@@ -43,4 +43,7 @@ public abstract class Conta {
   public void depositar(BigDecimal quantidade) {
     this.saldo.add(quantidade);
   }
+  public BigDecimal getSaldo() {
+    return saldo;
+  }
 }

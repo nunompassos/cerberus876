@@ -13,6 +13,7 @@ public enum Sexo {
   private Sexo(int sexo) {
     this.sexo = sexo;
   }
+
   static public void printAll() {
     for (Sexo sexo : Sexo.values()) {
       System.out.println(sexo.ordinal() + 1 + " " + sexo.toString());
@@ -27,7 +28,7 @@ public enum Sexo {
     }
     return null;
   }
-  
+
   public static void whileSexoNotNull(Scanner scanner, Pessoa pessoa) {
     while (pessoa.getSexo() == null) {
       System.out.println("Selecione o sexo");
@@ -36,6 +37,7 @@ public enum Sexo {
       pessoa.setSexo(Sexo.setSexo(getSexo));
     }
   }
+
   public int getSexo() {
     return sexo;
   }
