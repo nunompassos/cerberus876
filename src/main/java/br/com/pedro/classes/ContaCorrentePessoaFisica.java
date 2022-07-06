@@ -1,6 +1,6 @@
 package br.com.pedro.classes;
 
-public class ContaCorrentePessoaFisica extends Conta {
+public class ContaCorrentePessoaFisica extends ContaCorrente {
 
     private ClientePessoaFisica pessoa;
 

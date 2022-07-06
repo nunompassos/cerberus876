@@ -3,7 +3,7 @@ package br.com.pedro.classes;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class ContaCorrentePessoaJuridica extends Conta {
+public class ContaCorrentePessoaJuridica extends ContaCorrente {
 
     private ClientePessoaJuridica empresa;
     private BigDecimal taxa_PJ = BigDecimal.valueOf(0.05);

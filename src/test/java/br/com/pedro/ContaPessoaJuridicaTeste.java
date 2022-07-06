@@ -45,6 +45,6 @@ public class ContaPessoaJuridicaTeste {
         // System.out.println(pj2.getSaldo());
 
         System.out.println(pj1);
-        System.out.println(agencia.getConta(26448).investir(BigDecimal.valueOf(3000), 360));
+        // System.out.println(agencia.getConta(26448).investir(BigDecimal.valueOf(3000), 360));
     }
 }

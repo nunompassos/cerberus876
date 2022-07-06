@@ -1,10 +1,8 @@
 package br.com.pedro.classes;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Random;
 
-public class Conta {
+public abstract class Conta {
 
     private Agencia agencia;
     private int numeroConta;
@@ -39,25 +37,6 @@ public class Conta {
     public void transferir(int numeroAgencia, int numeroConta, BigDecimal valor) throws ContaException, AgenciaException {
         this.sacar(valor);
         Agencia.getAgencia(numeroAgencia).getConta(numeroConta).depositar(valor);
-    }
-
-    /*
-     * O investimento tem uma taxa de juros variável, entre 0 e 10% a.a.
-     * O investidor escolhe o valor e o número de dias para investir, o método
-     * converte essa taxa de anual para diária
-     * e retorna o valor do rendimento.
-     */
-    public BigDecimal investir(BigDecimal valor, int dias) throws ContaException {
-        if (valor.compareTo(this.saldo) > 0) {
-            throw new ContaException("Saldo insuficiente");
-        }
-        this.saldo = this.saldo.subtract(valor);
-        double taxaAnual = new Random().nextInt(1000) / 10000.0;
-        double taxaDia = Math.pow(1.0 + taxaAnual, (1 / 360.0)) - 1;
-        BigDecimal taxaAplicada = BigDecimal.valueOf(Math.pow(1 + taxaDia, dias) - 1).setScale(5, RoundingMode.UP);
-        BigDecimal rendimento = valor.multiply(taxaAplicada).setScale(2, RoundingMode.UP);
-        this.saldo = saldo.add(valor.add(rendimento));
-        return taxaAplicada;
     }
 
     public int getNumeroConta() {
