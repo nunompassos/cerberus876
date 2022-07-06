@@ -5,12 +5,12 @@ public enum Taxa {
 			0.005,
 			0.005,
 			0.005,
-			0.010),
+			0.007),
 	PF(
 			0,
 			0,
 			0.003,
-			0.007);
+			0.010);
 
 	private final double transferencia;
 	private final double saque;
@@ -29,19 +29,19 @@ public enum Taxa {
 	}
 
 	public double getJuros() {
-		return juros;
+		return this.juros;
 	}
 
 	public double getTransferencia() {
-		return transferencia;
+		return this.transferencia;
 	}
 
 	public double getSaque() {
-		return saque;
+		return this.saque;
 	}
 
 	public double getRendimento() {
-		return rendimento;
+		return this.rendimento;
 	}
 
 }

@@ -7,7 +7,7 @@ import br.com.letscode.util.ConverteSaldo;
 public abstract class Conta {
 	private final int numero;
 	private Pessoa titular;
-	private Taxa taxa;
+	protected final Taxa taxa;
 	protected long saldo;
 
 	public abstract void passarMes();
@@ -16,6 +16,7 @@ public abstract class Conta {
 		this.numero = numero;
 		this.titular = titular;
 		this.saldo = 0;
+		if (taxa == null) throw new IllegalArgumentException("Taxa inválida");
 		this.taxa = taxa;
 	}
 
@@ -36,14 +37,15 @@ public abstract class Conta {
 
 	public long sacar(long saque) {
 		validaValor(saque);
-		return tirar(saque, this.getTaxa().getSaque());
+		return tirar(saque, this.taxa.getSaque());
 	}
 
 	public void transferir(long transferencia, Conta destino) {
 		destino.depositar(
 				this.tirar(
 						transferencia,
-						this.getTaxa().getTransferencia()));
+						this.getTitular() == destino.getTitular() ? 0 : this.taxa.getTransferencia()
+		));
 	}
 
 	public long getSaldoPuro() {
@@ -64,10 +66,6 @@ public abstract class Conta {
 
 	public int getNumero() {
 		return numero;
-	}
-
-	public Taxa getTaxa() {
-		return this.taxa;
 	}
 
 	protected void validaValor(long valor) {

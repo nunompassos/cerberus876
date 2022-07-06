@@ -27,7 +27,7 @@ public abstract class ContaCorrente extends Conta {
 
 	@Override
 	public void passarMes() {
-		long juros = Math.round(this.divida * super.getTaxa().getJuros());
+		long juros = Math.round(this.divida * super.taxa.getJuros());
 		this.divida += juros;
 	}
 
