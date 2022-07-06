@@ -6,8 +6,23 @@ public class Pessoa {
     private Sexo sexo;
     private String endereco;
     private EstadoCivil estadoCivil;
-    private double altura;
-    private double peso;
+    private int alturaEmCm;
+    private int pesoEmKg;
+
+    public Pessoa(String nome, int idade, Sexo sexo, String endereco, EstadoCivil estadoCivil, int altura,
+            int peso) {
+        this.nome = nome;
+        this.idade = idade;
+        this.sexo = sexo;
+        this.endereco = endereco;
+        this.estadoCivil = estadoCivil;
+        this.alturaEmCm = altura;
+        this.pesoEmKg = peso;
+    }
+
+    public Pessoa(String nome, String endereco) {
+        this(nome, 0, null, endereco, null, 0, 0);
+    }
 
     public enum Sexo {
         MASCULINO, FEMININO, NEUTRO
@@ -53,20 +68,20 @@ public class Pessoa {
         this.estadoCivil = estadoCivil;
     }
 
-    public double getAltura() {
-        return altura;
+    public int getAltura() {
+        return alturaEmCm;
     }
 
-    public void setAltura(double altura) {
-        this.altura = altura;
+    public void setAltura(int altura) {
+        this.alturaEmCm = altura;
     }
 
-    public double getPeso() {
-        return peso;
+    public int getPeso() {
+        return pesoEmKg;
     }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
+    public void setPeso(int peso) {
+        this.pesoEmKg = peso;
     }
 
 }
