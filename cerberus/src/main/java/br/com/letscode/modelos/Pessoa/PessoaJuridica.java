@@ -22,6 +22,8 @@ public class PessoaJuridica extends Pessoa {
 	}
 
 	public void setResponsavel(PessoaFisica responsavel) {
+		if (responsavel == null)
+			throw new IllegalArgumentException("Resonsável não pode ser nulo");
 		this.responsavel = responsavel;
 	}
 
