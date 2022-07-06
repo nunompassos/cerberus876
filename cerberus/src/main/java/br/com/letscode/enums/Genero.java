@@ -26,8 +26,4 @@ public enum Genero {
 		return this.valor;
 	}
 
-	@Override
-	public String toString() {
-		return this.name();
-	}
 }
