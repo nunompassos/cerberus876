@@ -3,6 +3,9 @@ package br.com.letscode.modelos.Pessoa;
 import java.time.LocalDate;
 import java.time.Period;
 
+import br.com.letscode.enums.EstadoCivil;
+import br.com.letscode.enums.Genero;
+
 public class PessoaFisica extends Pessoa {
 
 	private final LocalDate nascimento;

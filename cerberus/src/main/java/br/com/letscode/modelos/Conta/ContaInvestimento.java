@@ -1,5 +1,7 @@
 package br.com.letscode.modelos.Conta;
 
+import br.com.letscode.enums.PerfilInvestidor;
+import br.com.letscode.enums.Taxa;
 import br.com.letscode.modelos.Pessoa.Pessoa;
 
 public abstract class ContaInvestimento extends Conta {

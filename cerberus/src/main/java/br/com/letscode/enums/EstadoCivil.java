@@ -1,4 +1,4 @@
-package br.com.letscode.modelos.Pessoa;
+package br.com.letscode.enums;
 
 import java.util.HashMap;
 

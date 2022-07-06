@@ -1,5 +1,6 @@
 package br.com.letscode.modelos.Conta;
 
+import br.com.letscode.enums.Taxa;
 import br.com.letscode.excecoes.LimiteInsuficienteException;
 import br.com.letscode.excecoes.PagamentoExcessivoException;
 import br.com.letscode.modelos.Pessoa.Pessoa;

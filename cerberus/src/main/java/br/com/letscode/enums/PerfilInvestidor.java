@@ -1,4 +1,4 @@
-package br.com.letscode.modelos.Conta;
+package br.com.letscode.enums;
 
 import java.util.HashMap;
 import java.util.Random;
