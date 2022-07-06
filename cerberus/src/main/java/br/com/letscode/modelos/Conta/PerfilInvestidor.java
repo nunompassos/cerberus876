@@ -5,16 +5,16 @@ import java.util.Random;
 
 public enum PerfilInvestidor {
 	CONSERVADOR(
-			-0.1,
-			0.2,
+			0,
+			0.1,
 			'C'),
 	MODERADO(
-			-0.3,
-			0.5,
+			-0.4,
+			0.7,
 			'M'),
 	AGRESSIVO(
-			-0.8,
-			1.0,
+			-1.0,
+			1.6,
 			'A');
 
 	private static final class MapaInterno {
@@ -26,8 +26,8 @@ public enum PerfilInvestidor {
 	private final double max;
 
 	PerfilInvestidor(double min, double max, char perfil) {
-		this.min = min;
-		this.max = max;
+		this.min = min / 100;
+		this.max = max / 100;
 		MapaInterno.map.put(perfil, this);
 	}
 
