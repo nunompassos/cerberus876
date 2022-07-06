@@ -3,8 +3,6 @@ package br.com.letscode.modelos.Pessoa;
 import java.time.LocalDate;
 import java.time.Period;
 
-import br.com.letscode.excecoes.IdadeNegativaException;
-
 public class PessoaFisica extends Pessoa {
 
 	private final LocalDate nascimento;
@@ -36,11 +34,7 @@ public class PessoaFisica extends Pessoa {
 			String profissao) {
 		this(nome, documento, endereco, telefone, nascimento);
 		this.setGenero(genero);
-		if (this.getGenero() == null)
-			throw new IllegalArgumentException("char " + genero + " não é um gênero");
 		this.setEstadoCivil(estadoCivil);
-		if (this.getEstadoCivil() == null)
-			throw new IllegalArgumentException("char " + estadoCivil + " não é um estado civil");
 		this.setProfissao(profissao);
 	}
 
@@ -57,7 +51,10 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public void setEstadoCivil(char estado) {
-		this.estadoCivil = EstadoCivil.deChar(estado);
+		EstadoCivil e = EstadoCivil.deChar(estado);
+		if (e == null)
+			throw new IllegalArgumentException("char " + estadoCivil + " não é um estado civil");
+		this.estadoCivil = e;
 	}
 
 	public Genero getGenero() {
@@ -65,7 +62,10 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public void setGenero(char genero) {
-		this.genero = Genero.deChar(genero);
+		Genero g = Genero.deChar(genero);
+		if (g == null)
+			throw new IllegalArgumentException("char " + genero + " não é um gênero");
+		this.genero = g;
 	}
 
 	public String getProfissao() {
