@@ -22,7 +22,7 @@ public class ClientePessoaJuridica extends Cliente {
 
     @Override
     public String toString() {
-        return "Empresa ....: " + this.getNome() + "\n"
-                + "CNPJ .......: " + this.cnpj;
+        return "Empresa ........: " + this.getNome() + "\n"
+                + "CNPJ ...........: " + this.cnpj;
     }
 }

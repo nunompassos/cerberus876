@@ -63,7 +63,7 @@ public class Agencia {
 
     @Override
     public String toString() {
-        return "Agência ....: " + this.numeroAgencia;
+        return "Agência ........: " + this.numeroAgencia;
     }
 
     @Override

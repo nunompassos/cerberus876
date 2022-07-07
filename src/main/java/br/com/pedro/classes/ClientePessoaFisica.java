@@ -37,6 +37,16 @@ public class ClientePessoaFisica extends Cliente {
             this.estadoCivil = estadoCivil;
         }
 
+        public static void imprimirOpcoes() {
+            for (EstadoCivil estadoCivil : EstadoCivil.values()) {
+                System.out.println((estadoCivil.ordinal() + 1) + ". " + estadoCivil);
+            }
+        }
+
+        public static EstadoCivil estadoCivilNumero(int numeroEstadoCivil) {
+            return EstadoCivil.values()[numeroEstadoCivil - 1];
+        }
+
         @Override
         public String toString() {
             return estadoCivil;

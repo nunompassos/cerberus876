@@ -15,13 +15,13 @@ public class ContaPoupanca extends Conta {
         clientePessoaFisica.adicionarConta(this);
     }
 
-    public BigDecimal poupar(BigDecimal valor, int dias) throws ContaException {
+    public Number[] poupar(BigDecimal valor, int dias) throws ContaException {
         this.sacar(valor);
         double taxaDia = Math.pow(1.0 + correcaoPoupancaAnual, (1 / 360.0)) - 1;
         BigDecimal taxaAplicada = BigDecimal.valueOf(Math.pow(1 + taxaDia, dias) - 1).setScale(5, RoundingMode.UP);
         BigDecimal rendimento = valor.multiply(taxaAplicada).setScale(2, RoundingMode.UP);
         this.setSaldo(this.getSaldo().add(valor.add(rendimento)));
-        return rendimento;
+        return new Number[]{taxaAplicada, correcaoPoupancaAnual, rendimento};
     }
 
     public ClientePessoaFisica getPessoa() {
@@ -34,8 +34,8 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public String toString() {
-        return "Nome .......: " + this.pessoa.getNome() + "\n"
-                + "CPF ........: " + this.pessoa.getCpf() + "\n"
+        return "Nome ...........: " + this.pessoa.getNome() + "\n"
+                + "CPF ............: " + this.pessoa.getCpf() + "\n"
                 + super.toString();
     }
 }

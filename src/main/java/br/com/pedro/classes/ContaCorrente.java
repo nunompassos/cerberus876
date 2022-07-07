@@ -16,7 +16,7 @@ public abstract class ContaCorrente extends Conta {
      * converte essa taxa de anual para diária
      * e retorna o valor do rendimento.
      */
-    public BigDecimal investir(BigDecimal valor, int dias) throws ContaException {
+    public Number[] investir(BigDecimal valor, int dias) throws ContaException {
         if (valor.compareTo(this.getSaldo()) > 0) {
             throw new ContaException("Saldo insuficiente");
         }
@@ -26,7 +26,7 @@ public abstract class ContaCorrente extends Conta {
         BigDecimal taxaAplicada = BigDecimal.valueOf(Math.pow(1 + taxaDia, dias) - 1).setScale(5, RoundingMode.UP);
         BigDecimal rendimento = valor.multiply(taxaAplicada).setScale(2, RoundingMode.UP);
         this.setSaldo(this.getSaldo().add(valor.add(rendimento)));
-        return taxaAplicada;
+        return new Number[]{taxaAplicada, taxaAnual, rendimento};
     }
     
 }

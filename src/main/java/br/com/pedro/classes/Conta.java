@@ -67,8 +67,8 @@ public abstract class Conta {
     @Override
     public String toString() {
         return this.agencia.toString() + "\n"
-                + "Conta ......: " + this.numeroConta + "\n"
-                + "Saldo ......: " + "R$ " + this.saldo.setScale(2, RoundingMode.UP);
+                + "Conta ..........: " + this.numeroConta + "\n"
+                + "Saldo ..........: " + "R$ " + this.saldo.setScale(2, RoundingMode.UP);
     }
 
     @Override

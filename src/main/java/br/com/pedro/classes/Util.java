@@ -1,5 +1,7 @@
 package br.com.pedro.classes;
 
+import java.util.Scanner;
+
 public abstract class Util {
     
     public static void ClearConsole(){
@@ -39,9 +41,9 @@ public abstract class Util {
         System.out.println();
     }
 
-    public static void cabecalho() {
-        System.out.println("-------------------------- Menu ---------------------------------");
-        System.out.println();
-
+    public static void aguardarEnter(Scanner sc) {
+        sc.nextLine();
+        System.out.print("Pressione ENTER para retornar ao menu anterior   ");
+        sc.nextLine();
     }
 }

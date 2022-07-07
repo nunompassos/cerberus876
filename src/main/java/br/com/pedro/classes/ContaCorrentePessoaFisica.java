@@ -21,8 +21,9 @@ public class ContaCorrentePessoaFisica extends ContaCorrente {
 
     @Override
     public String toString() {
-        return "Nome .......: " + this.pessoa.getNome() + "\n"
-                + "CPF ........: " + this.pessoa.getCpf() + "\n"
+        return "Nome ...........: " + this.pessoa.getNome() + "\n"
+                + "CPF ............: " + this.pessoa.getCpf() + "\n"
+                + "Estado Civil ...: " + this.pessoa.getEstadoCivil() + "\n"
                 + super.toString();
     }
 }
