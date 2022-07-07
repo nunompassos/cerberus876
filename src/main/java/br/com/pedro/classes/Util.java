@@ -23,7 +23,7 @@ public abstract class Util {
         }
     }
 
-    public static void logo() {
+    public static void logo(String menuCabecalho) {
         ClearConsole();
         System.out.println(" /$$      /$$           /$$$$$$$                      /$$      ");
         System.out.println("| $$$    /$$$          | $$__  $$                    | $$      ");
@@ -37,7 +37,7 @@ public abstract class Util {
         System.out.println("             |  $$$$$$/                                        ");
         System.out.println("              \\______/                                         ");
         System.out.println("\n");
-        System.out.println("-------------------------- Menu ---------------------------------");
+        menuCabecalho(menuCabecalho);
         System.out.println();
     }
 
@@ -45,5 +45,34 @@ public abstract class Util {
         sc.nextLine();
         System.out.print("Pressione ENTER para retornar ao menu anterior   ");
         sc.nextLine();
+    }
+
+    private static void menuCabecalho(String menuCabecalho) {
+
+        final int TAMANHO = 65;
+        menuCabecalho = String.format(" %s ", menuCabecalho);
+        int tamanhoAposMensagem = TAMANHO - menuCabecalho.length();
+        int tracejadoEsquerdo;
+        int tracejadoDireito;
+        if (tamanhoAposMensagem % 2 == 0) {
+            tracejadoEsquerdo = tamanhoAposMensagem / 2;
+            tracejadoDireito = tamanhoAposMensagem / 2;
+        } else {
+            tracejadoEsquerdo = tamanhoAposMensagem / 2;
+            tracejadoDireito = (tamanhoAposMensagem / 2) + 1;
+        }
+
+        StringBuilder menuCabecalhoCompleto = new StringBuilder();
+        for (int i = 0; i < tracejadoEsquerdo; i++) {
+            menuCabecalhoCompleto.append("-");
+        }
+
+        menuCabecalhoCompleto.append(menuCabecalho);
+
+        for (int i = 0; i < tracejadoDireito; i++) {
+            menuCabecalhoCompleto.append("-");
+        }
+
+        System.out.println(menuCabecalhoCompleto);
     }
 }

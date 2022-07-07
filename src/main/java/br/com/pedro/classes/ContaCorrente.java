@@ -28,5 +28,4 @@ public abstract class ContaCorrente extends Conta {
         this.setSaldo(this.getSaldo().add(valor.add(rendimento)));
         return new Number[]{taxaAplicada, taxaAnual, rendimento};
     }
-    
 }

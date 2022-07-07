@@ -21,7 +21,7 @@ public class Aplicacao {
     }
 
     private static void menuInicial(Scanner sc) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Menu Inicial");
         System.out.println("01.   Abertura de Conta");
         System.out.println("02.   Consultas");
         System.out.println("03.   Transações");
@@ -56,7 +56,7 @@ public class Aplicacao {
     }
 
     private static void menuAberturaDeConta(Scanner sc, String mensagem) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Abertura de Conta");
         System.out.println("01.   Abrir Conta Corrente Pessoa Física");
         System.out.println("02.   Abrir Conta Corrente Pessoa Jurídica");
         System.out.println("03.   Abrir Conta Poupanca");
@@ -100,7 +100,7 @@ public class Aplicacao {
     }
 
     private static void aberturaDeContaPessoaFisica(Scanner sc) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Abertura de Conta Pessoa Física");
         sc.nextLine();
 
         System.out.print("Digite o nome do cliente ....:   ");
@@ -178,7 +178,7 @@ public class Aplicacao {
     }
 
     private static void aberturaDeContaPessoaJuridica(Scanner sc) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Abertura de Conta Pessoa Jurídica");
 
         System.out.print("Digite o nome da empresa ....:   ");
         String nome;
@@ -241,7 +241,7 @@ public class Aplicacao {
     }
 
     private static void aberturaDeContaPoupanca(Scanner sc) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Abertura de Conta Poupança");
 
         System.out.print("Digite o nome do cliente ....:   ");
         String nome;
@@ -316,7 +316,7 @@ public class Aplicacao {
     }
 
     private static void menuConsultas(Scanner sc, String mensagem) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Menu Consultas");
         System.out.println("01.   Consulta Conta Corrente Pessoa Física");
         System.out.println("02.   Consulta Conta Corrente Pessoa Jurídica");
         System.out.println("03.   Consulta Conta Poupanca");
@@ -342,7 +342,7 @@ public class Aplicacao {
             case 1:
                 ContaCorrentePessoaFisica pf = null;
                 try {
-                    pf = (ContaCorrentePessoaFisica) consultaConta(sc);
+                    pf = (ContaCorrentePessoaFisica) consultaConta(sc, "Consulta Conta Corrente Pessoa Física");
                 } catch (ClassCastException e) {
                     menuConsultas(sc, "Conta selecionada não é Conta Corrente Pessoa Física");
                 }
@@ -351,7 +351,7 @@ public class Aplicacao {
                     menuConsultas(sc, "Agência ou conta não localizada!");
                     return;
                 }
-                Util.logo();
+                Util.logo("Consulta Conta Corrente Pessoa Física");
                 System.out.println(pf);
                 System.out.println();
                 Util.aguardarEnter(sc);
@@ -360,7 +360,7 @@ public class Aplicacao {
             case 2:
                 ContaCorrentePessoaJuridica pj = null;
                 try {
-                    pj = (ContaCorrentePessoaJuridica) consultaConta(sc);
+                    pj = (ContaCorrentePessoaJuridica) consultaConta(sc, "Consulta Conta Corrente Pessoa Jurídica");
                 } catch (ClassCastException e) {
                     menuConsultas(sc, "Conta selecionada não é Conta Corrente Pessoa Jurídica");
                 }
@@ -369,7 +369,7 @@ public class Aplicacao {
                     menuConsultas(sc, "Agência ou conta não localizada!");
                     return;
                 }
-                Util.logo();
+                Util.logo("Consulta Conta Corrente Pessoa Jurídica");
                 System.out.println(pj);
                 System.out.println();
                 Util.aguardarEnter(sc);
@@ -378,7 +378,7 @@ public class Aplicacao {
             case 3:
                 ContaPoupanca poup = null;
                 try {
-                    poup = (ContaPoupanca) consultaConta(sc);
+                    poup = (ContaPoupanca) consultaConta(sc, "Consulta Conta Poupanca");
                 } catch (ClassCastException e) {
                     menuConsultas(sc, "Conta selecionada não é Conta Poupança");
                 }
@@ -388,7 +388,7 @@ public class Aplicacao {
                     return;
                 }
 
-                Util.logo();
+                Util.logo("Consulta Conta Poupanca");
                 System.out.println(poup);
                 System.out.println();
                 Util.aguardarEnter(sc);
@@ -402,8 +402,8 @@ public class Aplicacao {
         }
     }
 
-    private static Conta consultaConta(Scanner sc) {
-        Util.logo();
+    private static Conta consultaConta(Scanner sc, String menuCabecalho) {
+        Util.logo(menuCabecalho);
         System.out.print("Digite o número da agência ..:   ");
 
         int numeroAgencia;
@@ -435,7 +435,7 @@ public class Aplicacao {
     }
 
     private static void menuTransacoes(Scanner sc, String mensagem) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Menu Transações");
         System.out.println("01.   Depositar");
         System.out.println("02.   Sacar");
         System.out.println("03.   Transferir");
@@ -489,7 +489,7 @@ public class Aplicacao {
     }
 
     private static void depositar(Scanner sc) throws ClienteException, ContaException {
-        Conta conta = consultaConta(sc);
+        Conta conta = consultaConta(sc, "Depositar");
 
         if (conta == null) {
             menuTransacoes(sc, "Agência ou conta não localizada!");
@@ -510,7 +510,7 @@ public class Aplicacao {
     }
 
     private static void sacar(Scanner sc) throws ClienteException, ContaException {
-        Conta conta = consultaConta(sc);
+        Conta conta = consultaConta(sc, "Sacar");
 
         if (conta == null) {
             menuTransacoes(sc, "Agência ou conta não localizada!");
@@ -569,7 +569,7 @@ public class Aplicacao {
     }
 
     private static void transferir(Scanner sc) throws ClienteException, ContaException {
-        Util.logo();
+        Util.logo("Transferir");
 
         System.out.println("Informe os dados da conta de origem: \n");
 
@@ -611,7 +611,7 @@ public class Aplicacao {
 
         ContaCorrente conta = null;
         try {
-            conta = (ContaCorrente) consultaConta(sc);
+            conta = (ContaCorrente) consultaConta(sc, "Investir");
         } catch (ClassCastException e) {
             menuTransacoes(sc, "Conta selecionada não é Conta Corrente");
         }
@@ -661,7 +661,7 @@ public class Aplicacao {
     private static void poupar(Scanner sc) throws ClienteException, ContaException {
         ContaPoupanca conta = null;
         try {
-            conta = (ContaPoupanca) consultaConta(sc);
+            conta = (ContaPoupanca) consultaConta(sc, "Poupar");
         } catch (ClassCastException e) {
             menuTransacoes(sc, "Conta selecionada não é Conta Poupança");
         }
