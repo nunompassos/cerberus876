@@ -10,13 +10,11 @@ import br.com.letscode.models.ContaPoupanca;
 public class Utils {
   public static int checkNumber(int num, Scanner scanner, String field) {
     while (num == 0) {
-      System.out.println(field);
       String numberString = scanner.nextLine();
       num = 0;
       try {
         num = Integer.parseInt(numberString);
       } catch (Exception e) {
-        System.out.println("Por favor, selecione um numero válido");
       }
       if (num <= 0) {
         num = 0;
@@ -28,10 +26,8 @@ public class Utils {
   public static BigDecimal checkNumber(BigDecimal num, Scanner scanner, String field) {
     while (num == null) {
       try {
-        System.out.println(field);
         num = new BigDecimal(scanner.nextLine());
       } catch (Exception e) {
-        System.out.println("Por favor, digite um numero válido");
       }
     }
     return num;
@@ -54,12 +50,19 @@ public class Utils {
 
   }
 
-  public static ContaInvestimento findCorrenteById(int idConta) {
-    ContaCorrente conta = ContaCorrente.contas.stream()
+  public static ContaInvestimento findInvestimentoById(int idConta) {
+    ContaInvestimento conta = ContaInvestimento.contas.stream()
         .filter(conta -> (conta.getNumeroDaConta() == idConta))
         .findAny()
         .orElse(null);
     return conta;
-
   }
+
+  public static boolean saldoIsSuficiente(BigDecimal valorASacar, BigDecimal saldo) {
+    if (valorASacar.compareTo(saldo) == 1) {
+      return false;
+    }
+    return true;
+  }
+
 }

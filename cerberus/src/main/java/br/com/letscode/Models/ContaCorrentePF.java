@@ -7,7 +7,8 @@ import br.com.letscode.Utils.Utils;
 public class ContaCorrentePF extends ContaCorrente {
   @Override
   public void sacar(BigDecimal quantidade) {
-    if (quantidade.compareTo(this.getSaldo()) == 1) {
+    boolean saldoIsSuficiente = Utils.saldoIsSuficiente(quantidade, this.getSaldo());
+    if (!saldoIsSuficiente) {
       System.out.println("Saldo Insuficiente");
       return;
     }
