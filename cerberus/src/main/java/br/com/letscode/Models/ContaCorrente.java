@@ -1,19 +1,13 @@
-package br.com.letscode.Models;
+package br.com.letscode.models;
 
-import java.math.BigDecimal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.letscode.interfaces.Sacavel;
+import br.com.letscode.interfaces.Transferivel;
 
 
-public abstract class ContaCorrente extends Conta implements Sacavel {
-  public void sacar(BigDecimal quantidade) {
-    if (quantidade.compareTo(this.getSaldo()) == 1) {
-      System.out.println("Saldo Insuficiente");
-      return;
-    }
-    this.setSaldo(this.getSaldo().subtract(quantidade));
-  }
-  public void depositar(BigDecimal quantidade) {
-    this.setSaldo(this.getSaldo().add(quantidade));
-  }
+public abstract class ContaCorrente extends Conta implements Sacavel, Transferivel {
+  public static List<ContaCorrente> contasCorrentes = new ArrayList<ContaCorrente>();
 }
