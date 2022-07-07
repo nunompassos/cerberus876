@@ -1,8 +1,8 @@
 package br.com.letscode.util;
 
 public abstract class DigitoVerificador {
-	private static final int[] pesos = {1,3,5,9,5,3};
-	private static final int numeroDeDigitos = 6;
+	private static final int[] pesos = {1,3,5,9,5};
+	public static final int numeroDeDigitos = 5;
 	
 	public static int calculaDigito(int num) {
 		if (String.valueOf(num).length() != numeroDeDigitos) 
@@ -25,10 +25,6 @@ public abstract class DigitoVerificador {
 		int digito = numComDigito % 10;
 		int num = numComDigito / 10;
 		return calculaDigito(num) == digito;
-	}
-
-	public static int numeroDeDigitos() {
-		return numeroDeDigitos;
 	}
 
 }
