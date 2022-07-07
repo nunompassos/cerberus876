@@ -9,5 +9,5 @@ import br.com.letscode.interfaces.Transferivel;
 
 
 public abstract class ContaCorrente extends Conta implements Sacavel, Transferivel {
-  public static List<ContaCorrente> contasCorrentes = new ArrayList<ContaCorrente>();
+  public static List<ContaCorrente> contas = new ArrayList<ContaCorrente>();
 }

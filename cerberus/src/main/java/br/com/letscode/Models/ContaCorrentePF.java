@@ -2,7 +2,7 @@ package br.com.letscode.models;
 
 import java.math.BigDecimal;
 
-import br.com.letscode.interfaces.Transferivel;
+import br.com.letscode.Utils.Utils;
 
 public class ContaCorrentePF extends ContaCorrente {
   @Override
@@ -21,10 +21,7 @@ public class ContaCorrentePF extends ContaCorrente {
 
   @Override
   public void transfere(int idConta, BigDecimal valor) {
-    ContaCorrente contaATransferir = contasCorrentes.stream()
-                  .filter(conta -> (conta.getNumeroDaConta() == idConta))
-                  .findAny()
-                  .orElse(null);
+    ContaCorrente contaATransferir = Utils.findCorrenteById(idConta);
     if (contaATransferir == null) {
       System.out.println("Conta inexistente!!!");
       return;
