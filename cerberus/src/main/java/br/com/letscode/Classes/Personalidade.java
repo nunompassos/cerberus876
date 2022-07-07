@@ -15,7 +15,7 @@ public enum Personalidade {
     
     final BigDecimal rendimentoExtra;
     final BigDecimal taxa;
-
+    
     Personalidade(BigDecimal rendimentoExtra, BigDecimal taxa) {
         this.rendimentoExtra = rendimentoExtra;
         this.taxa = taxa;

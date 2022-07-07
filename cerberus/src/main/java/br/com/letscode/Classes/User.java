@@ -1,5 +1,7 @@
 package br.com.letscode.Classes;
 
+import java.util.ArrayList;
+
 import br.com.letscode.App;
 
 public class User {
@@ -13,15 +15,16 @@ public class User {
         this.nome = nome;
         this.tipoPessoa = Personalidade.valueOf(tipoPessoa);
     }
-    
+
     // getters e setters.
     public int getId() {
         return id;
     }
-    
+
     public Personalidade getTipoPessoa() {
         return tipoPessoa;
     }
+
     public void setTipoPessoa(Personalidade tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
@@ -38,4 +41,19 @@ public class User {
         this.nome = nome;
     }
 
+    // Outros métodos.
+
+    public static ArrayList<Conta> login(User user) {
+        ArrayList<Conta> contasUser = new ArrayList<>();
+        for (int i = 0; i < App.contas.size(); i++) {
+            if (App.contas.get(i).getUser().getId() == (user.id)) {
+                contasUser.add(App.contas.get(i));
+            }
+        }
+        if (contasUser.size() == 0) {
+            System.out.println("Você não possui nenhuma conta ainda.");
+        }
+        return contasUser;
+
+    }   
 }

@@ -90,7 +90,7 @@ public class Conta {
         }
     }
 
-    public final void investir(Conta origem, ContaInvestimento destino, String valor) {
+    public final void investir(ContaInvestimento destino, String valor) {
         BigDecimal valorBD = new BigDecimal(valor);
 
         if (valorBD.compareTo(this.saldo) > 0) {
@@ -98,7 +98,6 @@ public class Conta {
         } else {
             this.saldo = this.saldo.subtract(valorBD);
             depositar(destino, valor);
-            // já considera, pelo user da conta destino, se é PJ ou PF.
         }
     }
 }

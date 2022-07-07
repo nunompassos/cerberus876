@@ -13,7 +13,9 @@ import br.com.letscode.Classes.User;
 public class App {
     public static ArrayList<User> users = new ArrayList<>();
     public static ArrayList<Conta> contas = new ArrayList<>();
-    public static ArrayList<ContaInvestimento> contasInvestimento = new ArrayList<>();
+
+    public static ArrayList<Conta> contasUser = new ArrayList<>();
+
 
     static void criarUser(String nome, String tipoPessoa) {
         users.add(new User(nome, tipoPessoa));
@@ -39,8 +41,10 @@ public class App {
                 break;
         }
         // contas.add(new Conta(user, tipoConta));
-        System.out.println("Anota aí! O número da sua conta " + tipoConta + " é: " + (contas.size() - 1));
+        System.out.println("Anota aí! O número desta sua nova conta é: " + (contas.size() - 1));
     }
+
+    
 
     static void virarMes() {
         for (Conta conta : contas) {
