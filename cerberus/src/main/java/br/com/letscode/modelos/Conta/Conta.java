@@ -3,6 +3,8 @@ package br.com.letscode.modelos.Conta;
 import br.com.letscode.enums.Taxa;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
 import br.com.letscode.modelos.Pessoa.Pessoa;
+import br.com.letscode.modelos.Pessoa.PessoaFisica;
+import br.com.letscode.modelos.Pessoa.PessoaJuridica;
 import br.com.letscode.util.ConverteSaldo;
 
 public abstract class Conta {
@@ -13,12 +15,19 @@ public abstract class Conta {
 
 	public abstract void passarMes();
 
-	Conta(int numero, Pessoa titular, Taxa taxa) {
+	Conta(int numero, Pessoa titular) {
 		this.numero = numero;
 		this.titular = titular;
 		this.saldo = 0;
-		if (taxa == null) throw new IllegalArgumentException("Taxa inválida");
-		this.taxa = taxa;
+		this.taxa = determinaTaxa(titular);
+	}
+
+	private static Taxa determinaTaxa(Pessoa titular) {
+		if (PessoaFisica.class.isInstance(titular))
+			return Taxa.PF;
+		else if (PessoaJuridica.class.isInstance(titular))
+			return Taxa.PJ;
+		throw new IllegalArgumentException("Tipo de titular não identificado");
 	}
 
 	public void depositar(long deposito) {

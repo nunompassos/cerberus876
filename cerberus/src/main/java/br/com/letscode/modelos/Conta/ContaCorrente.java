@@ -1,18 +1,17 @@
 package br.com.letscode.modelos.Conta;
 
-import br.com.letscode.enums.Taxa;
 import br.com.letscode.excecoes.LimiteInsuficienteException;
 import br.com.letscode.excecoes.PagamentoExcessivoException;
 import br.com.letscode.modelos.Pessoa.Pessoa;
 import br.com.letscode.util.ConverteSaldo;
 
-public abstract class ContaCorrente extends Conta {
+public class ContaCorrente extends Conta {
 
 	protected long divida;
 	private long limite;
 
-	ContaCorrente(int numero, Pessoa titular, Taxa taxa) {
-		super(numero, titular, taxa);
+	public ContaCorrente(int numero, Pessoa titular) {
+		super(numero, titular);
 		this.limite = 0;
 		this.divida = 0;
 	}

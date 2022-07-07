@@ -1,16 +1,15 @@
 package br.com.letscode.modelos.Conta;
 
 import br.com.letscode.enums.PerfilInvestidor;
-import br.com.letscode.enums.Taxa;
 import br.com.letscode.modelos.Pessoa.Pessoa;
 
-public abstract class ContaInvestimento extends Conta {
+public class ContaInvestimento extends Conta {
 
 	protected PerfilInvestidor perfil;
 
-	ContaInvestimento(int numero, Pessoa titular, Taxa taxa, char perfil) {
-		super(numero, titular, taxa);
-		this.setPerfil(perfil);
+	public ContaInvestimento(int numero, Pessoa titular) {
+		super(numero, titular);
+		this.setPerfil('C');
 	}
 
 	public PerfilInvestidor getPerfil() {
