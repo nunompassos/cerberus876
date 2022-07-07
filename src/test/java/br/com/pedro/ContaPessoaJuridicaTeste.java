@@ -1,26 +1,21 @@
 package br.com.pedro;
 
-import java.math.BigDecimal;
-
-import br.com.pedro.classes.Agencia;
-import br.com.pedro.classes.AgenciaException;
-import br.com.pedro.classes.ClienteException;
-import br.com.pedro.classes.ContaException;
-import br.com.pedro.classes.ContaCorrentePessoaJuridica;
-import br.com.pedro.classes.ClientePessoaJuridica;
+import br.com.pedro.modelos.AgenciaException;
+import br.com.pedro.modelos.ClienteException;
+import br.com.pedro.modelos.ContaException;
 
 public class ContaPessoaJuridicaTeste {
     
     public static void main(String[] args) throws ContaException, AgenciaException, ClienteException {
 
-        Agencia agencia = new Agencia(2811, "Praia de Boa Viagem");
-        ClientePessoaJuridica empresa1 = new ClientePessoaJuridica("MyBank", "000.000.001-0001");
-        ClientePessoaJuridica empresa2 = new ClientePessoaJuridica("YourBank", "000.000.002-0001");
-        ContaCorrentePessoaJuridica pj1 = new ContaCorrentePessoaJuridica(agencia, 26448, empresa1);
-        ContaCorrentePessoaJuridica pj2 = new ContaCorrentePessoaJuridica(agencia, 26449, empresa2);
+        // Agencia agencia = new Agencia(2811, "Praia de Boa Viagem");
+        // ClientePessoaJuridica empresa1 = new ClientePessoaJuridica("MyBank", "000.000.001-0001");
+        // ClientePessoaJuridica empresa2 = new ClientePessoaJuridica("YourBank", "000.000.002-0001");
+        // ContaCorrentePessoaJuridica pj1 = new ContaCorrentePessoaJuridica(agencia, 26448, empresa1);
+        // ContaCorrentePessoaJuridica pj2 = new ContaCorrentePessoaJuridica(agencia, 26449, empresa2);
 
-        System.out.println(pj1);
-        pj1.depositar(BigDecimal.valueOf(3000));
+        // System.out.println(pj1);
+        // pj1.depositar(BigDecimal.valueOf(3000));
         // System.out.println(pj);
         // try {
         //     pj.sacar(BigDecimal.valueOf(2850));
@@ -44,7 +39,7 @@ public class ContaPessoaJuridicaTeste {
         // System.out.println(pj1.getSaldo());
         // System.out.println(pj2.getSaldo());
 
-        System.out.println(pj1);
+        // System.out.println(pj1);
         // System.out.println(agencia.getConta(26448).investir(BigDecimal.valueOf(3000), 360));
     }
 }

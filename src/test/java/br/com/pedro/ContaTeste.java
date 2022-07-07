@@ -1,13 +1,7 @@
 package br.com.pedro;
 
-import java.math.BigDecimal;
-import java.util.Random;
-
-import br.com.pedro.classes.Agencia;
-import br.com.pedro.classes.AgenciaException;
-import br.com.pedro.classes.Conta;
-import br.com.pedro.classes.ContaException;
-import br.com.pedro.classes.ClientePessoaFisica.EstadoCivil;
+import br.com.pedro.modelos.AgenciaException;
+import br.com.pedro.modelos.ContaException;
 
 public class ContaTeste {
     
@@ -26,7 +20,7 @@ public class ContaTeste {
         // System.out.println(a1.getConta(555));
         // System.out.println(a1.getConta(555).investir(BigDecimal.valueOf(55), 360));
 
-        EstadoCivil.imprimirOpcoes();
-        System.out.println(EstadoCivil.values().length);
+        // EstadoCivil.imprimirOpcoes();
+        // System.out.println(EstadoCivil.values().length);
     }
 }
