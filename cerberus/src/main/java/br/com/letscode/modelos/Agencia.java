@@ -1,16 +1,13 @@
-package br.com.letscode.modelos.Agencia;
+package br.com.letscode.modelos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.lang.model.util.ElementScanner6;
-
-import br.com.letscode.enums.PerfilInvestidor;
 import br.com.letscode.excecoes.AgenciaDuplicadaException;
 import br.com.letscode.excecoes.ContaJaExisteException;
-import br.com.letscode.modelos.Conta.*;
-import br.com.letscode.modelos.Pessoa.*;
+import br.com.letscode.modelos.conta.*;
+import br.com.letscode.modelos.pessoa.*;
 import br.com.letscode.util.DigitoVerificador;
 
 public class Agencia {
