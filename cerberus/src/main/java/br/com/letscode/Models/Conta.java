@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 public abstract class Conta {
   private int numeroDaConta;
-  private Pessoa titular;
   private BigDecimal saldo;
   private BigDecimal limite;
 
@@ -16,14 +15,6 @@ public abstract class Conta {
     this.numeroDaConta = numeroDaConta;
   }
 
-  public Pessoa getTitular() {
-    return titular;
-  }
-
-  public void setTitular(Pessoa titular) {
-    this.titular = titular;
-  }
-
   public void setLimite(BigDecimal limite) {
     this.limite = limite;
   }
@@ -32,17 +23,10 @@ public abstract class Conta {
     return limite;
   }
 
-  public void sacar(BigDecimal quantidade) {
-    if (quantidade.compareTo(saldo) == 1) {
-      System.out.println("Saldo Insuficiente");
-      return;
-    }
-    this.saldo.subtract(quantidade);
+  public void setSaldo(BigDecimal saldo) {
+    this.saldo = saldo;
   }
 
-  public void depositar(BigDecimal quantidade) {
-    this.saldo.add(quantidade);
-  }
   public BigDecimal getSaldo() {
     return saldo;
   }
