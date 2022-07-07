@@ -9,37 +9,39 @@ import br.com.letscode.Classes.ContaInvestimento;
 import br.com.letscode.Classes.User;
 
 public class App {
-    public static int countUsers = 1;
-    public static int countContas = 1;
+    public static ArrayList<User> users = new ArrayList<>();
+    public static ArrayList<Conta> contas = new ArrayList<>();
 
-    public static ArrayList<User> user = new ArrayList<>();
-    public static ArrayList<Conta> contasCorrentes = new ArrayList<>();
-    ArrayList<ContaPoupanca> contasPoupancas = new ArrayList<>();
-    ArrayList<ContaInvestimento> contasInvestimento = new ArrayList<>();
-
-    private static void criarConta(int numero, int personalidade) {
-        App.countContas++;
-        // App.contas.add(new Conta());
-        System.out.printf("Anota aí! O número da sua conta é", App.countContas);
+    static void criarUser(String nome, String tipoPessoa) {
+        users.add(new User(nome, tipoPessoa));
+        System.out.println("O seu numero para login é: " + (users.size() - 1));
     }
 
+    static void criarConta(User user, String tipoConta) {
+        contas.add(new Conta(user, tipoConta));
+        System.out.println("Anota aí! O número da sua conta " + tipoConta + " é: " + (contas.size() -1));
+    }
+    
     public static void main(String[] args) {
-        User usuario = new User(1, "Fulano", "JURIDICA");
-        ContaInvestimento containvestimento = new ContaInvestimento(usuario, "INVESTIMENTO");
-        ContaCorrente contacorrente = new ContaCorrente(usuario, "CORRENTE");
-        ContaPoupanca contapoupanca = new ContaPoupanca(usuario, "POUPANCA");
-        containvestimento.depositar(containvestimento, "100");
-        contacorrente.depositar(contacorrente, "100");
-        contapoupanca.depositar(contapoupanca, "100");
+        criarUser("userPF", "FISICA"); // user 0
+        criarUser("userPJ", "JURIDICA"); // user 1
 
 
+        // PF
+        criarConta(users.get(0), "CORRENTE"); // conta 0
+        criarConta(users.get(0), "POUPANCA"); // conta 1
+        criarConta(users.get(0), "INVESTIMENTO"); // conta 2
+        // PJ
+        criarConta(users.get(1), "CORRENTE"); // conta 3
+        criarConta(users.get(1), "INVESTIMENTO"); // conta 4
 
-        System.out.println(containvestimento.getSaldo());
-        contacorrente.transferir(contacorrente, contapoupanca, "50");
-        System.out.println(containvestimento.getSaldo());
-        contacorrente.investir(contacorrente, containvestimento, "10");
-        System.out.println(containvestimento.getSaldo());
-        System.out.println(containvestimento.getRendimento());
+        
+        contas.get(0).depositar(contas.get(0), "100");
+        contas.get(1).depositar(contas.get(1), "100");
+        
+        // System.out.println(contas.get(0).getTipoConta());
+        System.out.println(users.get(1).getId());
+
 
         
 

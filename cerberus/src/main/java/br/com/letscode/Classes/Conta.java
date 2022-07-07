@@ -15,7 +15,7 @@ public class Conta {
 
     // Construtor
     public Conta(User user, String tipoConta) {
-        this.numeroDaConta = App.countContas;
+        this.numeroDaConta = App.contas.size();
         this.user = user;
         this.tipoPessoa = user.tipoPessoa;
         this.tipoConta = tipoConta;
