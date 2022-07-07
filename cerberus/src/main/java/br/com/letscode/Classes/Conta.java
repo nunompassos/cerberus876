@@ -5,26 +5,24 @@ import br.com.letscode.App;
 
 public class Conta {
     private Integer numeroDaConta;
-    private User user;
-    private String tipoPessoa;
-    private String tipoConta;
+    protected User user;
+    protected Personalidade tipoPessoa;
+    protected TipoDeConta tipoConta;
     private BigDecimal saldo;
-
     protected BigDecimal rendimento;
-
     private BigDecimal taxa;
 
     // Construtor
-    public Conta(User user, String tipoConta) {
+    public Conta(User user, TipoDeConta tipoConta) {
         this.numeroDaConta = App.contas.size();
         this.user = user;
-        this.tipoPessoa = user.tipoPessoa;
+        this.tipoPessoa = user.getTipoPessoa();
         this.tipoConta = tipoConta;
         this.saldo = new BigDecimal("0.00");
-        this.rendimento = TipoDeConta.valueOf(tipoConta).rendimento;
+        this.rendimento = tipoConta.rendimento;
         // Já considera o rendimento de + 2% se a conta for de investimento/pessoa
         // física. Está puxando dos Enums.
-        this.taxa = Personalidade.valueOf(tipoPessoa).taxa; // Puxa do ENUM: 0.5% para PJ e 0% para PF. Aplica-se a
+        this.taxa = tipoPessoa.taxa; // Puxa do ENUM: 0.5% para PJ e 0% para PF. Aplica-se a
         // saque e transf.
     }
 
@@ -46,11 +44,11 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public String getTipoPessoa() {
+    public Personalidade getTipoPessoa() {
         return tipoPessoa;
     }
 
-    public String getTipoConta() {
+    public TipoDeConta getTipoConta() {
         return tipoConta;
     }
 
@@ -60,6 +58,10 @@ public class Conta {
 
     public BigDecimal getRendimento() {
         return rendimento;
+    }
+
+    public void setRendimento(BigDecimal rendimento) {
+        this.rendimento = rendimento;
     }
 
     // Outros métodos
@@ -83,7 +85,9 @@ public class Conta {
     }
 
     public final void transferir(Conta destino, String valor) {
-        if (sacar(valor)) { depositar(destino, valor); }
+        if (sacar(valor)) {
+            depositar(destino, valor);
+        }
     }
 
     public final void investir(Conta origem, ContaInvestimento destino, String valor) {

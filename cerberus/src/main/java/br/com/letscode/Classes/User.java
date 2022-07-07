@@ -3,23 +3,26 @@ package br.com.letscode.Classes;
 import br.com.letscode.App;
 
 public class User {
-    int id;
-    String tipoPessoa;
-    String nome;
+    private int id;
+    protected Personalidade tipoPessoa;
+    private String nome;
 
     // construtor
     public User(String nome, String tipoPessoa) {
         this.id = App.users.size();
         this.nome = nome;
-        this.tipoPessoa = tipoPessoa;
+        this.tipoPessoa = Personalidade.valueOf(tipoPessoa);
     }
-
+    
     // getters e setters.
     public int getId() {
         return id;
     }
-
-    public void setTipoPessoa(String tipoPessoa) {
+    
+    public Personalidade getTipoPessoa() {
+        return tipoPessoa;
+    }
+    public void setTipoPessoa(Personalidade tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
 

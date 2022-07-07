@@ -1,9 +1,8 @@
 package br.com.letscode.Classes;
-import java.math.BigDecimal;
 
 public class ContaCorrente extends Conta {
 
-    public ContaCorrente(User user, String tipoConta) {
+    public ContaCorrente(User user, TipoDeConta tipoConta) {
         super(user, tipoConta);
     }
 
