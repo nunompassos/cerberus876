@@ -7,7 +7,8 @@ public enum TipoDeConta {
     POUPANCA(new BigDecimal ("1.005")),
     INVESTIMENTO(new BigDecimal ("1.02"));
 
-    BigDecimal rendimento;
+    final BigDecimal rendimento;
+    
     TipoDeConta(BigDecimal rendimento) {
         this.rendimento = rendimento;
     }

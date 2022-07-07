@@ -1,12 +1,11 @@
 package br.com.letscode.Classes;
 import java.math.BigDecimal;
 
-public class ContaPoupanca extends Conta {
+public class ContaPoupanca extends ContaCorrente {
     BigDecimal rendimento;
 
-    public ContaPoupanca(User user) {
-        super(user);
-        final BigDecimal rendimento = new BigDecimal("1.005");
+    public ContaPoupanca(User user, String tipoConta) {
+        super(user, tipoConta);
     }
 
 }

@@ -3,11 +3,10 @@ import java.math.BigDecimal;
 
 public class ContaInvestimento extends Conta {
     BigDecimal rendimento;
-    BigDecimal rendimentoExtra;
 
-    public ContaInvestimento(User user) {
-        super(user);
-        super.rendimento = TipoDeConta.INVESTIMENTO.rendimento;
-        this.rendimentoExtra = Personalidade.valueOf(tipoPessoa).rendimentoExtra;
+    public ContaInvestimento(User user, String tipoConta) {
+        super(user, tipoConta);
+        super.rendimento = TipoDeConta.valueOf(tipoConta).rendimento
+        .add(Personalidade.valueOf(user.tipoPessoa).rendimentoExtra);
     }
 }
