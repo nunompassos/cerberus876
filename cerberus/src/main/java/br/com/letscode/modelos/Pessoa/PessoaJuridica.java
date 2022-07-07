@@ -10,10 +10,7 @@ public class PessoaJuridica extends Pessoa {
 			String endereco,
 			String telefone,
 			PessoaFisica responsavel) {
-		this.setNome(nome);
-		this.setDocumento(documento);
-		this.setEndereco(endereco);
-		this.setTelefone(telefone);
+		super(nome, endereco, telefone, documento);
 		this.setResponsavel(responsavel);
 	}
 

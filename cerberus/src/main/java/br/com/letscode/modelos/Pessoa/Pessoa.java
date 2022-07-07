@@ -1,10 +1,26 @@
 package br.com.letscode.modelos.Pessoa;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import br.com.letscode.excecoes.PessoaDuplicadaException;
+
 public abstract class Pessoa {
 	private String nome;
 	private String endereco;
 	private String telefone;
 	private int documento;
+	private static final Set<Integer> documentos = new HashSet<Integer>();
+
+	Pessoa(String nome, String endereco, String telefone, int documento) {
+		if (Pessoa.documentos.contains(documento))
+			throw new PessoaDuplicadaException();
+		this.documento = documento;
+		Pessoa.documentos.add(documento);
+		this.nome = nome;
+		this.endereco = endereco;
+		this.telefone = telefone;
+	}
 
 	public String getTelefone() {
 		return telefone;

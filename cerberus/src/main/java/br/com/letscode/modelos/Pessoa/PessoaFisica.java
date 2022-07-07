@@ -19,10 +19,7 @@ public class PessoaFisica extends Pessoa {
 			String endereco,
 			String telefone,
 			String nascimento) {
-		this.setNome(nome);
-		this.setDocumento(documento);
-		this.setEndereco(endereco);
-		this.setTelefone(telefone);
+		super(nome, endereco, telefone, documento);
 		this.nascimento = LocalDate.parse(nascimento);
 	}
 
