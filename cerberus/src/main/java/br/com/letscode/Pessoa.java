@@ -6,8 +6,8 @@ public class Pessoa {
     private Sexo sexo;
     private String endereco;
     private EstadoCivil estadoCivil;
-    private int alturaEmCm;
-    private int pesoEmKg;
+    private int alturaCentimetros;
+    private int pesoQuilogramas;
 
     public Pessoa(String nome, int idade, Sexo sexo, String endereco, EstadoCivil estadoCivil, int altura,
             int peso) {
@@ -16,8 +16,8 @@ public class Pessoa {
         this.sexo = sexo;
         this.endereco = endereco;
         this.estadoCivil = estadoCivil;
-        this.alturaEmCm = altura;
-        this.pesoEmKg = peso;
+        this.alturaCentimetros = altura;
+        this.pesoQuilogramas = peso;
     }
 
     public Pessoa(String nome, String endereco) {
@@ -69,19 +69,29 @@ public class Pessoa {
     }
 
     public int getAltura() {
-        return alturaEmCm;
+        return alturaCentimetros;
     }
 
     public void setAltura(int altura) {
-        this.alturaEmCm = altura;
+        this.alturaCentimetros = altura;
     }
 
     public int getPeso() {
-        return pesoEmKg;
+        return pesoQuilogramas;
     }
 
     public void setPeso(int peso) {
-        this.pesoEmKg = peso;
+        this.pesoQuilogramas = peso;
+    }
+
+    public String toString() {
+        return "Pessoa{" +
+            "nome='" + this.nome + '\'' +
+            ", idade=" + this.idade +
+            ", alturaCentimetros=" + this.alturaCentimetros +
+            ", pesoQuilogramas=" + this.pesoQuilogramas +
+            ", sexo=" + this.sexo +
+            '}';
     }
 
 }
