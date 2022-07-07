@@ -16,7 +16,6 @@ public class Aplicacao {
 
         menuInicial(sc);
 
-        System.out.println();
         sc.close();
     }
 
@@ -28,15 +27,12 @@ public class Aplicacao {
         System.out.println("04.   Sair");
         System.out.println();
 
-        int escolhido;
-        do {
-            System.out.print("Informe a opção:  ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Informe a opção:  ");
-                sc.next();
-            }
-            escolhido = sc.nextInt();
-        } while (escolhido > 4 || escolhido < 1);
+        int escolhido = Util.lerInt(
+                sc,
+                "Informe a opção:  ",
+                "Opção inválida",
+                1,
+                4);
 
         switch (escolhido) {
             case 1:
@@ -68,15 +64,12 @@ public class Aplicacao {
             System.out.println();
         }
 
-        int escolhido;
-        do {
-            System.out.print("Informe a opção:  ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Informe a opção:  ");
-                sc.next();
-            }
-            escolhido = sc.nextInt();
-        } while (escolhido > 4 || escolhido < 1);
+        int escolhido = Util.lerInt(
+                sc,
+                "Informe a opção:  ",
+                "Opção inválida",
+                1,
+                4);
 
         switch (escolhido) {
             case 1:
@@ -101,64 +94,47 @@ public class Aplicacao {
 
     private static void aberturaDeContaPessoaFisica(Scanner sc) throws ClienteException, ContaException {
         Util.logo("Abertura de Conta Pessoa Física");
-        sc.nextLine();
 
-        System.out.print("Digite o nome do cliente ....:   ");
-        String nome;
-        do {
-            nome = sc.nextLine();
-            if (nome.length() < 3) {
-                System.out.println("Nome invalido\n");
-                System.out.print("Digite o nome do cliente ....:   ");
-            }
-        } while (nome.length() < 3);
+        String nome = Util.lerStringFormatada(
+                sc,
+                "Digite o nome do cliente",
+                "Nome Inválido",
+                3);
 
-        System.out.print("Digite o CPF do cliente .....:   ");
-        String cpf;
-        do {
-            cpf = sc.nextLine();
-            if (cpf.length() < 11) {
-                System.out.println("CPF invalido\n");
-                System.out.print("Digite o CPF do cliente .....:   ");
-            }
-        } while (cpf.length() < 11);
+        String cpf = Util.lerStringFormatada(
+                sc,
+                "Digite o CPF do cliente",
+                "CPF invalido",
+                11);
 
         System.out.println();
         EstadoCivil.imprimirOpcoes();
-        System.out.print("Digite o estado civil .......:   ");
-        int numeroEstadoCivil;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroEstadoCivil = sc.nextInt();
-        } while (numeroEstadoCivil < 1 || numeroEstadoCivil > EstadoCivil.values().length);
+        int numeroEstadoCivil = Util.lerIntFormatado(
+                sc,
+                "Digite o estado civil",
+                "Número inválido",
+                1,
+                EstadoCivil.values().length);
 
-        System.out.print("Digite o número da agência ..:   ");
-        int numeroAgencia;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroAgencia = sc.nextInt();
-        } while (numeroAgencia < 1);
+        int numeroAgencia = Util.lerIntFormatado(
+                sc,
+                "Digite o número da agência",
+                "Número inválido",
+                1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
             menuAberturaDeConta(sc, "Agência não localizada");
             return;
         }
 
-        System.out.print("Digite o número da conta ....:   ");
-        int numeroConta;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroConta = sc.nextInt();
-        } while (numeroConta < 1);
+        int numeroConta = Util.lerIntFormatado(
+                sc,
+                "Digite o número da conta",
+                "Número inválido",
+                1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            menuTransacoes(sc, "Conta já existe");
+            menuAberturaDeConta(sc, "Conta já existe");
             return;
         }
 
@@ -180,49 +156,37 @@ public class Aplicacao {
     private static void aberturaDeContaPessoaJuridica(Scanner sc) throws ClienteException, ContaException {
         Util.logo("Abertura de Conta Pessoa Jurídica");
 
-        System.out.print("Digite o nome da empresa ....:   ");
-        String nome;
-        do {
-            while (!sc.hasNext()) {
-                sc.next();
-            }
-            nome = sc.next();
-        } while (nome.length() < 3);
+        String nome = Util.lerStringFormatada(
+                sc,
+                "Digite o nome da empresa",
+                "Nome inválido",
+                3);
 
-        System.out.print("Digite o CNPJ da empresa ....:   ");
-        String cnpj;
-        do {
-            while (!sc.hasNext()) {
-                sc.next();
-            }
-            cnpj = sc.next();
-        } while (cnpj.length() < 15);
+        String cnpj = Util.lerStringFormatada(
+                sc,
+                "Digite o CNPJ da empresa",
+                "CNPJ inválido",
+                15);
 
-        System.out.print("Digite o número da agência ..:   ");
-        int numeroAgencia;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroAgencia = sc.nextInt();
-        } while (numeroAgencia < 1);
+        int numeroAgencia = Util.lerIntFormatado(
+                sc,
+                "Digite o número da agência",
+                "Número inválido",
+                1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            menuTransacoes(sc, "Agência não localizada");
+            menuAberturaDeConta(sc, "Agência não localizada");
             return;
         }
 
-        System.out.print("Digite o número da conta ....:   ");
-        int numeroConta;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroConta = sc.nextInt();
-        } while (numeroConta < 1);
+        int numeroConta = Util.lerIntFormatado(
+                sc,
+                "Digite o número da conta",
+                "Número inválido",
+                1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            menuTransacoes(sc, "Conta já existe");
+            menuAberturaDeConta(sc, "Conta já existe");
             return;
         }
 
@@ -243,60 +207,46 @@ public class Aplicacao {
     private static void aberturaDeContaPoupanca(Scanner sc) throws ClienteException, ContaException {
         Util.logo("Abertura de Conta Poupança");
 
-        System.out.print("Digite o nome do cliente ....:   ");
-        String nome;
-        do {
-            while (!sc.hasNext()) {
-                sc.next();
-            }
-            nome = sc.next();
-        } while (nome.length() < 3);
+        String nome = Util.lerStringFormatada(
+                sc,
+                "Digite o nome do cliente",
+                "Nome Inválido",
+                3);
 
-        System.out.print("Digite o CPF do cliente .....:   ");
-        String cpf;
-        do {
-            while (!sc.hasNext()) {
-                sc.next();
-            }
-            cpf = sc.next();
-        } while (cpf.length() < 11);
+        String cpf = Util.lerStringFormatada(
+                sc,
+                "Digite o CPF do cliente",
+                "CPF invalido",
+                11);
 
         System.out.println();
         EstadoCivil.imprimirOpcoes();
-        System.out.print("Digite o estado civil .......:   ");
-        int numeroEstadoCivil;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroEstadoCivil = sc.nextInt();
-        } while (numeroEstadoCivil < 1 || numeroEstadoCivil > EstadoCivil.values().length);
+        int numeroEstadoCivil = Util.lerIntFormatado(
+                sc,
+                "Digite o estado civil",
+                "Número inválido",
+                1,
+                EstadoCivil.values().length);
 
-        System.out.print("Digite o número da agência ..:   ");
-        int numeroAgencia;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroAgencia = sc.nextInt();
-        } while (numeroAgencia < 1);
+        int numeroAgencia = Util.lerIntFormatado(
+                sc,
+                "Digite o número da agência",
+                "Número inválido",
+                1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            menuTransacoes(sc, "Agência não localizada");
+            menuAberturaDeConta(sc, "Agência não localizada");
             return;
         }
 
-        System.out.print("Digite o número da conta ....:   ");
-        int numeroConta;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroConta = sc.nextInt();
-        } while (numeroConta < 1);
+        int numeroConta = Util.lerIntFormatado(
+                sc,
+                "Digite o número da conta",
+                "Número inválido",
+                1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            menuTransacoes(sc, "Conta já existe");
+            menuAberturaDeConta(sc, "Conta já existe");
             return;
         }
 
@@ -328,15 +278,12 @@ public class Aplicacao {
             System.out.println();
         }
 
-        int escolhido;
-        do {
-            System.out.print("Informe a opção:  ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Informe a opção:  ");
-                sc.next();
-            }
-            escolhido = sc.nextInt();
-        } while (escolhido > 4 || escolhido < 1);
+        int escolhido = Util.lerInt(
+                sc,
+                "Informe a opção:  ",
+                "Opção inválida",
+                1,
+                4);
 
         switch (escolhido) {
             case 1:
@@ -404,28 +351,22 @@ public class Aplicacao {
 
     private static Conta consultaConta(Scanner sc, String menuCabecalho) {
         Util.logo(menuCabecalho);
-        System.out.print("Digite o número da agência ..:   ");
 
-        int numeroAgencia;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroAgencia = sc.nextInt();
-        } while (numeroAgencia < 1);
+        int numeroAgencia = Util.lerIntFormatado(
+                sc,
+                "Digite o número da agência",
+                "Número inválido",
+                1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
             return null;
         }
 
-        System.out.print("Digite o número da conta ....:   ");
-        int numeroConta;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroConta = sc.nextInt();
-        } while (numeroConta < 1);
+        int numeroConta = Util.lerIntFormatado(
+                sc,
+                "Digite o número da conta",
+                "Número inválido",
+                1);
 
         if (!Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
             return null;
@@ -449,15 +390,12 @@ public class Aplicacao {
             System.out.println();
         }
 
-        int escolhido;
-        do {
-            System.out.print("Informe a opção:  ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Informe a opção:  ");
-                sc.next();
-            }
-            escolhido = sc.nextInt();
-        } while (escolhido > 6 || escolhido < 1);
+        int escolhido = Util.lerInt(
+                sc,
+                "Informe a opção:  ",
+                "Opção inválida",
+                1,
+                6);
 
         switch (escolhido) {
             case 1:
@@ -496,17 +434,16 @@ public class Aplicacao {
             return;
         }
 
-        System.out.print("Digite o valor do depósito ..:   ");
-
-        BigDecimal valor;
-        do {
-            while (!sc.hasNextDouble()) {
-                sc.next();
-            }
-            valor = BigDecimal.valueOf(sc.nextDouble());
-        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+        BigDecimal valor = Util.lerBigDecimalFormatado(
+                sc,
+                "Digite o valor do depósito",
+                "Valor inválido",
+                BigDecimal.valueOf(0.01));
 
         conta.depositar(valor);
+
+        System.out.println("\nDepósito realizado com sucesso");
+        Util.aguardarEnter(sc);
     }
 
     private static void sacar(Scanner sc) throws ClienteException, ContaException {
@@ -517,15 +454,11 @@ public class Aplicacao {
             return;
         }
 
-        System.out.print("Digite o valor do saque .....:   ");
-
-        BigDecimal valor;
-        do {
-            while (!sc.hasNextDouble()) {
-                sc.next();
-            }
-            valor = BigDecimal.valueOf(sc.nextDouble());
-        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+        BigDecimal valor = Util.lerBigDecimalFormatado(
+                sc,
+                "Digite o valor do saque",
+                "Valor inválido",
+                BigDecimal.valueOf(0.01));
 
         try {
             conta.sacar(valor);
@@ -533,35 +466,29 @@ public class Aplicacao {
             menuTransacoes(sc, e.getMessage());
             return;
         }
+
+        System.out.println("\nSaque realizado com sucesso");
+        Util.aguardarEnter(sc);
     }
 
     private static Conta consultaParaTransferir(Scanner sc) {
-        System.out.print("Digite o número da agência ..:   ");
-
-        int numeroAgencia;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroAgencia = sc.nextInt();
-        } while (numeroAgencia < 1);
+        int numeroAgencia = Util.lerIntFormatado(
+                sc,
+                "Digite o número da agência",
+                "Número inválido",
+                1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            System.out.println("Agência não localizada");
             return null;
         }
 
-        System.out.print("Digite o número da conta ....:   ");
-        int numeroConta;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            numeroConta = sc.nextInt();
-        } while (numeroConta < 1);
+        int numeroConta = Util.lerIntFormatado(
+                sc,
+                "Digite o número da conta",
+                "Número inválido",
+                1);
 
         if (!Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            System.out.println("Conta não localizada");
             return null;
         }
 
@@ -589,15 +516,11 @@ public class Aplicacao {
             return;
         }
 
-        System.out.print("\nDigite o valor a transferir .:   ");
-
-        BigDecimal valor;
-        do {
-            while (!sc.hasNextDouble()) {
-                sc.next();
-            }
-            valor = BigDecimal.valueOf(sc.nextDouble());
-        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+        BigDecimal valor = Util.lerBigDecimalFormatado(
+                sc,
+                "Digite o valor a transferir",
+                "Valor inválido",
+                BigDecimal.valueOf(0.01));
 
         try {
             contaOrigem.transferir(contaDestino.getAgencia().getNumero(), contaDestino.getNumeroConta(), valor);
@@ -621,29 +544,21 @@ public class Aplicacao {
             return;
         }
 
-        System.out.print("Digite o valor a investir ...:   ");
+        BigDecimal valor = Util.lerBigDecimalFormatado(
+                sc,
+                "Digite o valor para investir",
+                "Valor inválido",
+                BigDecimal.valueOf(0.01));
 
-        BigDecimal valor;
-        do {
-            while (!sc.hasNextDouble()) {
-                sc.next();
-            }
-            valor = BigDecimal.valueOf(sc.nextDouble());
-        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
-
-        System.out.print("Digite o prazo em dias ......:   ");
-
-        int dias;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            dias = sc.nextInt();
-        } while (dias < 1);
+        int dias = Util.lerIntFormatado(
+                sc,
+                "Digite o prazo em dias",
+                "Número inválido",
+                1);
 
         Number[] resultadoInvestimento = null;
         try {
-            resultadoInvestimento =  conta.investir(valor, dias);
+            resultadoInvestimento = conta.investir(valor, dias);
         } catch (ContaException e) {
             menuTransacoes(sc, e.getMessage());
             return;
@@ -671,29 +586,21 @@ public class Aplicacao {
             return;
         }
 
-        System.out.print("Digite o valor a poupar .....:   ");
+        BigDecimal valor = Util.lerBigDecimalFormatado(
+                sc,
+                "Digite o valor para poupar",
+                "Valor inválido",
+                BigDecimal.valueOf(0.01));
 
-        BigDecimal valor;
-        do {
-            while (!sc.hasNextDouble()) {
-                sc.next();
-            }
-            valor = BigDecimal.valueOf(sc.nextDouble());
-        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
-
-        System.out.print("Digite o prazo em dias ......:   ");
-
-        int dias;
-        do {
-            while (!sc.hasNextInt()) {
-                sc.next();
-            }
-            dias = sc.nextInt();
-        } while (dias < 1);
+        int dias = Util.lerIntFormatado(
+                sc,
+                "Digite o prazo em dias",
+                "Número inválido",
+                1);
 
         Number[] resultadoPoupanca = null;
         try {
-            resultadoPoupanca =  conta.poupar(valor, dias);
+            resultadoPoupanca = conta.poupar(valor, dias);
         } catch (ContaException e) {
             menuTransacoes(sc, e.getMessage());
             return;

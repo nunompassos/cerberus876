@@ -1,5 +1,7 @@
 package br.com.pedro.classes;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public abstract class Util {
@@ -42,7 +44,6 @@ public abstract class Util {
     }
 
     public static void aguardarEnter(Scanner sc) {
-        sc.nextLine();
         System.out.print("Pressione ENTER para retornar ao menu anterior   ");
         sc.nextLine();
     }
@@ -74,5 +75,109 @@ public abstract class Util {
         }
 
         System.out.println(menuCabecalhoCompleto);
+    }
+
+    public static String lerStringFormatada(Scanner sc, String pedido, String erro, int lowerBound) {
+        pedidoFormatado(pedido);
+        String nome;
+        do {
+            nome = sc.nextLine();
+            if (nome.length() < lowerBound) {
+                System.out.println(erro);
+                System.out.println();
+                pedidoFormatado(pedido);
+            }
+        } while (nome.length() < lowerBound);
+        return nome;
+    }
+    
+    public static int lerInt(Scanner sc, String pedido, String erro, int lowerBound, int upperBound) {
+        System.out.print(pedido);
+        int numero;
+        do {
+            numero = Integer.MIN_VALUE;
+            try {
+                numero = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+            }
+            
+            if (numero < lowerBound || numero > upperBound) {
+                System.out.println(erro);
+                System.out.println();
+                System.out.print(pedido);
+            }
+        } while (numero < lowerBound || numero > upperBound);
+        return numero;
+    }
+
+    public static int lerIntFormatado(Scanner sc, String pedido, String erro, int lowerBound) {
+        pedidoFormatado(pedido);
+        int numero;
+        do {
+            numero = Integer.MIN_VALUE;
+            try {
+                numero = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+            }
+            
+            if (numero < lowerBound) {
+                System.out.println(erro);
+                System.out.println();
+                pedidoFormatado(pedido);
+            }
+        } while (numero < lowerBound);
+        return numero;
+    }
+
+    public static int lerIntFormatado(Scanner sc, String pedido, String erro, int lowerBound, int upperBound) {
+        pedidoFormatado(pedido);
+        int numero;
+        do {
+            numero = Integer.MIN_VALUE;
+            try {
+                numero = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+            }
+            
+            if (numero < lowerBound || numero > upperBound) {
+                System.out.println(erro);
+                System.out.println();
+                pedidoFormatado(pedido);
+            }
+        } while (numero < lowerBound || numero > upperBound);
+        return numero;
+    }
+
+    public static BigDecimal lerBigDecimalFormatado(Scanner sc, String pedido, String erro, BigDecimal lowerBound) {
+        pedidoFormatado(pedido);
+        double numero;
+        do {
+            numero = Double.MIN_VALUE;
+            try {
+                numero = Double.parseDouble(sc.nextLine());
+            } catch (NumberFormatException e) {
+            }
+            
+            if (BigDecimal.valueOf(numero).compareTo(lowerBound) < 0) {
+                System.out.println(erro);
+                System.out.println();
+                pedidoFormatado(pedido);
+            }
+        } while (BigDecimal.valueOf(numero).compareTo(lowerBound) < 0);
+        return BigDecimal.valueOf(numero).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    private static void pedidoFormatado(String pedido) {
+        final int TAMANHO = 30;
+        int adicionarPontos = TAMANHO - pedido.length();
+        StringBuilder pedidoFormatado = new StringBuilder();
+        pedidoFormatado.append(pedido).append(" ");
+
+        for(int i = 0; i < adicionarPontos; i++) {
+            pedidoFormatado.append(".");
+        }
+
+        pedidoFormatado.append(":   ");
+        System.out.print(pedidoFormatado);
     }
 }

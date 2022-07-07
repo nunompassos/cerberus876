@@ -23,8 +23,8 @@ public abstract class ContaCorrente extends Conta {
         this.setSaldo(this.getSaldo().subtract(valor));
         double taxaAnual = new Random().nextInt(1000) / 10000.0;
         double taxaDia = Math.pow(1.0 + taxaAnual, (1 / 360.0)) - 1;
-        BigDecimal taxaAplicada = BigDecimal.valueOf(Math.pow(1 + taxaDia, dias) - 1).setScale(5, RoundingMode.UP);
-        BigDecimal rendimento = valor.multiply(taxaAplicada).setScale(2, RoundingMode.UP);
+        BigDecimal taxaAplicada = BigDecimal.valueOf(Math.pow(1 + taxaDia, dias) - 1).setScale(5, RoundingMode.HALF_UP);
+        BigDecimal rendimento = valor.multiply(taxaAplicada).setScale(2, RoundingMode.HALF_UP);
         this.setSaldo(this.getSaldo().add(valor.add(rendimento)));
         return new Number[]{taxaAplicada, taxaAnual, rendimento};
     }

@@ -44,7 +44,7 @@ public class ContaCorrentePessoaJuridica extends ContaCorrente {
     public Number[] investir(BigDecimal valor, int dias) throws ContaException {
         BigDecimal taxaAplicada = (BigDecimal) super.investir(valor, dias)[0];
         BigDecimal taxaAnual = (BigDecimal) super.investir(valor, dias)[1];
-        BigDecimal rendimento = valor.multiply(taxaAplicada.add(BigDecimal.valueOf(0.02))).setScale(2, RoundingMode.UP);
+        BigDecimal rendimento = valor.multiply(taxaAplicada.add(BigDecimal.valueOf(0.02))).setScale(2, RoundingMode.HALF_UP);
         this.setSaldo(this.getSaldo().add(rendimento));
         return new Number[]{taxaAplicada, taxaAnual, rendimento};
     }
