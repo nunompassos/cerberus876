@@ -1,6 +1,7 @@
 package br.com.pedro.classes;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import br.com.pedro.classes.ClientePessoaFisica.EstadoCivil;
@@ -9,7 +10,7 @@ public class Aplicacao {
 
     public static void main(String[] args) throws IOException, ClienteException, ContaException {
 
-        Carga carga = new Carga();
+        new Carga();
 
         Scanner sc = new Scanner(System.in);
 
@@ -39,13 +40,13 @@ public class Aplicacao {
 
         switch (escolhido) {
             case 1:
-                menuAberturaDeConta(sc);
+                menuAberturaDeConta(sc, null);
                 return;
             case 2:
-                menuConsultas(sc);
+                menuConsultas(sc, null);
                 return;
             case 3:
-                menuTransacoes(sc);
+                menuTransacoes(sc, null);
                 return;
             case 4:
                 return;
@@ -54,13 +55,18 @@ public class Aplicacao {
         }
     }
 
-    private static void menuAberturaDeConta(Scanner sc) throws ClienteException, ContaException {
+    private static void menuAberturaDeConta(Scanner sc, String mensagem) throws ClienteException, ContaException {
         Util.logo();
         System.out.println("01.   Abrir Conta Corrente Pessoa Física");
         System.out.println("02.   Abrir Conta Corrente Pessoa Jurídica");
         System.out.println("03.   Abrir Conta Poupanca");
         System.out.println("04.   Retornar ao menu anterior");
         System.out.println();
+
+        if (mensagem != null) {
+            System.out.println(mensagem);
+            System.out.println();
+        }
 
         int escolhido;
         do {
@@ -75,15 +81,15 @@ public class Aplicacao {
         switch (escolhido) {
             case 1:
                 aberturaDeContaPessoaFisica(sc);
-                menuAberturaDeConta(sc);
+                menuAberturaDeConta(sc, null);
                 return;
             case 2:
                 aberturaDeContaPessoaJuridica(sc);
-                menuAberturaDeConta(sc);
+                menuAberturaDeConta(sc, null);
                 return;
             case 3:
                 aberturaDeContaPoupanca(sc);
-                menuAberturaDeConta(sc);
+                menuAberturaDeConta(sc, null);
                 return;
             case 4:
                 menuInicial(sc);
@@ -124,7 +130,7 @@ public class Aplicacao {
         } while (numeroAgencia < 1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            System.out.println("Agência não localizada");
+            menuAberturaDeConta(sc, "Agência não localizada");
             return;
         }
 
@@ -138,7 +144,7 @@ public class Aplicacao {
         } while (numeroConta < 1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            System.out.println("Conta já existe");
+            menuTransacoes(sc, "Conta já existe");
             return;
         }
 
@@ -147,7 +153,7 @@ public class Aplicacao {
                 cpf,
                 EstadoCivil.CASADO);
 
-        ContaCorrentePessoaFisica conta = new ContaCorrentePessoaFisica(
+        new ContaCorrentePessoaFisica(
                 Agencia.getAgencia(numeroAgencia),
                 numeroConta,
                 clientePessoaFisica);
@@ -155,7 +161,7 @@ public class Aplicacao {
         System.out.println();
         System.out.println("Conta Aberta com sucesso!");
         System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-        String retornarpf = sc.next();
+        sc.next();
     }
 
     private static void aberturaDeContaPessoaJuridica(Scanner sc) throws ClienteException, ContaException {
@@ -189,7 +195,7 @@ public class Aplicacao {
         } while (numeroAgencia < 1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            System.out.println("Agência não localizada");
+            menuTransacoes(sc, "Agência não localizada");
             return;
         }
 
@@ -203,7 +209,7 @@ public class Aplicacao {
         } while (numeroConta < 1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            System.out.println("Conta já existe");
+            menuTransacoes(sc, "Conta já existe");
             return;
         }
 
@@ -211,7 +217,7 @@ public class Aplicacao {
                 nome,
                 cnpj);
 
-        ContaCorrentePessoaJuridica conta = new ContaCorrentePessoaJuridica(
+        new ContaCorrentePessoaJuridica(
                 Agencia.getAgencia(numeroAgencia),
                 numeroConta,
                 clientePessoaJuridica);
@@ -219,7 +225,7 @@ public class Aplicacao {
         System.out.println();
         System.out.println("Conta Aberta com sucesso!");
         System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-        String retornarpj = sc.next();
+        sc.next();
 
     }
 
@@ -254,7 +260,7 @@ public class Aplicacao {
         } while (numeroAgencia < 1);
 
         if (!Agencia.agenciaExiste(numeroAgencia)) {
-            System.out.println("Agência não localizada");
+            menuTransacoes(sc, "Agência não localizada");
             return;
         }
 
@@ -268,7 +274,7 @@ public class Aplicacao {
         } while (numeroConta < 1);
 
         if (Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
-            System.out.println("Conta já existe");
+            menuTransacoes(sc, "Conta já existe");
             return;
         }
 
@@ -277,7 +283,7 @@ public class Aplicacao {
                 cpf,
                 EstadoCivil.CASADO);
 
-        ContaPoupanca conta = new ContaPoupanca(
+        new ContaPoupanca(
                 Agencia.getAgencia(numeroAgencia),
                 numeroConta,
                 clientePessoaFisica);
@@ -285,16 +291,21 @@ public class Aplicacao {
         System.out.println();
         System.out.println("Conta Aberta com sucesso!");
         System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-        String retornarpf = sc.next();
+        sc.next();
     }
 
-    private static void menuConsultas(Scanner sc) throws ClienteException, ContaException {
+    private static void menuConsultas(Scanner sc, String mensagem) throws ClienteException, ContaException {
         Util.logo();
         System.out.println("01.   Consulta Conta Corrente Pessoa Física");
         System.out.println("02.   Consulta Conta Corrente Pessoa Jurídica");
         System.out.println("03.   Consulta Conta Poupanca");
         System.out.println("04.   Retornar ao menu anterior");
         System.out.println();
+
+        if (mensagem != null) {
+            System.out.println(mensagem);
+            System.out.println();
+        }
 
         int escolhido;
         do {
@@ -308,43 +319,62 @@ public class Aplicacao {
 
         switch (escolhido) {
             case 1:
-                ContaCorrentePessoaFisica pf = (ContaCorrentePessoaFisica) consultaConta(sc);
+                ContaCorrentePessoaFisica pf = null;
+                try {
+                    pf = (ContaCorrentePessoaFisica) consultaConta(sc);
+                } catch (ClassCastException e) {
+                    menuConsultas(sc, "Conta selecionada não é Conta Corrente Pessoa Física");
+                }
+
                 if (pf == null) {
-                    menuConsultas(sc);
+                    menuConsultas(sc, "Conta não localizada!");
                     return;
                 }
                 Util.logo();
                 System.out.println(pf);
                 System.out.println();
                 System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-                String retornarpf = sc.next();
-                menuConsultas(sc);
+                sc.next();
+                menuConsultas(sc, null);
                 return;
             case 2:
-                ContaCorrentePessoaJuridica pj = (ContaCorrentePessoaJuridica) consultaConta(sc);
+                ContaCorrentePessoaJuridica pj = null;
+                try {
+                    pj = (ContaCorrentePessoaJuridica) consultaConta(sc);
+                } catch (ClassCastException e) {
+                    menuConsultas(sc, "Conta selecionada não é Conta Corrente Pessoa Jurídica");
+                }
+
                 if (pj == null) {
-                    menuConsultas(sc);
+                    menuConsultas(sc, "Conta não localizada!");
                     return;
                 }
                 Util.logo();
                 System.out.println(pj);
                 System.out.println();
                 System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-                String retornarpj = sc.next();
-                menuConsultas(sc);
+                sc.next();
+                menuConsultas(sc, null);
                 return;
             case 3:
-                ContaPoupanca poup = (ContaPoupanca) consultaConta(sc);
+                ContaPoupanca poup = null;
+                try {
+                    poup = (ContaPoupanca) consultaConta(sc);
+                } catch (ClassCastException e) {
+                    menuConsultas(sc, "Conta selecionada não é Conta Poupança");
+                }
+
                 if (poup == null) {
-                    menuConsultas(sc);
+                    menuConsultas(sc, "Conta não localizada!");
                     return;
                 }
+
                 Util.logo();
                 System.out.println(poup);
                 System.out.println();
                 System.out.print("Digite qualquer coisa e pressione ENTER para retornar ao menu anterior   ");
-                String retornarPoup = sc.next();
-                menuConsultas(sc);
+                sc.next();
+                menuConsultas(sc, null);
                 return;
             case 4:
                 menuInicial(sc);
@@ -356,6 +386,138 @@ public class Aplicacao {
 
     private static Conta consultaConta(Scanner sc) {
         Util.logo();
+        System.out.print("Digite o número da agência ..:   ");
+
+        int numeroAgencia;
+        do {
+            while (!sc.hasNextInt()) {
+                sc.next();
+            }
+            numeroAgencia = sc.nextInt();
+        } while (numeroAgencia < 1);
+
+        if (!Agencia.agenciaExiste(numeroAgencia)) {
+            return null;
+        }
+
+        System.out.print("Digite o número da conta ....:   ");
+        int numeroConta;
+        do {
+            while (!sc.hasNextInt()) {
+                sc.next();
+            }
+            numeroConta = sc.nextInt();
+        } while (numeroConta < 1);
+
+        if (!Agencia.getAgencia(numeroAgencia).contaExiste(numeroConta)) {
+            return null;
+        }
+
+        return Agencia.getAgencia(numeroAgencia).getConta(numeroConta);
+    }
+
+    private static void menuTransacoes(Scanner sc, String mensagem) throws ClienteException, ContaException {
+        Util.logo();
+        System.out.println("01.   Depositar");
+        System.out.println("02.   Sacar");
+        System.out.println("03.   Transferir");
+        System.out.println("04.   Investir");
+        System.out.println("05.   Poupar");
+        System.out.println("06.   Retornar ao menu anterior");
+        System.out.println();
+
+        if (mensagem != null) {
+            System.out.println(mensagem);
+            System.out.println();
+        }
+
+        int escolhido;
+        do {
+            System.out.print("Informe a opção:  ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Informe a opção:  ");
+                sc.next();
+            }
+            escolhido = sc.nextInt();
+        } while (escolhido > 6 || escolhido < 1);
+
+        switch (escolhido) {
+            case 1:
+                depositar(sc);
+                menuTransacoes(sc, null);
+                return;
+            case 2:
+                sacar(sc);
+                menuTransacoes(sc, null);
+                return;
+            case 3:
+                transferir(sc);
+                menuTransacoes(sc, null);
+                return;
+            case 4:
+                investir(sc);
+                menuTransacoes(sc, null);
+                return;
+            case 5:
+                poupar(sc);
+                menuTransacoes(sc, null);
+                return;
+            case 6:
+                menuInicial(sc);
+                return;
+            default:
+                System.out.println("Erro!");
+        }
+    }
+
+    private static void depositar(Scanner sc) throws ClienteException, ContaException {
+        Conta conta = consultaConta(sc);
+
+        if (conta == null) {
+            menuTransacoes(sc, "Conta não localizada!");
+            return;
+        }
+
+        System.out.print("Digite o valor do depósito ..:   ");
+
+        BigDecimal valor;
+        do {
+            while (!sc.hasNextDouble()) {
+                sc.next();
+            }
+            valor = BigDecimal.valueOf(sc.nextDouble());
+        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+
+        conta.depositar(valor);
+    }
+
+    private static void sacar(Scanner sc) throws ClienteException, ContaException {
+        Conta conta = consultaConta(sc);
+
+        if (conta == null) {
+            menuTransacoes(sc, "Conta não localizada!");
+            return;
+        }
+
+        System.out.print("Digite o valor do saque .....:   ");
+
+        BigDecimal valor;
+        do {
+            while (!sc.hasNextDouble()) {
+                sc.next();
+            }
+            valor = BigDecimal.valueOf(sc.nextDouble());
+        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+
+        try {
+            conta.sacar(valor);
+        } catch (ContaException e) {
+            menuTransacoes(sc, e.getMessage());
+            return;
+        }
+    }
+
+    private static Conta consultaParaTransferir(Scanner sc) {
         System.out.print("Digite o número da agência ..:   ");
 
         int numeroAgencia;
@@ -388,43 +550,115 @@ public class Aplicacao {
         return Agencia.getAgencia(numeroAgencia).getConta(numeroConta);
     }
 
-    
-    private static void menuTransacoes(Scanner sc) throws ClienteException, ContaException {
+    private static void transferir(Scanner sc) throws ClienteException, ContaException {
         Util.logo();
-        System.out.println("01.   Depositar");
-        System.out.println("02.   Sacar");
-        System.out.println("03.   Transferir");
-        System.out.println("04.   Investir");
-        System.out.println("05.   Poupar");
-        System.out.println("06.   Retornar ao menu anterior");
-        System.out.println();
 
-        int escolhido;
+        System.out.println("Informe os dados da conta de origem: \n");
+
+        Conta contaOrigem = consultaParaTransferir(sc);
+
+        if (contaOrigem == null) {
+            menuTransacoes(sc, "Conta de origem não localizada!");
+            return;
+        }
+
+        System.out.println("\nInforme os dados da conta de destino: \n");
+
+        Conta contaDestino = consultaParaTransferir(sc);
+
+        if (contaDestino == null) {
+            menuTransacoes(sc, "Conta de destino não localizada!");
+            return;
+        }
+
+        System.out.print("\nDigite o valor a transferir .:   ");
+
+        BigDecimal valor;
         do {
-            System.out.print("Informe a opção:  ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Informe a opção:  ");
+            while (!sc.hasNextDouble()) {
                 sc.next();
             }
-            escolhido = sc.nextInt();
-        } while (escolhido > 6 || escolhido < 1);
+            valor = BigDecimal.valueOf(sc.nextDouble());
+        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
 
-        switch (escolhido) {
-            case 1:
-                return;
-            case 2:
-                return;
-            case 3:
-                return;
-            case 4:
-                return;
-            case 5:
-                return;
-            case 6:
-                menuInicial(sc);
-                return;
-            default:
-                System.out.println("Erro!");
+        try {
+            contaOrigem.transferir(contaDestino.getAgencia().getNumero(), contaDestino.getNumeroConta(), valor);
+        } catch (AgenciaException | ContaException e) {
+            menuTransacoes(sc, e.getMessage());
+            return;
+        }
+    }
+
+    private static void investir(Scanner sc) throws ClienteException, ContaException {
+
+        ContaCorrente conta = null;
+        try {
+            conta = (ContaCorrente) consultaConta(sc);
+        } catch (ClassCastException e) {
+            menuTransacoes(sc, "Conta selecionada não é Conta Corrente");
+        }
+
+        System.out.print("Digite o valor a investir ...:   ");
+
+        BigDecimal valor;
+        do {
+            while (!sc.hasNextDouble()) {
+                sc.next();
+            }
+            valor = BigDecimal.valueOf(sc.nextDouble());
+        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+
+        System.out.print("Digite o prazo em dias ......:   ");
+
+        int dias;
+        do {
+            while (!sc.hasNextInt()) {
+                sc.next();
+            }
+            dias = sc.nextInt();
+        } while (dias < 1);
+
+        try {
+            conta.investir(valor, dias);
+        } catch (ContaException e) {
+            menuTransacoes(sc, e.getMessage());
+            return;
+        }
+    }
+
+    private static void poupar(Scanner sc) throws ClienteException, ContaException {
+        ContaPoupanca conta = null;
+        try {
+            conta = (ContaPoupanca) consultaConta(sc);
+        } catch (ClassCastException e) {
+            menuTransacoes(sc, "Conta selecionada não é Conta Poupança");
+        }
+
+        System.out.print("Digite o valor a poupar .....:   ");
+
+        BigDecimal valor;
+        do {
+            while (!sc.hasNextDouble()) {
+                sc.next();
+            }
+            valor = BigDecimal.valueOf(sc.nextDouble());
+        } while (valor.compareTo(BigDecimal.valueOf(0.01)) < 0);
+
+        System.out.print("Digite o prazo em dias ......:   ");
+
+        int dias;
+        do {
+            while (!sc.hasNextInt()) {
+                sc.next();
+            }
+            dias = sc.nextInt();
+        } while (dias < 1);
+
+        try {
+            conta.poupar(valor, dias);
+        } catch (ContaException e) {
+            menuTransacoes(sc, e.getMessage());
+            return;
         }
     }
 }

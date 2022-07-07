@@ -1,7 +1,5 @@
 package br.com.pedro.classes;
 
-import java.util.function.Function;
-
 public abstract class Util {
     
     public static void ClearConsole(){

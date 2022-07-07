@@ -1,6 +1,7 @@
 package br.com.pedro.classes;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public abstract class Conta {
 
@@ -67,7 +68,7 @@ public abstract class Conta {
     public String toString() {
         return this.agencia.toString() + "\n"
                 + "Conta ......: " + this.numeroConta + "\n"
-                + "Saldo ......: " + this.saldo;
+                + "Saldo ......: " + "R$ " + this.saldo.setScale(2, RoundingMode.UP);
     }
 
     @Override

@@ -3,8 +3,8 @@ package br.com.pedro.classes;
 import br.com.pedro.classes.ClientePessoaFisica.EstadoCivil;
 
 public class Carga {
-    
-    {   
+
+    {
         Agencia agencia = null;
         try {
             agencia = new Agencia(2811, "Praia de Boa Viagem");
@@ -19,9 +19,8 @@ public class Carga {
             e.printStackTrace();
         }
 
-        ContaCorrentePessoaFisica contaPF = null;
         try {
-            contaPF = new ContaCorrentePessoaFisica(agencia, 8214106, pedro);
+            new ContaCorrentePessoaFisica(agencia, 8214106, pedro);
         } catch (ContaException e) {
             e.printStackTrace();
         }
@@ -34,7 +33,7 @@ public class Carga {
         }
 
         try {
-            ContaCorrentePessoaJuridica contaPJ = new ContaCorrentePessoaJuridica(agencia, 55, empresa);
+            new ContaCorrentePessoaJuridica(agencia, 55, empresa);
         } catch (ContaException e) {
             e.printStackTrace();
         }
