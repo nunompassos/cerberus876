@@ -1,8 +1,8 @@
 package br.com.letscode.util;
 
 public abstract class DigitoVerificador {
-	private static final int[] pesos = {1,3,5,9,5};
-	public static final int numeroDeDigitos = 5;
+	private static final int[] pesos = {1,3,5,9,5,3};
+	public static final int numeroDeDigitos = 6;
 	
 	public static int calculaDigito(int num) {
 		if (String.valueOf(num).length() != numeroDeDigitos) 

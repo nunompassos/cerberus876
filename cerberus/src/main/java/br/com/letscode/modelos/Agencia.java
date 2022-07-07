@@ -54,8 +54,6 @@ public class Agencia {
 			this.cadastrarCliente((PessoaFisica) cliente);
 		else if (PessoaJuridica.class.isInstance(cliente))
 			this.cadastrarCliente((PessoaJuridica) cliente);
-		
-		this.abrirConta(cliente, ContaCorrente.class);
 	}
 
 	private void cadastrarCliente(PessoaFisica pessoa) {
@@ -79,10 +77,10 @@ public class Agencia {
 		clientesPf.add(dono);
 	}
 
-	public void abrirConta(Pessoa cliente, Class<?> tipoDeConta) {
+	public int abrirConta(Pessoa cliente, Class<?> tipoDeConta) {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo");
-		if (posicao.containsKey(tipoDeConta))
+		if (!posicao.containsKey(tipoDeConta))
 			throw new IllegalArgumentException("tipoDeConta inválido");
 		verificaSeTemConta(cliente, tipoDeConta);
 
@@ -101,6 +99,7 @@ public class Agencia {
 
 		mapPessoasContas.get(cliente)[posicao.get(tipoDeConta)] = novaConta;
 		contas.add(novaConta);
+		return numero;
 	}
 
 	private void verificaSeTemConta(Pessoa cliente, Class<?> tipoDeConta) {
@@ -113,15 +112,15 @@ public class Agencia {
 	private int geraNumeroConta(Class<?> tipoDeConta) {
 		int numero;
 		Random r = new Random();
-		int min = (int) Math.pow(10, DigitoVerificador.numeroDeDigitos);
-		int max = min * 10 - 1;
+		int min = 0;
+		int max = (int) Math.pow(10, DigitoVerificador.numeroDeDigitos - 1) - 1;
 
 		// Colocando o primeiro numero, que corresponde ao tipo de conta
-		min = Integer.parseInt(posicao.get(tipoDeConta) + 1 + String.valueOf(min));
+		min = Integer.parseInt(posicao.get(tipoDeConta) + 1 + String.valueOf(max)) - max;
 		max = Integer.parseInt(posicao.get(tipoDeConta) + 1 + String.valueOf(max));
 
 		do {
-			int numeroSemDigito = min + (int) r.nextDouble() * (max - min);
+			int numeroSemDigito = (int) (min + r.nextDouble() * (max - min));
 			int digito = DigitoVerificador.calculaDigito(numeroSemDigito);
 			numero = numeroSemDigito * 10 + digito;
 		} while (numerosDeConta.contains(numero));
@@ -139,6 +138,10 @@ public class Agencia {
 				return conta;
 		}
 		return null;
+	}
+
+	public Conta[] getContas(Pessoa cliente) {
+		return mapPessoasContas.get(cliente);
 	}
 
 	public Pessoa getCliente(int documento) {
