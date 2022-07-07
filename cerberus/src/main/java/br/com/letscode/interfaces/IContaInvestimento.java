@@ -1,6 +1,8 @@
 package br.com.letscode.interfaces;
 
+import java.math.BigDecimal;
+
 public interface IContaInvestimento {
-  public void aportar();
-  public void retirar();
+  public void aportar(BigDecimal valor);
+  public void retirar(BigDecimal valor);
 }

@@ -11,6 +11,7 @@ import br.com.letscode.interfaces.Transferivel;
 
 public class ContaPoupanca extends Conta implements Sacavel, IRentavel, Transferivel {
   public static List<ContaPoupanca> contas = new ArrayList<ContaPoupanca>();
+  private BigDecimal limite;
 
   public void sacar(BigDecimal quantidade) {
     boolean saldoIsSuficiente = Utils.saldoIsSuficiente(quantidade, this.getSaldo());
@@ -29,6 +30,7 @@ public class ContaPoupanca extends Conta implements Sacavel, IRentavel, Transfer
   public void rende() {
     this.setSaldo(this.getSaldo().add(this.getSaldo().add(IRentavel.RENTABILIDADE_ANUAL_POUPANCA_PF)));
   }
+
   @Override
   public void transfere(int idConta, BigDecimal valor) {
     ContaPoupanca conta = Utils.findPoupancaById(idConta);
@@ -39,4 +41,13 @@ public class ContaPoupanca extends Conta implements Sacavel, IRentavel, Transfer
     this.sacar(valor);
     conta.depositar(valor);
   }
+
+  public void setLimite(BigDecimal limite) {
+    this.limite = limite;
+  }
+
+  public BigDecimal getLimite() {
+    return limite;
+  }
+
 }
