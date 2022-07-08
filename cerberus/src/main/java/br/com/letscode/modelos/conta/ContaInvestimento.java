@@ -1,7 +1,7 @@
-package br.com.letscode.modelos.contaa;
+package br.com.letscode.modelos.conta;
 
 import br.com.letscode.enums.PerfilInvestidor;
-import br.com.letscode.modelos.pessoaa.Pessoa;
+import br.com.letscode.modelos.pessoa.Pessoa;
 
 public class ContaInvestimento extends Conta {
 

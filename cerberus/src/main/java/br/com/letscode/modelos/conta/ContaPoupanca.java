@@ -1,6 +1,6 @@
-package br.com.letscode.modelos.contaa;
+package br.com.letscode.modelos.conta;
 
-import br.com.letscode.modelos.pessoaa.PessoaFisica;
+import br.com.letscode.modelos.pessoa.PessoaFisica;
 
 public class ContaPoupanca extends Conta {
 	

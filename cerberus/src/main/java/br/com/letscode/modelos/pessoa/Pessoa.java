@@ -1,4 +1,4 @@
-package br.com.letscode.modelos.pessoaa;
+package br.com.letscode.modelos.pessoa;
 
 import java.util.HashSet;
 import java.util.Set;

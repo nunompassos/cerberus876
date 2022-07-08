@@ -1,4 +1,4 @@
-package br.com.letscode.modelos.pessoaa;
+package br.com.letscode.modelos.pessoa;
 
 import java.time.LocalDate;
 import java.time.Period;
