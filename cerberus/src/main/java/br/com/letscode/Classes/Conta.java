@@ -21,9 +21,11 @@ public class Conta {
         this.saldo = new BigDecimal("0.00");
         this.rendimento = tipoConta.rendimento;
         // Já considera o rendimento de + 2% se a conta for de investimento/pessoa
-        // física. Está puxando dos Enums.
-        this.taxa = tipoPessoa.taxa; // Puxa do ENUM: 0.5% para PJ e 0% para PF. Aplica-se a
-        // saque e transf.
+        // física. Está puxando dos Enums, de acordo com o tipo de conta e com o tipo de
+        // usuário (PF ou PJ)
+        this.taxa = tipoPessoa.taxa;
+        // Puxa do ENUM TipoDePessoa: 0.5% para PJ e 0% para PF. Aplica-se a saques e
+        // transferências.
     }
 
     // Getters e Setters
@@ -80,7 +82,7 @@ public class Conta {
         }
     }
 
-    public final void depositar(Conta conta, String valor) {
+    public static final void depositar(Conta conta, String valor) {
         conta.saldo = conta.saldo.add(new BigDecimal(valor));
     }
 
@@ -90,14 +92,23 @@ public class Conta {
         }
     }
 
-    public final void investir(ContaInvestimento destino, String valor) {
+    public final void investir(String valor) {
         BigDecimal valorBD = new BigDecimal(valor);
-
-        if (valorBD.compareTo(this.saldo) > 0) {
-            System.out.println("Saldo insuficiente.");
-        } else {
-            this.saldo = this.saldo.subtract(valorBD);
-            depositar(destino, valor);
+        if (this.tipoConta != TipoDeConta.INVESTIMENTO) {
+            System.out.println("Não é impossível investir na modalidade CONTA " + this.tipoConta);
         }
+        else {
+            if (valorBD.compareTo(this.saldo) > 0) {
+                System.out.println("Saldo insuficiente.");
+            } else {
+                this.saldo = this.saldo.subtract(valorBD);
+                depositar(App.contas.get(this.numeroDaConta), valor);
+            }
+        }
+    }   
+        
+    public final String toString() {
+        return "Cliente de ID " + this.user.getId() + ", PESSOA "
+        + tipoPessoa + ", Conta " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2);
     }
 }
