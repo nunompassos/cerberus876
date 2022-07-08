@@ -22,7 +22,7 @@ public class App {
 
     static void criarUser(String nome, String tipoPessoa) {
         users.add(new User(nome, tipoPessoa));
-        System.out.println("\nUser criado com sucesso. Novo user:\n" + users.get(users.size()-1).toString());
+        System.out.println("\nUser criado com sucesso. Novo user:\n" + users.get(users.size() - 1).toString());
     }
 
     static void criarConta(User user, String tipoConta) {

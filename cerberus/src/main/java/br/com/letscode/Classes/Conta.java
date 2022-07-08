@@ -67,6 +67,7 @@ public abstract class Conta {
     public void setRendimento(BigDecimal rendimento) {
         this.rendimento = rendimento;
     }
+
     // Outros métodos
     public boolean sacar(String valor) {
         BigDecimal valorBD = new BigDecimal(valor);
@@ -87,7 +88,7 @@ public abstract class Conta {
         conta.saldo = conta.saldo.add(new BigDecimal(valor));
     }
 
-    // 
+    //
     public final void transferir(Conta destino, String valor) {
         if (sacar(valor)) {
             depositar(destino, valor);
@@ -99,13 +100,18 @@ public abstract class Conta {
         msg = "\nNão é possível investir nesta modalidade: CONTA " + this.getTipoConta() + ".\n";
         System.out.println(msg);
     }
-    
+
     @Override
     public String toString() {
-        return "Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2) + "  (User ID: " + this.user.getId() + ", PESSOA "
-        + tipoPessoa + ".)";
+        return "Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2) + "  (User ID: "
+                + this.user.getId() + ", PESSOA "
+                + tipoPessoa + ".)";
     }
 
+    // Já que a conta de Investimento não está listada no enunciado para consulta de
+    // saldo, O padrão é responder isso.
+    // Na subclasse ContaCorrente eu fiz sobrecarga deste método, que foi extendido
+    // à conta poupança.
     public void consultarSaldo() {
         System.out.println("Não é possível consultar saldo nesta modalidade: CONTA " + this.getTipoConta() + ".");
     }

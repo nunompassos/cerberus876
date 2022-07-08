@@ -1,6 +1,5 @@
 package br.com.letscode.Classes;
 
-
 import br.com.letscode.App;
 
 public class User {
@@ -50,25 +49,26 @@ public class User {
             }
         }
     }
+
     @Override
     public String toString() {
         return "Cliente de ID " + this.getId() + ", PESSOA "
-        + tipoPessoa + " nome:  " + this.getNome() + ".";
+                + tipoPessoa + " nome:  " + this.getNome() + ".";
 
-    } 
-    
+    }
+
     // public ArrayList<Conta> minhasContas() {
-    //     ArrayList<Conta> contasUser = new ArrayList<>();
-    //     for (int i = 0; i < App.contas.size(); i++) {
-    //         if (App.contas.get(i).getUser().getId() == (id)) {
-    //             contasUser.add(App.contas.get(i));
-    //             System.out.println(contasUser);
-    //         }
-    //     }
-    //     if (contasUser.size() == 0) {
-    //         System.out.println("Você não possui nenhuma conta ainda.");
-    //     }
-    //     return contasUser;
+    // ArrayList<Conta> contasUser = new ArrayList<>();
+    // for (int i = 0; i < App.contas.size(); i++) {
+    // if (App.contas.get(i).getUser().getId() == (id)) {
+    // contasUser.add(App.contas.get(i));
+    // System.out.println(contasUser);
+    // }
+    // }
+    // if (contasUser.size() == 0) {
+    // System.out.println("Você não possui nenhuma conta ainda.");
+    // }
+    // return contasUser;
 
-    // }   
+    // }
 }

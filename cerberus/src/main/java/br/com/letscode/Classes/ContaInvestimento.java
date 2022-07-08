@@ -14,7 +14,7 @@ public class ContaInvestimento extends Conta {
     public void investir(String valor) {
         this.setSaldo(this.getSaldo().add(new BigDecimal(valor)));
         System.out.println("Investimento realizado com sucesso. Você possui " + this.getSaldo()
-                + " investidos. Faça passar o mês (menu nº 8) para ver o rendimento.");
+                + " investidos. Faça passar o mês (menu nº 7) para ver o rendimento.");
 
     }
 }
