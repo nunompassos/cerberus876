@@ -2,26 +2,90 @@ package br.com.letscode.telas;
 
 import java.util.Scanner;
 
-public class Tela {
+import br.com.letscode.excecoes.SairDaTelaException;
+import br.com.letscode.util.Console;
 
-	protected Tela(String nome, String[] opcoes, Scanner sc) {
-		this.sc = sc;
-		this.opcoes = opcoes;
+// public class Tela {
+public abstract class Tela {
+
+	public static Scanner sc = new Scanner(System.in);
+	protected String[] opcoes = { "Entrar", "Cadastrar", "Sair", "Coisa", "Trem" };
+	protected String nome = "Tela Inicial";
+	protected static final int opcoesPorLinha = 4;
+
+	public Tela(String nome, String[] opcoes) {
 		this.nome = nome;
-		this.mostrar();
+		this.opcoes = opcoes;
 	}
 
-	protected Scanner sc;
-	private String[] opcoes;
-	private String nome;
-	private static final int opcoesPorLinha = 4;
 
-	public void mostrar() {
+	// private void opcao1() {
+	// 	throw new RuntimeException();
+	// };
+	// private void opcao2() {};
+	// private void opcao3() {};
+	// private void opcao4() {};
+	// private void opcao5() {};
+	// private void opcao6() {};
+	// private void opcao7() {};
+	// private void opcao8() {};
+
+	protected abstract void opcao1();
+	protected abstract void opcao2();
+	protected abstract void opcao3();
+	protected abstract void opcao4();
+	protected abstract void opcao5();
+	protected abstract void opcao6();
+	protected abstract void opcao7();
+	protected abstract void opcao8();
+	protected abstract void mostraInfo();
+
+	protected void iniciar() {
+		while (true) {
+			try {
+				
+				this.mostrar();
+				System.out.print("Escolha uma opção... ");
+				switch (Console.lerInt(1, this.opcoes.length)) {
+					case 1:
+						this.opcao1();
+						break;
+					case 2:
+						this.opcao2();
+						break;
+					case 3:
+						this.opcao3();
+						break;
+					case 4:
+						this.opcao4();
+						break;
+					case 5:
+						this.opcao5();
+						break;
+					case 6:
+						this.opcao6();
+						break;
+					case 7:
+						this.opcao7();
+						break;
+					case 8:
+						this.opcao8();
+						break;
+				}
+			} catch (SairDaTelaException s) {
+				break;
+			}
+		}
+	}
+
+	protected void mostrar() {
 		this.mostraCabecalho();
 		this.mostraOpcoes();
+		this.mostraInfo();
+		System.out.println();
 	}
 
-	public void mostraOpcoes() {
+	protected void mostraOpcoes() {
 		for (int i = 0; i < opcoes.length; i += opcoesPorLinha) {
 			String linha = "";
 			for (int j = 0; j < opcoesPorLinha; j++) {
@@ -31,78 +95,23 @@ public class Tela {
 					break;
 				}
 			}
-			printaCentro(linha);
+			Console.printaCentro(linha);
 			System.out.println();
 		}
 	}
 
-	public void mostraCabecalho() {
-		limparConsole();
-		printaCentro("", '-');
-		printaCentro("Banco do Jay", '-');
-		printaCentro("", '-');
-		printaCentro("Aqui seu dinheiro é meu", '-');
-		printaCentro("(Não, pera.. é seu, mas eu controlo!)", '-');
-		printaCentro("(Não... eu cuido!)", '-');
-		printaCentro("", '-');
+	protected void mostraCabecalho() {
+		Console.limparConsole();
+		Console.printaCentro("", '-');
+		Console.printaCentro("Banco do Jay", '-');
+		Console.printaCentro("", '-');
+		Console.printaCentro("Aqui seu dinheiro é meu", '-');
+		Console.printaCentro("(Não, pera.. é seu, mas eu controlo!)", '-');
+		Console.printaCentro("(Não... eu cuido!)", '-');
+		Console.printaCentro("", '-');
 		System.out.println();
-		printaCentro(nome);
+		Console.printaCentro(nome);
 		System.out.println();
-		System.out.println();
 	}
 
-	private static void printaCentro(String s) {
-		printaCentro(s, ' ');
-	}
-
-	private static void printaCentro(String s, char c) {
-		System.out.println(centraliza(s, c));
-	}
-
-	private static String centraliza(String s) {
-		return centraliza(s, ' ');
-	}
-
-	private static String centraliza(String s, char c) {
-		int comeco = (80 - s.length()) / 2;
-		if (comeco < 0) {
-			s = s.substring(0, 80);
-			comeco = 0;
-		}
-		// Protegendo os espaços
-		s = s.replace(' ', '~');
-		// Botando c na frente e atrás
-		String saida = new String(new char[comeco]);
-		saida = saida.replace((char) 0, c);
-		saida += s;
-		saida = String.format("%-80s", saida).replace(' ', c);
-		saida = saida.replace('~', ' ');
-		return saida;
-
-	}
-
-	private static void limparConsole() {
-		try {
-			String operatingSystem = System.getProperty("os.name"); // Check the current operating system
-			if (operatingSystem.contains("Windows")) {
-				ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "cls");
-				Process startProcess = pb.inheritIO().start();
-				startProcess.waitFor();
-			} else {
-				ProcessBuilder pb = new ProcessBuilder("clear");
-				Process startProcess = pb.inheritIO().start();
-				startProcess.waitFor();
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String[] opcoes = { "Entrar", "Cadastrar", "Sair", "Coisa", "Trem" };
-		Tela t = new Tela("Tela inicial", opcoes, sc);
-		sc.nextLine();
-
-	}
 }

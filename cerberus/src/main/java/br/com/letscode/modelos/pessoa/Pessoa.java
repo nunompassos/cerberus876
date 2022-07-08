@@ -10,7 +10,7 @@ public abstract class Pessoa {
 	private String endereco;
 	private String telefone;
 	private int documento;
-	private static final Set<Integer> documentos = new HashSet<Integer>();
+	public static final Set<Integer> documentos = new HashSet<Integer>();
 
 	Pessoa(String nome, String endereco, String telefone, int documento) {
 		if (Pessoa.documentos.contains(documento))
