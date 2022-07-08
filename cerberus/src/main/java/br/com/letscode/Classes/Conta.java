@@ -93,12 +93,12 @@ public class Conta {
     }
 
     public final void investir(String valor) {
-        BigDecimal valorBD = new BigDecimal(valor);
         if (this.tipoConta != TipoDeConta.INVESTIMENTO) {
             System.out.println("Não é impossível investir na modalidade CONTA " + this.tipoConta);
         }
         else {
             this.saldo = this.saldo.add(new BigDecimal(valor));
+            System.out.println("Investimento realizado com sucesso. Você possui " + this.saldo +" investidos. Faça passar o mês (menu nº 8) para ver o rendimento.");
         }
     }   
         

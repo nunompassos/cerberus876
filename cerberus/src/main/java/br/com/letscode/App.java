@@ -68,22 +68,15 @@ public class App {
             // BigDecimal valorOperação;
             int idtemp = -1;
             String valorTemp = "0";
-            System.out.println("0 - login em usuário PF.");
-            System.out.println("1 - login em usuário PJ.");
+            System.out.println("Digite seu ID.\n0 - login em usuário PF.\n1 - login em usuário PJ.");
             loggedUser = users.get(Integer.parseInt(scanner.next()));
             loggedUser.minhasContas();
             System.out.println("\nDigite o número da conta em que deseja realizar operações.");
             loggedAcc = contas.get(Integer.parseInt(scanner.next()));
-            System.out.println("O que deseja fazer?\n");
-            System.out.println("1 - Abrir outra conta.");
-            System.out.println("2 - Sacar. ");
-            System.out.println("3 - Depositar.");
-            System.out.println("4 - Transferir.");
-            System.out.println("5 - Investir.");
-            System.out.println("6 - Ver saldo e outras informações desta conta.");
-            System.out.println("7 - Ver todas as contas do banco.");
-            System.out.println("8 - Passar um mês (para ver os rendimentos).");
-            System.out.println("9 - Voltar para o início");
+            System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
+            System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
+            System.out.println("5 - Investir.\n6 - Ver saldo e outras informações desta conta.\n7 - Ver todas as contas do banco.");
+            System.out.println("8 - Passar um mês (para ver os rendimentos).\n9 - Voltar para o início");
 
             int optInt = Integer.parseInt(scanner.next());
             OpcoesMenu[] opcoes = OpcoesMenu.values();
@@ -120,10 +113,11 @@ public class App {
                     break;
                 case SALDO:
                     if (loggedAcc.getTipoConta() != TipoDeConta.INVESTIMENTO) {
-                        System.out.println(loggedAcc.toString());
+                        System.out.println(loggedAcc.getSaldo());
                         break;
                     } else {
                         System.out.println("\nEssa função não está disponível para CONTA " + loggedAcc.getTipoConta());
+                        break;
                     }
                 case TODASASCONTAS:
                     printContas();
@@ -162,7 +156,7 @@ public class App {
         Conta.depositar(contas.get(2), "1000");
         Conta.depositar(contas.get(3), "1000");
         Conta.depositar(contas.get(4), "1000");
-
+        
         printContas();
         interativo();
     }
