@@ -1,6 +1,5 @@
 package br.com.letscode.Classes;
 
-import java.util.ArrayList;
 
 import br.com.letscode.App;
 

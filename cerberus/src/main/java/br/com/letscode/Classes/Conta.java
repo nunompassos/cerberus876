@@ -3,12 +3,12 @@ package br.com.letscode.Classes;
 import java.math.BigDecimal;
 import br.com.letscode.App;
 
-public class Conta {
+public abstract class Conta {
     private Integer numeroDaConta;
     protected User user;
     protected Personalidade tipoPessoa;
     protected TipoDeConta tipoConta;
-    private BigDecimal saldo;
+    protected BigDecimal saldo;
     protected BigDecimal rendimento;
     private BigDecimal taxa;
 
@@ -86,24 +86,25 @@ public class Conta {
         conta.saldo = conta.saldo.add(new BigDecimal(valor));
     }
 
+    // 
     public final void transferir(Conta destino, String valor) {
         if (sacar(valor)) {
             depositar(destino, valor);
         }
     }
 
-    public final void investir(String valor) {
-        if (this.tipoConta != TipoDeConta.INVESTIMENTO) {
-            System.out.println("Não é impossível investir na modalidade CONTA " + this.tipoConta);
-        }
-        else {
-            this.saldo = this.saldo.add(new BigDecimal(valor));
-            System.out.println("Investimento realizado com sucesso. Você possui " + this.saldo +" investidos. Faça passar o mês (menu nº 8) para ver o rendimento.");
-        }
-    }   
-        
+    public void investir(String msg) {
+        msg = "Não é possível investir nesta modalidade: CONTA " + this.getTipoConta() + ".";
+        System.out.println(msg);
+    }
+    
+    @Override
     public final String toString() {
         return "Cliente de ID " + this.user.getId() + ", PESSOA "
         + tipoPessoa + ", Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2);
+    }
+
+    public void consultarSaldo() {
+        System.out.println("Não é possível consultar saldo nesta modalidade: CONTA " + this.getTipoConta() + ".");
     }
 }

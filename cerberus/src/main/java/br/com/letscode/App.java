@@ -1,6 +1,5 @@
 package br.com.letscode;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,8 +13,12 @@ import br.com.letscode.Classes.ContaInvestimento;
 import br.com.letscode.Classes.User;
 
 public class App {
-    public static ArrayList<User> users = new ArrayList<>();
+    // Todas as contas são armazenadas neste ArrayList de tipo Conta (classe
+    // abstrata),
+    // embora as classes dos objetos sejam sempre das classes filhas: ContaCorrente,
+    // ContaPoupanca e ContaInvestimento.
     public static ArrayList<Conta> contas = new ArrayList<>();
+    public static ArrayList<User> users = new ArrayList<>();
 
     static void criarUser(String nome, String tipoPessoa) {
         users.add(new User(nome, tipoPessoa));
@@ -75,7 +78,8 @@ public class App {
             loggedAcc = contas.get(Integer.parseInt(scanner.next()));
             System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
             System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
-            System.out.println("5 - Investir.\n6 - Ver saldo e outras informações desta conta.\n7 - Ver todas as contas do banco.");
+            System.out.println(
+                    "5 - Investir.\n6 - Consultar saldos (poupança e corrente).\n7 - Ver todas as contas do banco.");
             System.out.println("8 - Passar um mês (para ver os rendimentos).\n9 - Voltar para o início");
 
             int optInt = Integer.parseInt(scanner.next());
@@ -113,7 +117,7 @@ public class App {
                     break;
                 case SALDO:
                     if (loggedAcc.getTipoConta() != TipoDeConta.INVESTIMENTO) {
-                        System.out.println(loggedAcc.getSaldo());
+                        loggedAcc.consultarSaldo();
                         break;
                     } else {
                         System.out.println("\nEssa função não está disponível para CONTA " + loggedAcc.getTipoConta());
@@ -134,7 +138,7 @@ public class App {
 
             }
         }
-
+        scanner.close();
     }
 
     public static void main(String[] args) {
@@ -143,12 +147,12 @@ public class App {
         criarUser("userPJ", "JURIDICA"); // user id 1, Pessoa Jurídica
 
         // Criando contas do userPF.
-        criarConta(users.get(0), "CORRENTE"); 
-        criarConta(users.get(0), "POUPANCA"); 
-        criarConta(users.get(0), "INVESTIMENTO"); 
+        criarConta(users.get(0), "CORRENTE");
+        criarConta(users.get(0), "POUPANCA");
+        criarConta(users.get(0), "INVESTIMENTO");
         // Criando contas do userPJ.
-        criarConta(users.get(1), "CORRENTE"); 
-        criarConta(users.get(1), "INVESTIMENTO"); 
+        criarConta(users.get(1), "CORRENTE");
+        criarConta(users.get(1), "INVESTIMENTO");
 
         // Depositando R$ 1.000,00 em cada.
         Conta.depositar(contas.get(0), "1000");
@@ -156,7 +160,7 @@ public class App {
         Conta.depositar(contas.get(2), "1000");
         Conta.depositar(contas.get(3), "1000");
         Conta.depositar(contas.get(4), "1000");
-        
+
         printContas();
         interativo();
     }
