@@ -3,7 +3,6 @@ package br.com.letscode;
 import br.com.letscode.model.Aluno;
 import br.com.letscode.model.EstadoCivil;
 import br.com.letscode.model.Professor;
-import br.com.letscode.model.Aluno;
 import br.com.letscode.model.Sexo;
 
 public class App
