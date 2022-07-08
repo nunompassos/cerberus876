@@ -1,6 +1,8 @@
 package br.com.letscode.Classes;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import br.com.letscode.App;
 
 public abstract class Conta {
@@ -65,14 +67,13 @@ public abstract class Conta {
     public void setRendimento(BigDecimal rendimento) {
         this.rendimento = rendimento;
     }
-
     // Outros métodos
     public boolean sacar(String valor) {
         BigDecimal valorBD = new BigDecimal(valor);
-        BigDecimal taxaOperacao = valorBD.multiply(this.taxa);
+        BigDecimal taxaOperacao = valorBD.multiply(this.taxa).setScale(2, RoundingMode.HALF_UP);
         BigDecimal custoTotal = valorBD.add(taxaOperacao);
         System.out.println("A taxa para esta operação é de R$: " + taxaOperacao);
-        System.out.println("Este é o custo total: " + custoTotal);
+        System.out.println("Custo total da operação: " + custoTotal);
         if (custoTotal.compareTo(this.saldo) > 0) {
             System.out.println("Saldo insuficiente.");
             return false;
@@ -90,18 +91,19 @@ public abstract class Conta {
     public final void transferir(Conta destino, String valor) {
         if (sacar(valor)) {
             depositar(destino, valor);
+            System.out.println("\n Transação realizada com sucesso.");
         }
     }
 
     public void investir(String msg) {
-        msg = "Não é possível investir nesta modalidade: CONTA " + this.getTipoConta() + ".";
+        msg = "\nNão é possível investir nesta modalidade: CONTA " + this.getTipoConta() + ".\n";
         System.out.println(msg);
     }
     
     @Override
-    public final String toString() {
-        return "Cliente de ID " + this.user.getId() + ", PESSOA "
-        + tipoPessoa + ", Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2);
+    public String toString() {
+        return "Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2) + "  (User ID: " + this.user.getId() + ", PESSOA "
+        + tipoPessoa + ".)";
     }
 
     public void consultarSaldo() {

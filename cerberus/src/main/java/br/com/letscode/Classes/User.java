@@ -50,6 +50,12 @@ public class User {
             }
         }
     }
+    @Override
+    public String toString() {
+        return "Cliente de ID " + this.getId() + ", PESSOA "
+        + tipoPessoa + " nome:  " + this.getNome() + ".";
+
+    } 
     
     // public ArrayList<Conta> minhasContas() {
     //     ArrayList<Conta> contasUser = new ArrayList<>();

@@ -22,6 +22,7 @@ public class App {
 
     static void criarUser(String nome, String tipoPessoa) {
         users.add(new User(nome, tipoPessoa));
+        System.out.println("\nUser criado com sucesso. Novo user:\n" + users.get(users.size()-1).toString());
     }
 
     static void criarConta(User user, String tipoConta) {
@@ -29,6 +30,9 @@ public class App {
         switch (tc) {
             case CORRENTE:
                 contas.add(new ContaCorrente(user, tc));
+                System.out.println(
+                        "\n\nConta criada com sucesso. Nova conta: \n" + contas.get(contas.size() - 1).toString()
+                                + "\nEfetue o login novamente para utilizá-la.");
                 break;
             case POUPANCA:
                 if (user.getTipoPessoa() == Personalidade.JURIDICA) {
@@ -36,10 +40,16 @@ public class App {
                     break;
                 } else {
                     contas.add(new ContaPoupanca(user, tc));
+                    System.out.println(
+                            "\n\nConta criada com sucesso. Nova conta: \n\n" + contas.get(contas.size() - 1).toString()
+                                    + "\nEfetue o login novamente para utilizá-la.");
                 }
                 break;
             case INVESTIMENTO:
                 contas.add(new ContaInvestimento(user, tc));
+                System.out.println(
+                        "\n\nConta criada com sucesso. Nova conta: \n\n" + contas.get(contas.size() - 1).toString()
+                                + "\nEfetue o login novamente para utilizá-la.");
                 break;
         }
     }
@@ -49,6 +59,15 @@ public class App {
         for (Conta conta : contas) {
             conta.setSaldo(conta.getSaldo().multiply(conta.getRendimento()));
         }
+    }
+
+    public static final void printUser() {
+        System.out.println("\n\n\n\n\n\nUSERS EXISTENTES");
+        System.out.println("-------------------------------------");
+        for (int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i));
+        }
+        System.out.println("-------------------------------------");
     }
 
     // Imprime todas as conta, com informações relevantes (usando o override do
@@ -71,7 +90,7 @@ public class App {
             // BigDecimal valorOperação;
             int idtemp = -1;
             String valorTemp = "0";
-            System.out.println("Digite seu ID.\n0 - login em usuário PF.\n1 - login em usuário PJ.");
+            System.out.println("Digite um ID para efetuar o login: ");
             loggedUser = users.get(Integer.parseInt(scanner.next()));
             loggedUser.minhasContas();
             System.out.println("\nDigite o número da conta em que deseja realizar operações.");
@@ -79,17 +98,15 @@ public class App {
             System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
             System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
             System.out.println(
-                    "5 - Investir.\n6 - Consultar saldos (poupança e corrente).\n7 - Ver todas as contas do banco.");
-            System.out.println("8 - Passar um mês (para ver os rendimentos).\n9 - Voltar para o início");
+                    "5 - Investir.\n6 - Consultar saldo.\n7 - Passar um mês (para ver os rendimentos).");
+            System.out.println(
+                    "\n8 - Ver detalhes de todas as contas do banco.\n\n0 - Sair/Trocar de Usuário.\n");
 
             int optInt = Integer.parseInt(scanner.next());
             OpcoesMenu[] opcoes = OpcoesMenu.values();
 
             switch (opcoes[optInt]) {
-                case TROCARUSUARIO:
-                    System.out.println(
-                            "Digite o ID do usuário em que deseja efetuar login. Dica: o de ID 0 é PF e de ID 1 é PJ");
-                    loggedUser = users.get(Integer.parseInt(scanner.next()));
+                case INICIO:
                     break;
                 case ABRIR:
                     System.out.println("Digite o tipo de conta que deseja criar: CORRENTE, POUPANCA ou INVESTIMENTO");
@@ -98,6 +115,8 @@ public class App {
                 case SACAR:
                     System.out.println("Quanto deseja sacar?   valor: ");
                     loggedAcc.sacar(scanner.next());
+                    System.out.println("\nOperação realizada com sucesso.\nNovo saldo: " + loggedAcc.getSaldo()
+                            + "\n--------------");
                     break;
                 case DEPOSITAR:
                     System.out.println("Valor: ");
@@ -123,16 +142,15 @@ public class App {
                         System.out.println("\nEssa função não está disponível para CONTA " + loggedAcc.getTipoConta());
                         break;
                     }
-                case TODASASCONTAS:
-                    printContas();
-                    break;
                 case PASSARUMMES:
                     virarMes();
                     System.out.println(
-                            "\nApós rendimento, os saldos subiram em:\n> 0,5% Poupança \n> 1% Conta Investimento (PF) \n> 1% + 2% Conta Investimento (PJ)");
+                            "\n||||||||||||||||||||| >Após rendimento, os saldos subiram em:\n||||||||||||||||||||| > 0,5% Poupança \n||||||||||||||||||||| > 1% Conta Investimento (PF) \n||||||||||||||||||||| > 1% + 2% Conta Investimento (PJ)");
                     printContas();
-                case INICIO:
-                    interativo();
+                    break;
+                case TODASASCONTAS:
+                    printContas();
+                    break;
                 default:
                     interativo();
 
@@ -143,8 +161,8 @@ public class App {
 
     public static void main(String[] args) {
         // Criando usuários PF e PJ.
-        criarUser("userPF", "FISICA"); // user Id 0, Pessoa Física
-        criarUser("userPJ", "JURIDICA"); // user id 1, Pessoa Jurídica
+        criarUser("userPF de Sousa", "FISICA"); // user Id 0, Pessoa Física
+        criarUser("userPJ Empreendimentos", "JURIDICA"); // user id 1, Pessoa Jurídica
 
         // Criando contas do userPF.
         criarConta(users.get(0), "CORRENTE");
@@ -154,14 +172,13 @@ public class App {
         criarConta(users.get(1), "CORRENTE");
         criarConta(users.get(1), "INVESTIMENTO");
 
-        // Depositando R$ 1.000,00 em cada.
+        // Depositando R$ 1.000,00 em cada, Para facilitar testes de operações.
         Conta.depositar(contas.get(0), "1000");
         Conta.depositar(contas.get(1), "1000");
         Conta.depositar(contas.get(2), "1000");
         Conta.depositar(contas.get(3), "1000");
         Conta.depositar(contas.get(4), "1000");
-
-        printContas();
+        printUser();
         interativo();
     }
 }
