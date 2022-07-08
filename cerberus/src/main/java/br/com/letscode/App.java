@@ -63,16 +63,27 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
-            User LoggedUser = null;
-            Conta LoggedAcc = null;
-            BigDecimal valorOperação;
+            User loggedUser = null;
+            Conta loggedAcc = null;
+            // BigDecimal valorOperação;
             int idtemp = -1;
             String valorTemp = "0";
             System.out.println("0 - login em usuário PF.");
             System.out.println("1 - login em usuário PJ.");
-            LoggedAcc = contas.get(Integer.parseInt(scanner.next()));
-            System.out.println("O que deseja fazer?\n ");
-
+            loggedUser = users.get(Integer.parseInt(scanner.next()));
+            loggedUser.minhasContas();
+            System.out.println("\nDigite o número da conta em que deseja realizar operações.");
+            loggedAcc = contas.get(Integer.parseInt(scanner.next()));
+            System.out.println("O que deseja fazer?\n");
+            System.out.println("1 - Abrir outra conta.");
+            System.out.println("2 - Sacar. ");
+            System.out.println("3 - Depositar.");
+            System.out.println("4 - Transferir.");
+            System.out.println("5 - Investir.");
+            System.out.println("6 - Ver saldo e outras informações desta conta.");
+            System.out.println("7 - Ver todas as contas do banco.");
+            System.out.println("8 - Passar um mês (para ver os rendimentos).");
+            System.out.println("9 - Voltar para o início");
 
             int optInt = Integer.parseInt(scanner.next());
             OpcoesMenu[] opcoes = OpcoesMenu.values();
@@ -81,45 +92,51 @@ public class App {
                 case TROCARUSUARIO:
                     System.out.println(
                             "Digite o ID do usuário em que deseja efetuar login. Dica: o de ID 0 é PF e de ID 1 é PJ");
-                    LoggedUser = users.get(Integer.parseInt(scanner.next()));
+                    loggedUser = users.get(Integer.parseInt(scanner.next()));
                     break;
                 case ABRIR:
                     System.out.println("Digite o tipo de conta que deseja criar: CORRENTE, POUPANCA ou INVESTIMENTO");
-                    criarConta(LoggedUser, scanner.next());
+                    criarConta(loggedUser, scanner.next());
                     break;
                 case SACAR:
                     System.out.println("Quanto deseja sacar?   valor: ");
-                    LoggedAcc.sacar(scanner.next());
+                    loggedAcc.sacar(scanner.next());
                     break;
                 case DEPOSITAR:
-                    System.out.println("Qual o número da conta em que deseja depositar?");
-                    idtemp = Integer.parseInt(scanner.next());
                     System.out.println("Valor: ");
                     valorTemp = scanner.next();
-                    Conta.depositar(contas.get(idtemp), valorTemp);
+                    Conta.depositar(loggedAcc, valorTemp);
                     break;
                 case TRANSFERIR:
                     System.out.println("Qual o número da conta para qual deseja transferir?");
                     idtemp = Integer.parseInt(scanner.next());
                     System.out.println("Valor: ");
                     valorTemp = scanner.next();
-                    LoggedAcc.transferir(contas.get(idtemp), valorTemp);
+                    loggedAcc.transferir(contas.get(idtemp), valorTemp);
                     break;
                 case INVESTIR:
                     System.out.println("Quanto deseja investir?   valor: ");
-                    LoggedAcc.investir(scanner.next());
+                    loggedAcc.investir(scanner.next());
                     break;
                 case SALDO:
-                    if (LoggedAcc.getTipoConta() != TipoDeConta.INVESTIMENTO) {
-                        System.out.println("Seu saldo é de: " + LoggedAcc.getSaldo());
+                    if (loggedAcc.getTipoConta() != TipoDeConta.INVESTIMENTO) {
+                        System.out.println(loggedAcc.toString());
                         break;
-                    }
-                    else {
-                        System.out.println("Essa função não está disponível para CONTA " + LoggedAcc.getTipoConta());
+                    } else {
+                        System.out.println("\nEssa função não está disponível para CONTA " + loggedAcc.getTipoConta());
                     }
                 case TODASASCONTAS:
                     printContas();
                     break;
+                case PASSARUMMES:
+                    virarMes();
+                    System.out.println(
+                            "\nApós rendimento, os saldos subiram em:\n> 0,5% Poupança \n> 1% Conta Investimento (PF) \n> 1% + 2% Conta Investimento (PJ)");
+                    printContas();
+                case INICIO:
+                    interativo();
+                default:
+                    interativo();
 
             }
         }
@@ -132,17 +149,12 @@ public class App {
         criarUser("userPJ", "JURIDICA"); // user id 1, Pessoa Jurídica
 
         // Criando contas do userPF.
-        criarConta(users.get(0), "CORRENTE"); // conta n. 0
-        criarConta(users.get(0), "POUPANCA"); // conta n. 1.
-        criarConta(users.get(0), "INVESTIMENTO"); // conta n. 2
+        criarConta(users.get(0), "CORRENTE"); 
+        criarConta(users.get(0), "POUPANCA"); 
+        criarConta(users.get(0), "INVESTIMENTO"); 
         // Criando contas do userPJ.
-        criarConta(users.get(1), "CORRENTE"); // conta 3, Corrente, de usuário PJ.
-        criarConta(users.get(1), "INVESTIMENTO"); // conta 4, Investimento, de usuário PJ.
-
-        // Teste para tentar criar conta Poupança em usuário PJ. Sairá o erro no
-        // console.
-        System.out.println("\nTeste para tentar criar Poupança mara usuário PJ:");
-        criarConta(users.get(1), "POUPANCA");
+        criarConta(users.get(1), "CORRENTE"); 
+        criarConta(users.get(1), "INVESTIMENTO"); 
 
         // Depositando R$ 1.000,00 em cada.
         Conta.depositar(contas.get(0), "1000");
@@ -151,13 +163,6 @@ public class App {
         Conta.depositar(contas.get(3), "1000");
         Conta.depositar(contas.get(4), "1000");
 
-        // For loop para imprimir todas as contas existentes no ArrayList<Conta>.
-        printContas();
-
-        // testar o rendimento de cada uma delas.
-        virarMes();
-        System.out.println(
-                "Após rendimento, os saldos subiram em:\n> 0,5% Poupança \n> 1% Conta Investimento (PF) \n> 1% + 2% Conta Investimento (PJ)");
         printContas();
         interativo();
     }

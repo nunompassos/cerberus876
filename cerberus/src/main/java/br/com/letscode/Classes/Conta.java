@@ -98,17 +98,12 @@ public class Conta {
             System.out.println("Não é impossível investir na modalidade CONTA " + this.tipoConta);
         }
         else {
-            if (valorBD.compareTo(this.saldo) > 0) {
-                System.out.println("Saldo insuficiente.");
-            } else {
-                this.saldo = this.saldo.subtract(valorBD);
-                depositar(App.contas.get(this.numeroDaConta), valor);
-            }
+            this.saldo = this.saldo.add(new BigDecimal(valor));
         }
     }   
         
     public final String toString() {
         return "Cliente de ID " + this.user.getId() + ", PESSOA "
-        + tipoPessoa + ", Conta " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2);
+        + tipoPessoa + ", Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2);
     }
 }

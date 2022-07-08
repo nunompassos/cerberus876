@@ -43,17 +43,27 @@ public class User {
 
     // Outros métodos.
 
-    public static ArrayList<Conta> login(User user) {
-        ArrayList<Conta> contasUser = new ArrayList<>();
+    public void minhasContas() {
+        System.out.println("\nBem-vindo, " + nome + ". Suas contas existentes são: \n");
         for (int i = 0; i < App.contas.size(); i++) {
-            if (App.contas.get(i).getUser().getId() == (user.id)) {
-                contasUser.add(App.contas.get(i));
+            if (App.contas.get(i).getUser().getId() == (id)) {
+                System.out.println((App.contas.get(i).toString()));
             }
         }
-        if (contasUser.size() == 0) {
-            System.out.println("Você não possui nenhuma conta ainda.");
-        }
-        return contasUser;
+    }
+    
+    // public ArrayList<Conta> minhasContas() {
+    //     ArrayList<Conta> contasUser = new ArrayList<>();
+    //     for (int i = 0; i < App.contas.size(); i++) {
+    //         if (App.contas.get(i).getUser().getId() == (id)) {
+    //             contasUser.add(App.contas.get(i));
+    //             System.out.println(contasUser);
+    //         }
+    //     }
+    //     if (contasUser.size() == 0) {
+    //         System.out.println("Você não possui nenhuma conta ainda.");
+    //     }
+    //     return contasUser;
 
-    }   
+    // }   
 }
