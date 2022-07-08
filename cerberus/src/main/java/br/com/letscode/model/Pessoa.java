@@ -24,6 +24,10 @@ public class Pessoa {
         this.peso = peso;
     }
 
+    public Pessoa(String nome, String endereco) {
+        this(nome, 0, null, endereco, null, null, null);
+    }
+
     
     public String getNome() {
         return nome;
