@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import br.com.letscode.Utils.Utils;
 
 public class ContaCorrentePF extends ContaCorrente {
+  public ContaCorrentePF(){
+    super();
+  }
   @Override
   public void sacar(BigDecimal quantidade) {
     boolean saldoIsSuficiente = Utils.saldoIsSuficiente(quantidade, this.getSaldo());

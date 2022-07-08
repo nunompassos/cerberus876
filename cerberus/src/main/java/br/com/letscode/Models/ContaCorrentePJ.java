@@ -6,10 +6,14 @@ import br.com.letscode.Utils.Utils;
 import br.com.letscode.interfaces.Taxavel;
 
 public class ContaCorrentePJ extends ContaCorrente implements Taxavel {
+  public ContaCorrentePJ(){
+    super();
+  }
   @Override
   public void sacar(BigDecimal quantidade) {
     //trocar pq é em cima do valor do saque/transferencia e nao do saldo.
-    BigDecimal valorASacar = this.getSaldo().add(this.getSaldo().multiply(Taxavel.tributo));
+    BigDecimal valorASacar = quantidade.add(quantidade.multiply(Taxavel.TAXA));
+
     boolean saldoIsSuficiente = Utils.saldoIsSuficiente(valorASacar, this.getSaldo());
     if (!saldoIsSuficiente) {
       System.out.println("SaldoInsuficiente");

@@ -49,5 +49,8 @@ public class ContaPoupanca extends Conta implements Sacavel, IRentavel, Transfer
   public BigDecimal getLimite() {
     return limite;
   }
-
+  @Override
+  public String toString() {
+    return super.toString() + String.format("Limite: %s\n", this.getLimite());
+  }
 }

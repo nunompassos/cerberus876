@@ -10,7 +10,10 @@ import br.com.letscode.interfaces.Transferivel;
 public abstract class ContaCorrente extends Conta implements Sacavel, Transferivel {
   public static List<ContaCorrente> contas = new ArrayList<ContaCorrente>();
   private BigDecimal limite;
-
+  public ContaCorrente(){
+    super();
+    this.limite = new BigDecimal(0);
+  }
   public void setLimite(BigDecimal limite) {
     this.limite = limite;
   }
@@ -18,5 +21,8 @@ public abstract class ContaCorrente extends Conta implements Sacavel, Transferiv
   public BigDecimal getLimite() {
     return limite;
   }
-
+  @Override
+  public String toString() {
+    return super.toString() + String.format("------------------\nLimite: %s\n------------------\n\n\n", this.getLimite());
+  }
 }

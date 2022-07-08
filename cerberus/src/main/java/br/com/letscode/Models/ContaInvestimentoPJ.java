@@ -2,12 +2,11 @@ package br.com.letscode.models;
 
 import java.math.BigDecimal;
 
-
 import br.com.letscode.interfaces.IRentavel;
 
-public class ContaInvestimentoPF extends ContaInvestimento {
+public class ContaInvestimentoPJ extends ContaInvestimento {
 
-  public ContaInvestimentoPF(ContaCorrentePF titular) {
+  public ContaInvestimentoPJ(ContaCorrentePJ titular) {
     this.setTitular(titular);
     this.setNumeroDaConta(titular.getNumeroDaConta());
   }
@@ -25,6 +24,6 @@ public class ContaInvestimentoPF extends ContaInvestimento {
 
   @Override
   public void rende() {
-    this.setSaldo(this.getSaldo().add(this.getSaldo().multiply(IRentavel.RENTABILIDADE_ANUAL_INVESTIMENTO_PF)));
+    this.setSaldo(this.getSaldo().add(this.getSaldo().multiply(IRentavel.RENTABILIDADE_ANUAL_INVESTIMENTO_PJ)));
   }
 }

@@ -35,7 +35,7 @@ public class Utils {
 
   public static ContaCorrente findCorrenteById(int idConta) {
     ContaCorrente conta = ContaCorrente.contas.stream()
-        .filter(conta -> (conta.getNumeroDaConta() == idConta))
+        .filter(contaAAchar -> (contaAAchar.getNumeroDaConta() == idConta))
         .findAny()
         .orElse(null);
     return conta;
@@ -43,7 +43,7 @@ public class Utils {
 
   public static ContaPoupanca findPoupancaById(int idConta) {
     ContaPoupanca conta = ContaPoupanca.contas.stream()
-        .filter(conta -> (conta.getNumeroDaConta() == idConta))
+        .filter(contaAAchar -> (contaAAchar.getNumeroDaConta() == idConta))
         .findAny()
         .orElse(null);
     return conta;
@@ -52,7 +52,7 @@ public class Utils {
 
   public static ContaInvestimento findInvestimentoById(int idConta) {
     ContaInvestimento conta = ContaInvestimento.contas.stream()
-        .filter(conta -> (conta.getNumeroDaConta() == idConta))
+        .filter(contaAAchar -> (contaAAchar.getNumeroDaConta() == idConta))
         .findAny()
         .orElse(null);
     return conta;
