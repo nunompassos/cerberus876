@@ -6,8 +6,8 @@ import java.util.Random;
 
 import br.com.letscode.excecoes.AgenciaDuplicadaException;
 import br.com.letscode.excecoes.ContaJaExisteException;
-import br.com.letscode.modelos.contaa.*;
-import br.com.letscode.modelos.pessoaa.*;
+import br.com.letscode.modelos.conta.*;
+import br.com.letscode.modelos.pessoa.*;
 import br.com.letscode.util.DigitoVerificador;
 
 public class Agencia {

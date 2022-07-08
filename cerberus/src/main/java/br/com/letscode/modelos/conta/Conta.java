@@ -1,10 +1,10 @@
-package br.com.letscode.modelos.contaa;
+package br.com.letscode.modelos.conta;
 
 import br.com.letscode.enums.Taxa;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
-import br.com.letscode.modelos.pessoaa.Pessoa;
-import br.com.letscode.modelos.pessoaa.PessoaFisica;
-import br.com.letscode.modelos.pessoaa.PessoaJuridica;
+import br.com.letscode.modelos.pessoa.Pessoa;
+import br.com.letscode.modelos.pessoa.PessoaFisica;
+import br.com.letscode.modelos.pessoa.PessoaJuridica;
 import br.com.letscode.util.ConverteSaldo;
 
 public abstract class Conta {
