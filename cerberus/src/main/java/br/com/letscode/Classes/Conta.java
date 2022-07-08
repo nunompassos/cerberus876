@@ -23,8 +23,8 @@ public abstract class Conta {
         this.saldo = new BigDecimal("0.00");
         this.rendimento = tipoConta.rendimento;
         // Já considera o rendimento de + 2% se a conta for de investimento/pessoa
-        // física. Está puxando dos Enums, de acordo com o tipo de conta e com o tipo de
-        // usuário (PF ou PJ)
+        // física. Está puxando 2 Enums relativos ao tipo de conta e com o tipo de
+        // usuário (PF ou PJ).
         this.taxa = tipoPessoa.taxa;
         // Puxa do ENUM TipoDePessoa: 0.5% para PJ e 0% para PF. Aplica-se a saques e
         // transferências.
@@ -92,7 +92,7 @@ public abstract class Conta {
     public final void transferir(Conta destino, String valor) {
         if (sacar(valor)) {
             depositar(destino, valor);
-            System.out.println("\n Transação realizada com sucesso.");
+            System.out.println("\nTransação realizada com sucesso.");
         }
     }
 
@@ -100,7 +100,20 @@ public abstract class Conta {
         msg = "\nNão é possível investir nesta modalidade: CONTA " + this.getTipoConta() + ".\n";
         System.out.println(msg);
     }
+    public abstract void consultarSaldo();
 
+    // Já que a conta de Investimento não está listada no enunciado para consulta de
+    // saldo, Coloquei como abstrato, para que na contaInvestimento, retorne uma mensagem.
+    // Na subclasse ContaCorrente está a implementação real da consulta de saldo, que foi extendido via herança
+    // à conta poupança.
+
+    public String rendimentoFormatter() { 
+        BigDecimal rendTemp = new BigDecimal(100).multiply(this.rendimento.subtract(new BigDecimal(1)));
+        String rendStr = rendTemp.setScale(1, RoundingMode.HALF_EVEN).toString() + "%";
+        
+        return rendStr;
+    }
+    
     @Override
     public String toString() {
         return "Conta número " + numeroDaConta + ", " + tipoConta + ". Saldo: " + saldo.setScale(2) + "  (User ID: "
@@ -108,11 +121,4 @@ public abstract class Conta {
                 + tipoPessoa + ".)";
     }
 
-    // Já que a conta de Investimento não está listada no enunciado para consulta de
-    // saldo, O padrão é responder isso.
-    // Na subclasse ContaCorrente eu fiz sobrecarga deste método, que foi extendido
-    // à conta poupança.
-    public void consultarSaldo() {
-        System.out.println("Não é possível consultar saldo nesta modalidade: CONTA " + this.getTipoConta() + ".");
-    }
 }

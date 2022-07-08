@@ -1,5 +1,6 @@
 package br.com.letscode;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,7 +58,7 @@ public class App {
     // Faz incidir o rendimento mensal em todas as contas.
     static void virarMes() {
         for (Conta conta : contas) {
-            conta.setSaldo(conta.getSaldo().multiply(conta.getRendimento()));
+            conta.setSaldo(conta.getSaldo().multiply(conta.getRendimento()).setScale(2, RoundingMode.HALF_UP));
         }
     }
 
@@ -76,90 +77,107 @@ public class App {
         System.out.println("\nCONTAS EXISTENTES");
         System.out.println("-------------------------------------");
         for (int i = 0; i < contas.size(); i++) {
-            System.out.println(contas.get(i));
+            System.out.println(contas.get(i) + "  -  Rendimento: " + contas.get(i).rendimentoFormatter());
         }
         System.out.println("-------------------------------------");
     }
 
-    static void interativo() {
+    static void interativo() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
             User loggedUser = null;
             Conta loggedAcc = null;
             // BigDecimal valorOperação;
-            int idtemp = -1;
+            int idTemp = -1;
             String valorTemp = "0";
             System.out.println("Digite um ID para efetuar o login: ");
             loggedUser = users.get(Integer.parseInt(scanner.next()));
             loggedUser.minhasContas();
             System.out.println("\nDigite o número da conta em que deseja realizar operações.");
             loggedAcc = contas.get(Integer.parseInt(scanner.next()));
-            System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
-            System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
-            System.out.println(
-                    "5 - Investir.\n6 - Consultar saldo.\n7 - Passar um mês (para ver os rendimentos).");
-            System.out.println(
-                    "\n8 - Ver detalhes de todas as contas do banco.\n\n0 - Sair/Trocar de Usuário.\n");
+            boolean logado = true;
+            while (logado) {
+                System.out.println("\nPrecione Enter para continuar.");
+                try {
+                    System.in.read();
+                } catch (Exception e) {
+                }
+                System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
+                System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
+                System.out.println(
+                        "5 - Investir.\n6 - Consultar saldo.\n\n7 - Passar um mês (para ver os rendimentos).");
+                System.out.println(
+                        "8 - Ver detalhes de todas as contas do banco.\n\n9 - Trocar de usuário/conta \n0 - Sair.\n");
 
-            int optInt = Integer.parseInt(scanner.next());
-            OpcoesMenu[] opcoes = OpcoesMenu.values();
+                int optInt = Integer.parseInt(scanner.next());
+                OpcoesMenu[] opcoes = OpcoesMenu.values();
 
-            switch (opcoes[optInt]) {
-                case INICIO:
-                    break;
-                case ABRIR:
-                    System.out.println("Digite o tipo de conta que deseja criar: CORRENTE, POUPANCA ou INVESTIMENTO");
-                    criarConta(loggedUser, scanner.next());
-                    break;
-                case SACAR:
-                    System.out.println("Quanto deseja sacar?   valor: ");
-                    loggedAcc.sacar(scanner.next());
-                    System.out.println("\nOperação realizada com sucesso.\nNovo saldo: " + loggedAcc.getSaldo()
-                            + "\n--------------");
-                    break;
-                case DEPOSITAR:
-                    System.out.println("Valor: ");
-                    valorTemp = scanner.next();
-                    Conta.depositar(loggedAcc, valorTemp);
-                    break;
-                case TRANSFERIR:
-                    System.out.println("Qual o número da conta para qual deseja transferir?");
-                    idtemp = Integer.parseInt(scanner.next());
-                    System.out.println("Valor: ");
-                    valorTemp = scanner.next();
-                    loggedAcc.transferir(contas.get(idtemp), valorTemp);
-                    break;
-                case INVESTIR:
-                    System.out.println("Quanto deseja investir?   valor: ");
-                    loggedAcc.investir(scanner.next());
-                    break;
-                case SALDO:
-                    if (loggedAcc.getTipoConta() != TipoDeConta.INVESTIMENTO) {
+                switch (opcoes[optInt]) {
+                    case SAIR: // 0
+                        running = false;
+                        break;
+                    case ABRIR: // 1
+                        System.out
+                                .println("Digite o tipo de conta que deseja criar: CORRENTE, POUPANCA ou INVESTIMENTO");
+                        criarConta(loggedUser, scanner.next());
+                        break;
+                    case SACAR: // 2
+                        System.out.println("Quanto deseja sacar?   valor: ");
+                        loggedAcc.sacar(scanner.next());
+                        System.out.println("\nOperação realizada com sucesso.\nNovo saldo: " + loggedAcc.getSaldo()
+                                + "\n--------------");
+                        break; // 3
+                    case DEPOSITAR:
+                        System.out.println("Valor: ");
+                        valorTemp = scanner.next();
+                        Conta.depositar(loggedAcc, valorTemp);
+                        System.out.println("\nOperação realizada com sucesso.\nNovo saldo: " + loggedAcc.getSaldo()
+                        + "\n--------------");
+                        break;
+                    case TRANSFERIR: // 4
+                        System.out.println("Qual o número da conta para qual deseja transferir?");
+                        idTemp = Integer.parseInt(scanner.next());
+                        if (idTemp >= contas.size()) {
+                            System.out.println("Não existe conta com este número informado.");
+                        } 
+                        else if (idTemp == loggedAcc.getNumeroDaConta()) {
+                            System.out.println("Não é possível transferir para esta própria conta.");
+                        } 
+                        else {
+                            System.out.println("Valor: ");
+                            valorTemp = scanner.next();
+                            loggedAcc.transferir(contas.get(idTemp), valorTemp);
+                        }
+                        break;
+                    case INVESTIR: // 5
+                        System.out.println("Quanto deseja investir? Valor: ");
+                        loggedAcc.investir(scanner.next());
+                        break;
+                    case SALDO: // 6
                         loggedAcc.consultarSaldo();
                         break;
-                    } else {
-                        System.out.println("\nEssa função não está disponível para CONTA " + loggedAcc.getTipoConta());
+                    case PASSAR_UM_MES: // 7
+                        virarMes();
+                        System.out.println(
+                                "\n||||||||||||||||||||| >Após rendimento, os saldos subiram em:\n||||||||||||||||||||| > 0,5% Poupança \n||||||||||||||||||||| > 1% Conta Investimento (PF) \n||||||||||||||||||||| > 1% + 2% Conta Investimento (PJ)");
+                        printContas();
                         break;
-                    }
-                case PASSARUMMES:
-                    virarMes();
-                    System.out.println(
-                            "\n||||||||||||||||||||| >Após rendimento, os saldos subiram em:\n||||||||||||||||||||| > 0,5% Poupança \n||||||||||||||||||||| > 1% Conta Investimento (PF) \n||||||||||||||||||||| > 1% + 2% Conta Investimento (PJ)");
-                    printContas();
-                    break;
-                case TODASASCONTAS:
-                    printContas();
-                    break;
-                default:
-                    interativo();
-
+                    case TODAS_AS_CONTAS: // 8
+                        printContas();
+                        break;
+                    case TROCAR_USUARIO: // 9
+                        logado = false;
+                        break;
+                    default:
+                }
             }
+            interativo();
         }
         scanner.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // Criando usuários PF e PJ.
         criarUser("userPF de Sousa", "FISICA"); // user Id 0, Pessoa Física
         criarUser("userPJ Empreendimentos", "JURIDICA"); // user id 1, Pessoa Jurídica
