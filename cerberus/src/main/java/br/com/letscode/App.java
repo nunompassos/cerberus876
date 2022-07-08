@@ -107,6 +107,7 @@ public class App {
                     try {
                         System.in.read();
                     } catch (Exception e) {
+                        System.out.println("");
                     }
                     System.out.println("\nLogado: " + loggedAcc.toString() + "\n");
                     System.out.println("1 - Abrir outra conta.\n2 - Sacar. \n3 - Depositar.\n4 - Transferir.");
