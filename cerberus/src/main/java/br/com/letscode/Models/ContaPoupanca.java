@@ -13,6 +13,10 @@ public class ContaPoupanca extends Conta implements Sacavel, IRentavel, Transfer
   public static List<ContaPoupanca> contas = new ArrayList<ContaPoupanca>();
   private BigDecimal limite;
 
+  public ContaPoupanca(){
+    super();
+    this.limite = new BigDecimal(0);
+  }
   public void sacar(BigDecimal quantidade) {
     boolean saldoIsSuficiente = Utils.saldoIsSuficiente(quantidade, this.getSaldo());
     if (saldoIsSuficiente) {

@@ -7,6 +7,7 @@ import br.com.letscode.models.Conta;
 import br.com.letscode.models.ContaCorrente;
 import br.com.letscode.models.ContaCorrentePF;
 import br.com.letscode.models.ContaCorrentePJ;
+import br.com.letscode.models.ContaPoupanca;
 
 final public class Simulation {
   static void start() throws InterruptedException {
@@ -16,20 +17,20 @@ final public class Simulation {
     ContaCorrentePF contaCorrentePF = new ContaCorrentePF();
     System.out.println("- Gerando o numero da conta...");
     dorme();
-    AnalisandoDados();
+    analisandoDados();
     dorme();
     contaCorrentePF.setLimite(new BigDecimal(10000));
     ContaCorrente.contas.add(contaCorrentePF);
     useSuaContaComCarinho(contaCorrentePF);
     dorme(7500);
-    // limpaTela();
+    limpaTela();
     dorme();
     System.out.println("- Ah, você de novo! Obrigado por vir novamente ao Let's bank!");
     dorme();
     System.out.println("- Criando uma conta corrente PJ...");
     dorme();
     ContaCorrentePJ contaCorrentePJ = new ContaCorrentePJ();
-    AnalisandoDados();
+    analisandoDados();
     contaCorrentePJ.setLimite(new BigDecimal(10000000));
     ContaCorrente.contas.add(contaCorrentePJ);
     useSuaContaComCarinho(contaCorrentePJ);
@@ -51,7 +52,32 @@ final public class Simulation {
     dorme();
     System.out.println("Tranferindo o dinheiro que você pediu...");
     contaDaBase.transfere(contaCorrentePJ.getNumeroDaConta(), contaCorrentePF.getSaldo());
+    System.out.println("Transferindo...");
+    dorme();
     System.out.println(contaCorrentePJ);
+    dorme();
+    limpaTela();
+    System.out.println("Bom dia, quer uma conta poupança? É pra já!");
+    dorme();
+    System.out.println("Criando...");
+    dorme();
+    ContaPoupanca contaPoupancaDoPai = new ContaPoupanca();
+
+    System.out.println(contaPoupancaDoPai);
+    ContaPoupanca.contas.add(contaPoupancaDoPai);
+    contaPoupancaDoPai.setLimite(new BigDecimal(600));
+    contaPoupancaDoPai.depositar(new BigDecimal(1500));
+    analisandoDados();
+    useSuaContaComCarinho(contaPoupancaDoPai);
+    System.out.println("Vai criar uma pra sua filha também? Que legal, ensinando educação financeira desde cedo!");
+    dorme();
+    ContaPoupanca contaPoupancaDaFilha = new ContaPoupanca();
+    System.out.println("Como sua filha não possui formas de análise de crédito nós não poderemos dá-la crédito");
+    useSuaContaComCarinho(contaPoupancaDaFilha);
+    ContaPoupanca contaATrasferirDaFilha = Utils.findPoupancaById(contaPoupancaDoPai.getNumeroDaConta());
+    contaPoupancaDoPai.transfere(contaATrasferirDaFilha.getNumeroDaConta(),
+        new BigDecimal(750));
+    dorme();
   }
 
   private static void dorme() throws InterruptedException {
@@ -63,10 +89,10 @@ final public class Simulation {
     Thread.sleep(delayInMilliseconds);
   }
 
-  private static void AnalisandoDados() throws InterruptedException {
+  private static void analisandoDados() throws InterruptedException {
     System.out.println("- Analisando dados...");
     System.out.println("- Isso pode demorar um pouco, que tal um café? ☕");
-    // dorme(5000);
+    dorme(5000);
     System.out.println("- Gerando o limite da conta baseado nos dados recebidos...");
   }
 
