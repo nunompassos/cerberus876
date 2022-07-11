@@ -9,15 +9,17 @@ import br.com.letscode.util.Console;
 public abstract class Tela {
 
 	public static Scanner sc = new Scanner(System.in);
+	private boolean cabecalho;
 	private String[] opcoes;
 	private String nome;
 	private String mensagem = "";
 	
 	protected static final int opcoesPorLinha = 4;
 	
-	public Tela(String nome, String[] opcoes) {
+	public Tela(String nome, String[] opcoes, boolean cabecalho) {
 		this.nome = nome;
 		this.opcoes = opcoes;
+		this.cabecalho = cabecalho;
 	}
 	
 	
@@ -50,6 +52,7 @@ public abstract class Tela {
 				System.out.print("Escolha uma opção... ");
 				System.out.println();
 				System.out.println(this.mensagem);
+				System.out.println();
 				this.setMensagem("");
 				switch (Console.lerInt(1, this.opcoes.length)) {
 					case 1:
@@ -84,9 +87,11 @@ public abstract class Tela {
 	}
 	
 	protected void mostrar() {
-		this.mostraCabecalho();
-		this.mostraOpcoes();
+		Console.limparConsole();
+		if (this.cabecalho) this.mostraCabecalho();
 		this.mostraInfo();
+		System.out.println();
+		this.mostraOpcoes();
 		System.out.println();
 	}
 	
@@ -106,7 +111,6 @@ public abstract class Tela {
 	}
 	
 	protected void mostraCabecalho() {
-		Console.limparConsole();
 		Console.printaCentro("", '-');
 		Console.printaCentro("Banco do Jay", '-');
 		Console.printaCentro("", '-');

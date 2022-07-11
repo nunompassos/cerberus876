@@ -11,8 +11,8 @@ public class TelaInicial extends Tela {
 	public TelaInicial() throws BancoJayException {
 		super(
 			"Tela Inicial",
-			new String[] {"Entrar", "Cadastrar", "Sair"}
-			);
+			new String[] {"Entrar", "Cadastrar", "Sair"},
+			true);
 			super.iniciar();
 	}
 

@@ -25,7 +25,8 @@ public class TelaLogadaContaCorrente extends Tela {
 						"Empréstimos",
 						"Pupança",
 						"Investimentos",
-						"Voltar" });
+						"Voltar" },
+						false);
 		this.cliente = cliente;
 		this.conta = (ContaCorrente) Banco.selecionada.getContas(cliente)[0];
 	}
@@ -95,9 +96,9 @@ public class TelaLogadaContaCorrente extends Tela {
 
 	@Override
 	protected void mostraInfo() {
+		Console.printaCentro(cliente.getNome());
 		Console.printaCentro(String.format(
-				"%s\nSALDO: %s\tDÍVIDA: %s\tLIMITE: %s",
-				cliente.getNome(),
+				"SALDO: %s\tDÍVIDA: %s\tLIMITE: %s",
 				conta.getSaldoFormatado(),
 				conta.getDividaFormatada(),
 				conta.getLimiteFormatado()));
