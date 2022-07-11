@@ -66,14 +66,18 @@ public abstract class Formulario {
 			if (escolha.toLowerCase().equals("pj") ||
 					escolha.toLowerCase().equals("pessoa juridica") ||
 					escolha.toLowerCase().equals("juridica"))
-				 novoCliente = cadastrarClientePj();
+				novoCliente = cadastrarClientePj();
 			if (escolha.toLowerCase().equals("pf") ||
 					escolha.toLowerCase().equals("fisica") ||
 					escolha.toLowerCase().equals("pessoa fisica"))
 				novoCliente = cadastrarClientePf();
-			if (novoCliente == null) continue;
-			try {Banco.selecionada.abrirConta(novoCliente, ContaCorrente.class);}
-			catch (ContaJaExisteException e) {System.out.println("ERRO: " + e);}
+			if (novoCliente == null)
+				continue;
+			try {
+				Banco.selecionada.abrirConta(novoCliente, ContaCorrente.class);
+			} catch (ContaJaExisteException e) {
+				System.out.println("ERRO: " + e);
+			}
 			return novoCliente;
 		}
 
@@ -151,8 +155,13 @@ public abstract class Formulario {
 				break;
 			} catch (ClassCastException e) {
 				System.out.println("Dono não encontrado. Cadastrar dono (s/n)?");
-				if (Tela.sc.nextLine().toLowerCase() == "s") {
+				if (Tela.sc.nextLine().toLowerCase().equals("s")) {
 					dono = cadastrarClientePf();
+					try {
+						Banco.selecionada.abrirConta(dono, ContaCorrente.class);
+					} catch (ContaJaExisteException err) {
+						System.out.println("ERRO: " + err);
+					}
 					break;
 				}
 			}
