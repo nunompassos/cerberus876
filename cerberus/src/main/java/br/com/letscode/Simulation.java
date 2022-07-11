@@ -7,6 +7,9 @@ import br.com.letscode.models.Conta;
 import br.com.letscode.models.ContaCorrente;
 import br.com.letscode.models.ContaCorrentePF;
 import br.com.letscode.models.ContaCorrentePJ;
+import br.com.letscode.models.ContaInvestimento;
+import br.com.letscode.models.ContaInvestimentoPF;
+import br.com.letscode.models.ContaInvestimentoPJ;
 import br.com.letscode.models.ContaPoupanca;
 
 final public class Simulation {
@@ -90,8 +93,58 @@ final public class Simulation {
         BigDecimal rendimento = contaPoupancaDoPai.getSaldo().subtract(saldoAntigo);
         System.out.println("A conta do pai rendeu " + rendimento);
         System.out.println("Legal, não é? Esse é o rendimento anual!");
-        //falta conta investimento pf e conta investimento pj
+        // falta conta investimento pf e conta investimento pj
         // checar conta corrente para tranferencia e rendimento da investimento
+        dorme();
+        limpaTela();
+        System.out.println("Bom dia!!");
+        System.out.println("Gostaria de criar uma conta investimento?");
+        dorme();
+        System.out.println("Para voce e para sua empresa? Interessante!");
+        System.out.println("Criando...");
+        dorme(3000);
+        ContaInvestimentoPF contaInvestimentoPF = new ContaInvestimentoPF(contaCorrentePF);
+        ContaInvestimentoPJ contaInvestimentoPJ = new ContaInvestimentoPJ(contaCorrentePJ);
+        contaCorrentePF.depositar(new BigDecimal(10000));
+        contaCorrentePJ.depositar(new BigDecimal(23000000));
+        ContaInvestimento.contas.add(contaInvestimentoPF);
+        ContaInvestimento.contas.add(contaInvestimentoPJ);
+        System.out.print("Conta corrente titular ->: " + contaCorrentePF);
+        System.out.println(contaInvestimentoPF);
+        dorme(2000);
+        System.out.print("Conta corrente titular ->: " + contaCorrentePJ);
+        System.out.println(contaInvestimentoPJ);
+        dorme();
+        limpaTela();
+        System.out.println("Voce gostaria de aportar quanto?");
+        dorme();
+        System.out.println("R$2000?");
+        dorme();
+        System.out.println("Certinho, fazendo o aporte...");
+        contaInvestimentoPF.aportar(new BigDecimal(2000));
+        dorme(2000);
+        limpaTela();
+        System.out.println("Voce gostaria de aportar na sua conta da empresa também?");
+        dorme();
+        System.out.println("É pra já!");
+        contaInvestimentoPJ.aportar(new BigDecimal(200000));
+        dorme();
+        limpaTela();
+        BigDecimal saldoContaPFAnterior = contaInvestimentoPF.getSaldo();
+        BigDecimal saldoContaPJAnterior = contaInvestimentoPJ.getSaldo();
+        contaInvestimentoPF.rende();
+        contaInvestimentoPJ.rende();
+        BigDecimal rendimentoContaPF = contaInvestimentoPF.getSaldo().subtract(saldoContaPFAnterior);
+        BigDecimal rendimentoContaPJ = contaInvestimentoPJ.getSaldo().subtract(saldoContaPJAnterior);
+        dorme();
+        System.out.println("Olha que legal, ambas suas contas renderam!");
+        System.out.println("Rendimento da " + contaInvestimentoPF.getClass().getSimpleName() + " " + rendimentoContaPF);
+        System.out.println("Rendimento da " + contaInvestimentoPJ.getClass().getSimpleName() + " " + rendimentoContaPJ);
+        System.out.println(contaInvestimentoPF);
+        System.out.println(contaInvestimentoPJ);
+        dorme();
+        limpaTela();
+        System.out.println("Obrigado por usar o Let's Bank, a gente se ve por aí!");
     }
 
     private static void dorme() throws InterruptedException {

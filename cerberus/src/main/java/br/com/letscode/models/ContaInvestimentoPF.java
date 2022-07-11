@@ -2,7 +2,7 @@ package br.com.letscode.models;
 
 import java.math.BigDecimal;
 
-
+import br.com.letscode.Utils.Utils;
 import br.com.letscode.interfaces.IRentavel;
 
 public class ContaInvestimentoPF extends ContaInvestimento {
@@ -20,7 +20,13 @@ public class ContaInvestimentoPF extends ContaInvestimento {
 
   @Override
   public void retirar(BigDecimal valor) {
+    boolean saldoIsSuficiente = Utils.saldoIsSuficiente(valor, this.getSaldo());
+    if (!saldoIsSuficiente) {
+      System.out.println("Saldo insuficiente!");
+      return;
+    }
     this.setSaldo(this.getSaldo().subtract(valor));
+    this.getTitular().depositar(valor);
   }
 
   @Override

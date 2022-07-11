@@ -23,6 +23,6 @@ public abstract class ContaCorrente extends Conta implements Sacavel, Transferiv
   }
   @Override
   public String toString() {
-    return super.toString() + String.format("------------------\nLimite: %s\n------------------\n\n\n", this.getLimite());
+    return super.toString() + String.format("------------------\nLimite: %s\n------------------\n", this.getLimite());
   }
 }
