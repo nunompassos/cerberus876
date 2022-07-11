@@ -1,8 +1,10 @@
 package br.com.letscode.telas;
 
+import br.com.letscode.Formulario;
 import br.com.letscode.excecoes.SairDaTelaException;
-import br.com.letscode.modelos.Agencia;
+import br.com.letscode.excecoes.SaldoInsuficienteException;
 import br.com.letscode.modelos.Banco;
+import br.com.letscode.modelos.conta.Conta;
 import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.util.Console;
@@ -11,61 +13,94 @@ public class TelaLogadaContaCorrente extends Tela {
 
 	private ContaCorrente conta;
 	private Pessoa cliente;
-	private Agencia agencia = Banco.selecionada;
 
 	public TelaLogadaContaCorrente(Pessoa cliente) {
 		super(
-				"Tela Logada",
-				new String[] { "Saldo", "Transferir", "Sair" });
+				"Conta corrente",
+				new String[] {
+						"Meus dados",
+						"Depósito",
+						"Saque",
+						"Transferir",
+						"Empréstimos",
+						"Pupança",
+						"Investimentos",
+						"Voltar" });
 		this.cliente = cliente;
 		this.conta = (ContaCorrente) Banco.selecionada.getContas(cliente)[0];
 	}
-
+	
 	@Override
-	protected void opcao1() {}
+	protected void opcao1() {
+		Formulario.meusDados(cliente);
+	}
 
 	@Override
 	protected void opcao2() {
+		System.out.print("Informe valor do depósito: ");
+		long deposito = Console.lerMoeda();
+		conta.depositar(deposito);
+		super.setMensagem("Depositado com sucesso!");
 	}
-
+	
 	@Override
 	protected void opcao3() {
-		throw new SairDaTelaException();
+		System.out.print("Informe valor do saque: ");
+		long saque = Console.lerMoeda();
+		try {conta.sacar(saque);}
+		catch (SaldoInsuficienteException e) {
+			super.setMensagem("Saldo insuficiente...");
+			return;
+		}
+		super.setMensagem("Saque realizado com sucesso!");
 	}
-
+	
 	@Override
 	protected void opcao4() {
-		opcao3();
+		System.out.print("Informe valor da transferência: ");
+		long transferencia = Console.lerMoeda();
+		System.out.print("Informe numero da conta para transferencia");
+		
+		int numeroDestino = Console.lerInt(0, Integer.MAX_VALUE);
+		Conta destino = Banco.selecionada.getConta(numeroDestino);
+		if (destino == null){
+			super.setMensagem("Conta de destino não encontrada");
+			return;
+		}
+
+		try {conta.transferir(transferencia, destino);}
+		catch (SaldoInsuficienteException e) {
+			super.setMensagem("Saldo insuficiente...");
+			return;
+		}
 	}
 
 	@Override
 	protected void opcao5() {
-		opcao3();
 	}
 
 	@Override
 	protected void opcao6() {
-		opcao3();
 	}
-
+	
 	@Override
 	protected void opcao7() {
-		opcao3();
+		
 	}
-
+	
 	@Override
-	protected void opcao8() {
-		opcao3();
+	protected void opcao8() throws SairDaTelaException{
+		throw new SairDaTelaException();
 	}
 
 	@Override
 	protected void mostraInfo() {
 		Console.printaCentro(String.format(
-			"SALDO: %s\tDÍVIDA: %s\tLIMITE: %s",
-			conta.getSaldoFormatado(),
-			conta.getDividaFormatada(),
-			conta.getLimiteFormatado()
-		));
+				"%s\nSALDO: %s\tDÍVIDA: %s\tLIMITE: %s",
+				cliente.getNome(),
+				conta.getSaldoFormatado(),
+				conta.getDividaFormatada(),
+				conta.getLimiteFormatado()));
 	};
 
 }

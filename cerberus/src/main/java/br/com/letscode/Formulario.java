@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 
 import br.com.letscode.excecoes.PessoaDuplicadaException;
 import br.com.letscode.modelos.Banco;
+import br.com.letscode.modelos.conta.Conta;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 import br.com.letscode.modelos.pessoa.PessoaJuridica;
@@ -20,19 +21,53 @@ public abstract class Formulario {
 		return Banco.selecionada.getCliente(documento);
 	}
 
-	public static Pessoa cadastrarCliente() throws PessoaDuplicadaException{
+	public static void meusDados(Pessoa cliente) {
+		if (PessoaFisica.class.isInstance(cliente))
+			meusDados((PessoaFisica) cliente);
+		if (PessoaJuridica.class.isInstance(cliente))
+			meusDados((PessoaJuridica) cliente);
+		Conta[] contas = Banco.selecionada.getContas(cliente);
+		System.out.println("Conta corrente número " + contas[0].getNumero());
+		if (contas[1] != null)
+			System.out.println("Conta poupança número " + contas[1].getNumero());
+		if (contas[2] != null)
+			System.out.println("Conta investimentos número " + contas[2].getNumero());
+		System.out.println("\nAperte ENTER para continuar...");
+			Tela.sc.nextLine();
+	}
+
+	public static void meusDados(PessoaFisica cliente) {
+		System.out.println("Nome: " + cliente.getNome());
+		System.out.println("CPF: " + cliente.getDocumento());
+		System.out.println("Endereco: " + cliente.getEndereco());
+		System.out.println("Telefone: " + cliente.getTelefone());
+		System.out.println("Idade: " + cliente.getIdade());
+	}
+	
+	public static void meusDados(PessoaJuridica cliente) {
+		System.out.println("Razão social: " + cliente.getNome());
+		System.out.println("CNPJ: " + cliente.getDocumento());
+		System.out.println("Endereco: " + cliente.getEndereco());
+		System.out.println("Telefone: " + cliente.getTelefone());
+		System.out.println("Responsável: " + cliente.getResponsavel().getNome());	
+	}
+
+	public static Pessoa cadastrarCliente() throws PessoaDuplicadaException {
 		while (true) {
 			Console.limparConsole();
 			System.out.println();
 			System.out.println("Pessoa física (PF) ou pessoa jurídica (PJ) ?");
 			System.out.println();
 			String escolha = Tela.sc.nextLine();
-			if (escolha.toLowerCase() == "pj" || escolha.toLowerCase() == "pessoa juridica") return cadastrarClientePj();
-			if (escolha.toLowerCase() == "pf" || escolha.toLowerCase() == "pessoa fisica") return cadastrarClientePf();
+			if (escolha.toLowerCase() == "pj" || escolha.toLowerCase() == "pessoa juridica")
+				return cadastrarClientePj();
+			if (escolha.toLowerCase() == "pf" || escolha.toLowerCase() == "pessoa fisica")
+				return cadastrarClientePf();
 		}
 
 	}
-	public static PessoaFisica cadastrarClientePf() throws PessoaDuplicadaException{
+
+	public static PessoaFisica cadastrarClientePf() throws PessoaDuplicadaException {
 		Console.limparConsole();
 		System.out.println();
 		Console.printaCentro("Informe os dados do cliente");
@@ -70,7 +105,8 @@ public abstract class Formulario {
 		Banco.selecionada.cadastrarCliente(novoCliente);
 		return novoCliente;
 	}
-	public static PessoaJuridica cadastrarClientePj() throws PessoaDuplicadaException{
+
+	public static PessoaJuridica cadastrarClientePj() throws PessoaDuplicadaException {
 		Console.limparConsole();
 		System.out.println();
 		Console.printaCentro("Informe os dados da empresa");
