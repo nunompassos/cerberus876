@@ -5,7 +5,7 @@ import br.com.letscode.excecoes.SaldoInsuficienteException;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 import br.com.letscode.modelos.pessoa.PessoaJuridica;
-import br.com.letscode.util.ConverteSaldo;
+import br.com.letscode.util.ConverteValor;
 
 public abstract class Conta {
 	private final int numero;
@@ -63,7 +63,7 @@ public abstract class Conta {
 	}
 
 	public String getSaldoFormatado() {
-		return ConverteSaldo.comCifrao(this.saldo);
+		return ConverteValor.comCifrao(this.saldo);
 	}
 
 	public Pessoa getTitular() {
@@ -87,7 +87,7 @@ public abstract class Conta {
 	public String toString() {
 		return this.getNumero() + ", " +
 				this.getTitular().getNome() + ", " +
-				"Saldo: " + ConverteSaldo.semCifrao(this.saldo) + ", ";
+				"Saldo: " + ConverteValor.semCifrao(this.saldo) + ", ";
 	}
 
 }

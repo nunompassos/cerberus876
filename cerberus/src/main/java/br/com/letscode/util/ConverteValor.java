@@ -1,6 +1,6 @@
 package br.com.letscode.util;
 
-public class ConverteSaldo {
+public class ConverteValor {
 	public static String comCifrao(long valor) {
 		return "R$ " + semCifrao(valor);
 	}

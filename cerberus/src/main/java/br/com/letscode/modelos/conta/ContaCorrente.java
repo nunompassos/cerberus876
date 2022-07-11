@@ -4,7 +4,7 @@ import br.com.letscode.excecoes.LimiteInsuficienteException;
 import br.com.letscode.excecoes.PagamentoExcessivoException;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
 import br.com.letscode.modelos.pessoa.Pessoa;
-import br.com.letscode.util.ConverteSaldo;
+import br.com.letscode.util.ConverteValor;
 
 public class ContaCorrente extends Conta {
 
@@ -45,7 +45,7 @@ public class ContaCorrente extends Conta {
 	}
 
 	public String getLimiteFormatado() {
-		return ConverteSaldo.comCifrao(this.limite);
+		return ConverteValor.comCifrao(this.limite);
 	}
 
 	public long getDivida() {
@@ -53,7 +53,7 @@ public class ContaCorrente extends Conta {
 	}
 
 	public String getDividaFormatada() {
-		return ConverteSaldo.comCifrao(this.divida);
+		return ConverteValor.comCifrao(this.divida);
 	}
 
 	public void setLimite(long limite) {
@@ -64,8 +64,8 @@ public class ContaCorrente extends Conta {
 	@Override
 	public String toString() {
 		return "CC: {" + super.toString() + 
-				"Limite: " + ConverteSaldo.semCifrao(this.limite) + ", " +
-				"Divida: " + ConverteSaldo.semCifrao(this.divida) +
+				"Limite: " + ConverteValor.semCifrao(this.limite) + ", " +
+				"Divida: " + ConverteValor.semCifrao(this.divida) +
 				'}';
 	}
 
