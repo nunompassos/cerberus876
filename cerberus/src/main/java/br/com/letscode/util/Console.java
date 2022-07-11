@@ -18,6 +18,24 @@ public abstract class Console {
 		return valor;
 	}
 
+	public static long lerMoeda() {
+		double valorDouble = 0;
+		while (true) {
+			try {
+				valorDouble = Double.parseDouble(Tela.sc.nextLine());
+			} catch (Exception e) {
+				System.out.print("Tente novamente... ");
+				continue;
+			}
+			if (valorDouble < 0.01) {
+				System.out.println("Valor deve ser positivo... ");
+			}
+			break;
+		}
+		long valor = (long) valorDouble * 100;
+		return valor;
+	}
+
 	
 	public static void printaCentro(String s) {
 		printaCentro(s, ' ');
