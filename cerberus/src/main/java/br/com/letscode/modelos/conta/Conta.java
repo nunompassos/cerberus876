@@ -35,7 +35,7 @@ public abstract class Conta {
 		this.saldo += deposito;
 	}
 
-	protected long tirar(long retirada, double taxa) {
+	protected long tirar(long retirada, double taxa) throws SaldoInsuficienteException{
 		validaValor(retirada);
 		long tarifa = Math.round(retirada * taxa);
 		if (retirada + tarifa < this.saldo) {
@@ -45,12 +45,12 @@ public abstract class Conta {
 		throw new SaldoInsuficienteException();
 	}
 
-	public long sacar(long saque) {
+	public long sacar(long saque) throws SaldoInsuficienteException{
 		validaValor(saque);
 		return tirar(saque, this.taxa.getSaque());
 	}
 
-	public void transferir(long transferencia, Conta destino) {
+	public void transferir(long transferencia, Conta destino) throws SaldoInsuficienteException{
 		destino.depositar(
 				this.tirar(
 						transferencia,

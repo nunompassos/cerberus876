@@ -31,7 +31,7 @@ public class Agencia {
 		posicao.put(ContaPoupanca.class, 2);
 	}
 
-	public Agencia(int numero) {
+	public Agencia(int numero) throws AgenciaDuplicadaException{
 		if (Agencia.numerosDeAgencia.contains(numero))
 			throw new AgenciaDuplicadaException();
 		this.numero = numero;
@@ -77,7 +77,7 @@ public class Agencia {
 		clientesPf.add(dono);
 	}
 
-	public int abrirConta(Pessoa cliente, Class<?> tipoDeConta) {
+	public int abrirConta(Pessoa cliente, Class<?> tipoDeConta) throws ContaJaExisteException {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo");
 		if (!posicao.containsKey(tipoDeConta))
@@ -102,7 +102,7 @@ public class Agencia {
 		return numero;
 	}
 
-	private void verificaSeTemConta(Pessoa cliente, Class<?> tipoDeConta) {
+	private void verificaSeTemConta(Pessoa cliente, Class<?> tipoDeConta) throws ContaJaExisteException {
 		if (mapPessoasContas.get(cliente)[posicao.get(tipoDeConta)] != null) {
 			Conta existente = mapPessoasContas.get(cliente)[0];
 			throw new ContaJaExisteException("Cliente já tem conta-corrente com número " + existente.getNumero());

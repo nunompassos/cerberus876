@@ -1,5 +1,7 @@
 package br.com.letscode.modelos.pessoa;
 
+import br.com.letscode.excecoes.PessoaDuplicadaException;
+
 public class PessoaJuridica extends Pessoa {
 
 	private PessoaFisica responsavel;
@@ -9,7 +11,7 @@ public class PessoaJuridica extends Pessoa {
 			int documento,
 			String endereco,
 			String telefone,
-			PessoaFisica responsavel) {
+			PessoaFisica responsavel) throws PessoaDuplicadaException {
 		super(nome, endereco, telefone, documento);
 		this.setResponsavel(responsavel);
 	}

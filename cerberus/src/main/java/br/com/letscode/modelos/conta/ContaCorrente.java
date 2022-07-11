@@ -2,6 +2,7 @@ package br.com.letscode.modelos.conta;
 
 import br.com.letscode.excecoes.LimiteInsuficienteException;
 import br.com.letscode.excecoes.PagamentoExcessivoException;
+import br.com.letscode.excecoes.SaldoInsuficienteException;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.util.ConverteSaldo;
 
@@ -16,7 +17,7 @@ public class ContaCorrente extends Conta {
 		this.divida = 0;
 	}
 
-	public void fazerEmprestimo(long emprestimo) {
+	public void fazerEmprestimo(long emprestimo) throws LimiteInsuficienteException {
 		validaValor(emprestimo);
 		if (emprestimo + divida > this.limite)
 			throw new LimiteInsuficienteException();
@@ -31,7 +32,7 @@ public class ContaCorrente extends Conta {
 		this.divida += juros;
 	}
 
-	public void pagarDivida(long pagamento) {
+	public void pagarDivida(long pagamento) throws PagamentoExcessivoException, SaldoInsuficienteException{
 		super.validaValor(pagamento);
 		if (pagamento > this.divida)
 			throw new PagamentoExcessivoException();

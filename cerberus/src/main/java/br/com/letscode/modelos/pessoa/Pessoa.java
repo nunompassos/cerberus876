@@ -12,7 +12,7 @@ public abstract class Pessoa {
 	private int documento;
 	public static final Set<Integer> documentos = new HashSet<Integer>();
 
-	Pessoa(String nome, String endereco, String telefone, int documento) {
+	Pessoa(String nome, String endereco, String telefone, int documento) throws PessoaDuplicadaException{
 		if (Pessoa.documentos.contains(documento))
 			throw new PessoaDuplicadaException();
 		this.documento = documento;

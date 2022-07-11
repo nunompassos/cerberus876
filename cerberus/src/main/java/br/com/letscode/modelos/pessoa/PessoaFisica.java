@@ -5,6 +5,7 @@ import java.time.Period;
 
 import br.com.letscode.enums.EstadoCivil;
 import br.com.letscode.enums.Genero;
+import br.com.letscode.excecoes.PessoaDuplicadaException;
 
 public class PessoaFisica extends Pessoa {
 
@@ -18,7 +19,7 @@ public class PessoaFisica extends Pessoa {
 			int documento,
 			String endereco,
 			String telefone,
-			String nascimento) {
+			String nascimento) throws PessoaDuplicadaException {
 		super(nome, endereco, telefone, documento);
 		this.nascimento = LocalDate.parse(nascimento);
 	}
@@ -31,7 +32,7 @@ public class PessoaFisica extends Pessoa {
 			String nascimento,
 			char genero,
 			char estadoCivil,
-			String profissao) {
+			String profissao) throws PessoaDuplicadaException {
 		this(nome, documento, endereco, telefone, nascimento);
 		this.setGenero(genero);
 		this.setEstadoCivil(estadoCivil);
