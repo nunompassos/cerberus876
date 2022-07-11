@@ -3,9 +3,11 @@ package br.com.letscode;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import br.com.letscode.excecoes.ContaJaExisteException;
 import br.com.letscode.excecoes.PessoaDuplicadaException;
 import br.com.letscode.modelos.Banco;
 import br.com.letscode.modelos.conta.Conta;
+import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 import br.com.letscode.modelos.pessoa.PessoaJuridica;
@@ -22,6 +24,7 @@ public abstract class Formulario {
 	}
 
 	public static void meusDados(Pessoa cliente) {
+		Console.limparConsole();
 		if (PessoaFisica.class.isInstance(cliente))
 			meusDados((PessoaFisica) cliente);
 		if (PessoaJuridica.class.isInstance(cliente))
@@ -33,7 +36,7 @@ public abstract class Formulario {
 		if (contas[2] != null)
 			System.out.println("Conta investimentos número " + contas[2].getNumero());
 		System.out.println("\nAperte ENTER para continuar...");
-			Tela.sc.nextLine();
+		Tela.sc.nextLine();
 	}
 
 	public static void meusDados(PessoaFisica cliente) {
@@ -43,13 +46,13 @@ public abstract class Formulario {
 		System.out.println("Telefone: " + cliente.getTelefone());
 		System.out.println("Idade: " + cliente.getIdade());
 	}
-	
+
 	public static void meusDados(PessoaJuridica cliente) {
 		System.out.println("Razão social: " + cliente.getNome());
 		System.out.println("CNPJ: " + cliente.getDocumento());
 		System.out.println("Endereco: " + cliente.getEndereco());
 		System.out.println("Telefone: " + cliente.getTelefone());
-		System.out.println("Responsável: " + cliente.getResponsavel().getNome());	
+		System.out.println("Responsável: " + cliente.getResponsavel().getNome());
 	}
 
 	public static Pessoa cadastrarCliente() throws PessoaDuplicadaException {
@@ -59,10 +62,19 @@ public abstract class Formulario {
 			System.out.println("Pessoa física (PF) ou pessoa jurídica (PJ) ?");
 			System.out.println();
 			String escolha = Tela.sc.nextLine();
-			if (escolha.toLowerCase() == "pj" || escolha.toLowerCase() == "pessoa juridica")
-				return cadastrarClientePj();
-			if (escolha.toLowerCase() == "pf" || escolha.toLowerCase() == "pessoa fisica")
-				return cadastrarClientePf();
+			Pessoa novoCliente = null;
+			if (escolha.toLowerCase().equals("pj") ||
+					escolha.toLowerCase().equals("pessoa juridica") ||
+					escolha.toLowerCase().equals("juridica"))
+				 novoCliente = cadastrarClientePj();
+			if (escolha.toLowerCase().equals("pf") ||
+					escolha.toLowerCase().equals("fisica") ||
+					escolha.toLowerCase().equals("pessoa fisica"))
+				novoCliente = cadastrarClientePf();
+			if (novoCliente == null) continue;
+			try {Banco.selecionada.abrirConta(novoCliente, ContaCorrente.class);}
+			catch (ContaJaExisteException e) {System.out.println("ERRO: " + e);}
+			return novoCliente;
 		}
 
 	}

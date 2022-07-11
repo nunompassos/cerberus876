@@ -32,7 +32,7 @@ public abstract class Console {
 			}
 			break;
 		}
-		long valor = (long) valorDouble * 100;
+		long valor = (long) (valorDouble * 100);
 		return valor;
 	}
 
