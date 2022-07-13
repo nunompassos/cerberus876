@@ -1,12 +1,14 @@
 package br.com.letscode;
 
-public class Pessoa {
+import java.io.Serializable;
+import java.security.InvalidParameterException;
+
+public class Pessoa implements Cloneable, Serializable {
 
     private String nome;
     private String apelido;
     private int idade;
-
-    public Pessoa() { }
+    private int cpf;
 
     public Pessoa(final String _nome, final String _apelido, final int _idade) {
         this.nome = _nome;
@@ -38,8 +40,29 @@ public class Pessoa {
         this.idade = idade;
     }
 
+    public int getCpf() {
+        return cpf;
+    }
+
+    protected void criarCartão(int _cpf) {
+        if (this.cpf != 0) {
+            throw new InvalidParameterException();
+        }
+        this.cpf = _cpf;
+    }
+
+    @Override
+    public Pessoa clone() throws CloneNotSupportedException {
+        return (Pessoa) super.clone();
+    }
+
+    public Pessoa criarClone() throws CloneNotSupportedException {
+        return this.clone();
+    }
+
     @Override
     public String toString() {
-        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos.";
+        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
+            + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
     }
 }
