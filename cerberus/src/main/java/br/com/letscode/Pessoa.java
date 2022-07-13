@@ -37,4 +37,9 @@ public class Pessoa {
     public void setIdade(int idade) {
         this.idade = idade;
     }
+
+    @Override
+    public String toString() {
+        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos.";
+    }
 }

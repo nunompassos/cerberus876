@@ -6,8 +6,7 @@ package br.com.letscode;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
         final Pessoa p1 = new Pessoa("Nuno", "Passos", 36);
         System.out.println(p1);
     }
