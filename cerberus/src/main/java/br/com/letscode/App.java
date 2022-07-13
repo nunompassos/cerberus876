@@ -4,9 +4,26 @@ public class App
 {
     public static void main( String[] args )
     {
-        Aluno aluno = new Aluno("Nuno", 123, 2, 6);
+        Professor professor = new Professor("Nuno", "Portugal");
+        Aluno aluno = new Aluno("Albert Einstein");
 
-        System.out.println(aluno);
+        professor.prepararMaterial();
+        aluno.prepararMaterial();
         System.out.println();
+
+        professor.chegarAEscola();
+        aluno.chegarAEscola();
+        System.out.println();
+
+        String materia = "Física";
+        professor.comecarAula(materia);
+        aluno.comecarAula(materia);
+        System.out.println();
+
+        professor.marcarPresenca();
+        aluno.marcarPresenca();
+        System.out.println();
+
+
     }
 }
