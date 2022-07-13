@@ -11,9 +11,9 @@ public class App
     public static void main( String[] args ) throws CloneNotSupportedException {
         final Pessoa p1 = new Pessoa("Nuno", "Passos", 36);
         p1.criarCartão(563802);
-        System.out.println(p1);
+        // System.out.println(p1);
         final Pessoa p2 = p1.criarClone();
-        System.out.println(p2);
+        // System.out.println(p2);
 
         final Pessoa p3 = new Pessoa("Alexandre", "Xavier", 47);
         final Pessoa p4 = new Pessoa("Beatriz", "Matos", 24);
