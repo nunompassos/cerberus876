@@ -1,15 +1,20 @@
 package br.com.letscode;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
+import java.security.InvalidParameterException;
 
-public class Pessoa {
+public class Pessoa implements Cloneable, Serializable {
+
     private String nome;
+    private String apelido;
     private int idade;
-    private Sexo sexo;
-    private String endereco;
-    private EstadoCivil estadoCivil;
-    private BigDecimal altura;
-    private BigDecimal peso;
+    private int cpf;
+
+    public Pessoa(final String _nome, final String _apelido, final int _idade) {
+        this.nome = _nome;
+        this.apelido = _apelido;
+        this.idade = _idade;
+    }
 
     public String getNome() {
         return nome;
@@ -17,6 +22,14 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
     public int getIdade() {
@@ -27,76 +40,29 @@ public class Pessoa {
         this.idade = idade;
     }
 
-    public Sexo getSexo() {
-        return sexo;
+    public int getCpf() {
+        return cpf;
     }
 
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public EstadoCivil getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    public void setEstadoCivil(EstadoCivil estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
-    public BigDecimal getAltura() {
-        return altura;
-    }
-
-    public void setAltura(BigDecimal altura) {
-        this.altura = altura;
-    }
-
-    public BigDecimal getPeso() {
-        return peso;
-    }
-
-    public void setPeso(BigDecimal peso) {
-        this.peso = peso;
-    }
-
-    public enum Sexo {
-        MASCULINO("Masculino"),
-        FEMININO("Feminino"),
-        NAO_DEFINIDO("Não definido");
-
-        private String descricao;
-
-        Sexo(String _descricao) {
-            this.descricao = _descricao;
+    protected void criarCartão(int _cpf) {
+        if (this.cpf != 0) {
+            throw new InvalidParameterException();
         }
-
-        public String getDescricao() {
-            return descricao;
-        }
+        this.cpf = _cpf;
     }
 
-    public enum EstadoCivil {
-        SOLTEIRO("Solteiro(a)"),
-        CASADO("Casado(a)"),
-        VIUVO("Viuvo(a)"),
-        DIVORCIADO("Divorciado(a)");
+    @Override
+    public Pessoa clone() throws CloneNotSupportedException {
+        return (Pessoa) super.clone();
+    }
 
-        private String descricao;
+    public Pessoa criarClone() throws CloneNotSupportedException {
+        return this.clone();
+    }
 
-        EstadoCivil(String _descricao) {
-            this.descricao = _descricao;
-        }
-
-        public String getDescricao() {
-            return this.descricao;
-        }
+    @Override
+    public String toString() {
+        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
+            + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
     }
 }
