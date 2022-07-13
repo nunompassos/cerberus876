@@ -1,34 +1,21 @@
 package br.com.letscode.model;
 
-/**
- * Criar uma classe Pessoa, com atributos:nome, idade, sexo, morada, estado civil, altura, peso
- *
- */
-public class Pessoa {
-    
+import java.io.Serializable;
+import java.security.InvalidParameterException;
+
+public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa> {
+
     private String nome;
-    private Integer idade;
-    private Sexo sexo;
-    private String endereco;
-    private EstadoCivil estadoCivil;
-    private Double altura;
-    private Double peso;
+    private String apelido;
+    private int idade;
+    private int cpf;
 
-    public Pessoa(String nome, Integer idade, Sexo sexo, String endereco, EstadoCivil estadoCivil, Double altura, Double peso) {
-        this.nome = nome;
-        this.idade = idade;
-        this.sexo = sexo;
-        this.endereco = endereco;
-        this.estadoCivil = estadoCivil;
-        this.altura = altura;
-        this.peso = peso;
+    public Pessoa(final String _nome, final String _apelido, final int _idade) {
+        this.nome = _nome;
+        this.apelido = _apelido;
+        this.idade = _idade;
     }
 
-    public Pessoa(String nome, String endereco) {
-        this(nome, 0, null, endereco, null, null, null);
-    }
-
-    
     public String getNome() {
         return nome;
     }
@@ -37,51 +24,50 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Integer getIdade() {
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public int getIdade() {
         return idade;
     }
 
-    public void setIdade(Integer idade) {
+    public void setIdade(int idade) {
         this.idade = idade;
     }
 
-    public Sexo getSexo() {
-        return sexo;
+    public int getCpf() {
+        return cpf;
     }
 
-    public void setSexo(Sexo sexo) {
-        this.sexo = sexo;
+    public void criarCartão(int _cpf) {
+        if (this.cpf != 0) {
+            throw new InvalidParameterException();
+        }
+        this.cpf = _cpf;
     }
 
-    public String getEndereco() {
-        return endereco;
+    @Override
+    public Pessoa clone() throws CloneNotSupportedException {
+        return (Pessoa) super.clone();
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public Pessoa criarClone() throws CloneNotSupportedException {
+        return this.clone();
     }
 
-    public EstadoCivil getEstadoCivil() {
-        return estadoCivil;
+    @Override
+    public String toString() {
+        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
+            + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : " Não tenho CPF cadastrado.");
     }
 
-    public void setEstadoCivil(EstadoCivil estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
+    @Override
+    public int compareTo(Pessoa o) {
+        return this.idade - o.idade;
     }
 }
