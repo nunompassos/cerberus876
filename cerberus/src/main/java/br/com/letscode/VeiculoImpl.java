@@ -1,8 +1,8 @@
-package br.com.letscode.veiculos;
+package br.com.letscode;
 
 import java.util.Objects;
 
-public class Veiculo {
+public class VeiculoImpl implements Veiculo, Pessoa {
     private String cor;
     private int potencia;
     private int ano;
@@ -11,6 +11,21 @@ public class Veiculo {
     private String modelo;
     private int numeroRodas;
     private String placa;
+
+    public VeiculoImpl() {
+
+    }
+
+    public VeiculoImpl(String cor, int potencia, int ano, TipoVeiculo tipo, Marca marca, String modelo, int numeroRodas, String placa) {
+        this.cor = cor;
+        this.potencia = potencia;
+        this.ano = ano;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.numeroRodas = numeroRodas;
+        this.placa = placa;
+    }
 
     public int getNumeroRodas() {
         return this.numeroRodas;
@@ -94,6 +109,36 @@ public class Veiculo {
         this.placa = placa;
     }
 
+    void ligarRadio() {
+        System.out.println("A tocar musica");
+    }
+    public final void buzinar() {
+        System.out.println("AAAAAAAAAAAAAAAA");
+    }
+
+    @Override
+    public void ligarRadio(String s) {
+
+    }
+
+    @Override
+    public void ligarMotor() {
+
+    }
+
+    public void buzinar(String s, int x) {
+        System.out.println(s);
+    }
+
+    public void buzinar(int x, String s) {
+
+    }
+
+    @Override
+    public void andar(int km) {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,14 +147,14 @@ public class Veiculo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Veiculo veiculo = (Veiculo) o;
-        return potencia == veiculo.potencia &&
-            ano == veiculo.ano &&
-            numeroRodas == veiculo.numeroRodas &&
-            Objects.equals(cor, veiculo.cor) &&
-            Objects.equals(tipo, veiculo.tipo) &&
-            Objects.equals(modelo, veiculo.modelo) &&
-            Objects.equals(placa, veiculo.placa);
+        VeiculoImpl veiculoImpl = (VeiculoImpl) o;
+        return potencia == veiculoImpl.potencia &&
+            ano == veiculoImpl.ano &&
+            numeroRodas == veiculoImpl.numeroRodas &&
+            Objects.equals(cor, veiculoImpl.cor) &&
+            Objects.equals(tipo, veiculoImpl.tipo) &&
+            Objects.equals(modelo, veiculoImpl.modelo) &&
+            Objects.equals(placa, veiculoImpl.placa);
     }
 
     @Override
@@ -147,12 +192,8 @@ public class Veiculo {
             this.minRodas = minRodas;
         }
 
-        public int getMaxRodas() {
+        int getMaxRodas() {
             return maxRodas;
-        }
-
-        public void setMaxRodas(int maxRodas) {
-            this.maxRodas = maxRodas;
         }
     }
 }

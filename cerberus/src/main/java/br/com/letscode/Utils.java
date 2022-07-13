@@ -2,7 +2,7 @@ package br.com.letscode;
 
 import java.util.Random;
 
-public abstract class Utils {
+public interface Utils {
 
     public static int[] populateArray(int arraySize) {
         int[] result = new int[arraySize];
@@ -56,6 +56,12 @@ public abstract class Utils {
 
     private static void swap(int x, int y) {
         int temp = x;
+        x = y;
+        y = temp;
+    }
+
+    private static void swap(long x, long y) {
+        long temp = x;
         x = y;
         y = temp;
     }
