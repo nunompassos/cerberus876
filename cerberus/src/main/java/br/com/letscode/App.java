@@ -8,6 +8,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        final Pessoa p1 = new Pessoa("Nuno", "Passos", 36);
+        System.out.println(p1);
     }
 }
