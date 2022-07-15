@@ -1,2 +1,4 @@
 cerberus/target/
-*Rascunho.java
+*Rascunho*
+*.class
+settings.json
