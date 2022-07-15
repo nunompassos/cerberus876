@@ -25,6 +25,7 @@ public class App
         Arrays.sort(listaPessoas);
         for (Pessoa p : listaPessoas) {
             System.out.println(p);
+            p.mexer();
         }
     }
 }

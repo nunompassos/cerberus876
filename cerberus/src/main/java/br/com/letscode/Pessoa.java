@@ -3,7 +3,7 @@ package br.com.letscode;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 
-public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa>{
+public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa>, Mexivel {
 
     private String nome;
     private String apelido;
@@ -63,10 +63,16 @@ public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa>{
     @Override
     public String toString() {
         return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
-            + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
+                + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
     }
+
     @Override
     public int compareTo(Pessoa o) {
         return this.getIdade() - o.getIdade();
+    }
+
+    @Override
+    public void mexer() {
+        System.out.println("andei um metro");
     }
 }
