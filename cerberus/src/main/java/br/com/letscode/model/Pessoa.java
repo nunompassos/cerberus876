@@ -68,6 +68,6 @@ public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa> {
 
     @Override
     public int compareTo(Pessoa o) {
-        return this.idade - o.idade;
+        return o.idade - this.idade;
     }
 }
