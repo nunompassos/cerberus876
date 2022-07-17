@@ -8,6 +8,5 @@ public class TestInnerInterface {
       ClienteEspecial cl = new ClienteEspecial(bonus);
       cl.setSaldo(saldo);
       cl.saldoAtualizado();
-      
-  }
+    }
 }
