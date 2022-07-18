@@ -2,15 +2,20 @@ package br.com.letscode;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.Comparator;
 
-public class Pessoa implements Cloneable, Serializable {
+public class Pessoa extends Humano implements Cloneable,
+    Serializable,
+    Mexivel,
+    Comparable<Pessoa>{
 
     private String nome;
     private String apelido;
     private int idade;
     private int cpf;
 
-    public Pessoa(final String _nome, final String _apelido, final int _idade) {
+    public Pessoa(final String _nome, final String _apelido, final int _idade, final String corCabelo) {
+        super(corCabelo);
         this.nome = _nome;
         this.apelido = _apelido;
         this.idade = _idade;
@@ -64,5 +69,15 @@ public class Pessoa implements Cloneable, Serializable {
     public String toString() {
         return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
             + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
+    }
+
+    @Override
+    public void mexer(int distancia) {
+        System.out.println("Andei " + distancia + " metro");
+    }
+
+    @Override
+    public int compareTo(Pessoa o) {
+        return this.nome.compareTo(o.getNome());
     }
 }
