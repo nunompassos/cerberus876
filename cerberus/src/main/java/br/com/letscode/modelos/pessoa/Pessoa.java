@@ -2,10 +2,14 @@ package br.com.letscode.modelos.pessoa;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
 import br.com.letscode.excecoes.PessoaDuplicadaException;
 
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable {
+
+	private static final long serialVersionUID = 98491616516511658L;
+
 	private String nome;
 	private String endereco;
 	private String telefone;

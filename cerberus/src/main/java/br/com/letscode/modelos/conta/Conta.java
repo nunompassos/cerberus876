@@ -6,8 +6,12 @@ import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 import br.com.letscode.modelos.pessoa.PessoaJuridica;
 import br.com.letscode.util.ConverteValor;
+import java.io.Serializable;
 
-public abstract class Conta {
+public abstract class Conta implements Serializable {
+
+	private static final long serialVersionUID = 9849789498461651L;
+
 	private final int numero;
 	private Pessoa titular;
 	protected final Taxa taxa;
@@ -23,9 +27,9 @@ public abstract class Conta {
 	}
 
 	private static Taxa determinaTaxa(Pessoa titular) {
-		if (PessoaFisica.class.isInstance(titular))
+		if (titular instanceof PessoaFisica)
 			return Taxa.PF;
-		else if (PessoaJuridica.class.isInstance(titular))
+		else if (titular instanceof PessoaJuridica)
 			return Taxa.PJ;
 		throw new IllegalArgumentException("Tipo de titular não identificado");
 	}

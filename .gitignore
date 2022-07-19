@@ -2,3 +2,4 @@ cerberus/target/
 *Rascunho*
 *.class
 settings.json
+*.bin

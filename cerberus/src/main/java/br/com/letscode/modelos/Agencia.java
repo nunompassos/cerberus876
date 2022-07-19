@@ -1,5 +1,6 @@
 package br.com.letscode.modelos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -10,7 +11,9 @@ import br.com.letscode.modelos.conta.*;
 import br.com.letscode.modelos.pessoa.*;
 import br.com.letscode.util.DigitoVerificador;
 
-public class Agencia {
+public class Agencia implements Serializable {
+
+	private static final long serialVersionUID = 984916165198419818L;
 
 	private final int numero;
 	private final static ArrayList<Integer> numerosDeAgencia = new ArrayList<Integer>();
