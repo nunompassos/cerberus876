@@ -25,9 +25,9 @@ public abstract class Formulario {
 
 	public static void meusDados(Pessoa cliente) {
 		Console.limparConsole();
-		if (PessoaFisica.class.isInstance(cliente))
+		if (cliente instanceof PessoaFisica)
 			meusDados((PessoaFisica) cliente);
-		if (PessoaJuridica.class.isInstance(cliente))
+		if (cliente instanceof PessoaJuridica)
 			meusDados((PessoaJuridica) cliente);
 		Conta[] contas = Banco.selecionada.getContas(cliente);
 		System.out.println("Conta corrente número " + contas[0].getNumero());

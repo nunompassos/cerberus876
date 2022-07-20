@@ -53,9 +53,9 @@ public class Agencia implements Serializable {
 	public void cadastrarCliente(Pessoa cliente) {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo");
-		if (PessoaFisica.class.isInstance(cliente))
+		if (cliente instanceof PessoaFisica)
 			this.cadastrarCliente((PessoaFisica) cliente);
-		else if (PessoaJuridica.class.isInstance(cliente))
+		else if (cliente instanceof PessoaJuridica)
 			this.cadastrarCliente((PessoaJuridica) cliente);
 	}
 
