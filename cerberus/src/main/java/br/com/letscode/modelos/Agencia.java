@@ -13,7 +13,7 @@ import br.com.letscode.util.DigitoVerificador;
 
 public class Agencia implements Serializable {
 
-	private static final long serialVersionUID = 984916165198419818L;
+	private static final long serialVersionUID = 3000000L;
 
 	private final int numero;
 	private final static ArrayList<Integer> numerosDeAgencia = new ArrayList<Integer>();

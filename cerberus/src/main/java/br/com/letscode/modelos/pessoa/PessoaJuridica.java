@@ -4,6 +4,8 @@ import br.com.letscode.excecoes.PessoaDuplicadaException;
 
 public class PessoaJuridica extends Pessoa {
 
+	private static final long serialVersionUID = 1200000L;
+
 	private PessoaFisica responsavel;
 
 	public PessoaJuridica(

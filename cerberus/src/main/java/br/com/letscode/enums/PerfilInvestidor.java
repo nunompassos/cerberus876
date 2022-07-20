@@ -21,6 +21,7 @@ public enum PerfilInvestidor {
 		private static final HashMap<Character, PerfilInvestidor> map = new HashMap<Character, PerfilInvestidor>();
 	}
 
+	private static final long serialVersionUID = 0300000L;
 	private static final Random random = new Random();
 	private final double min;
 	private final double max;

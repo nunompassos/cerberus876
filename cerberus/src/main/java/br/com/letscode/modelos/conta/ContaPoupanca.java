@@ -3,6 +3,8 @@ package br.com.letscode.modelos.conta;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 
 public class ContaPoupanca extends Conta {
+
+	private static final long serialVersionUID = 2300000L;
 	
 	public ContaPoupanca(int numero, PessoaFisica titular) {
 		super(numero, titular);

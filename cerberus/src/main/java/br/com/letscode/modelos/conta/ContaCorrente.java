@@ -8,6 +8,8 @@ import br.com.letscode.util.ConverteValor;
 
 public class ContaCorrente extends Conta {
 
+	private static final long serialVersionUID = 2100000L;
+
 	protected long divida;
 	private long limite;
 

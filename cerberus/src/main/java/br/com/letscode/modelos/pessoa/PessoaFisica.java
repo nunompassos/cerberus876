@@ -9,6 +9,8 @@ import br.com.letscode.excecoes.PessoaDuplicadaException;
 
 public class PessoaFisica extends Pessoa {
 
+	private static final long serialVersionUID = 1100000L;
+
 	private final LocalDate nascimento;
 	private EstadoCivil estadoCivil;
 	private Genero genero;

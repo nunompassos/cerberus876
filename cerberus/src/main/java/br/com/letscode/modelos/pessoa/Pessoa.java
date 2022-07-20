@@ -8,7 +8,7 @@ import br.com.letscode.excecoes.PessoaDuplicadaException;
 
 public abstract class Pessoa implements Serializable {
 
-	private static final long serialVersionUID = 98491616516511658L;
+	private static final long serialVersionUID = 1000000L;
 
 	private String nome;
 	private String endereco;

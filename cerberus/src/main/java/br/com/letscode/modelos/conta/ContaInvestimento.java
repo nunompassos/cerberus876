@@ -5,6 +5,8 @@ import br.com.letscode.modelos.pessoa.Pessoa;
 
 public class ContaInvestimento extends Conta {
 
+	private static final long serialVersionUID = 2200000L;
+
 	protected PerfilInvestidor perfil;
 
 	public ContaInvestimento(int numero, Pessoa titular) {

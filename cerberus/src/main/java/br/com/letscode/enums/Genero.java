@@ -11,6 +11,7 @@ public enum Genero {
 		private static final HashMap<Character, Genero> map = new HashMap<Character, Genero>();
 	}
 
+	private static final long serialVersionUID = 0200000L;
 	private final char valor;
 
 	Genero(char genero) {

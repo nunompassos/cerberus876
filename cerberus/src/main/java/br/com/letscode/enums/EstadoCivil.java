@@ -8,6 +8,7 @@ public enum EstadoCivil {
 	VIUVO('V', "Viúv"),
 	DIVORCIADO('D', "Divorciad");
 
+	private static final long serialVersionUID = 0100000L;
 	private final char valor;
 	private final String valorCheio;
 

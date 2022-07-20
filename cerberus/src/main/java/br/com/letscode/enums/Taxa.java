@@ -12,6 +12,7 @@ public enum Taxa {
 			0.003,
 			0.010);
 
+	private static final long serialVersionUID = 0400000L;
 	private final double transferencia;
 	private final double saque;
 	private final double rendimento;

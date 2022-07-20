@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public abstract class Conta implements Serializable {
 
-	private static final long serialVersionUID = 9849789498461651L;
+	private static final long serialVersionUID = 2000000L;
 
 	private final int numero;
 	private Pessoa titular;
