@@ -52,6 +52,12 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Pessoa)) return false;
+		return this.documento == ((Pessoa)obj).documento;
+	}
+
+	@Override
 	public String toString() {
 		return
 				this.getNome() + ", " +
