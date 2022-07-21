@@ -3,6 +3,7 @@ package br.com.letscode.telas;
 import java.util.Scanner;
 
 import br.com.letscode.excecoes.SairDaTelaException;
+import br.com.letscode.modelos.Banco;
 import br.com.letscode.util.Console;
 
 // public class Tela {
@@ -15,6 +16,7 @@ public abstract class Tela {
 	private String mensagem = "";
 	
 	protected static final int opcoesPorLinha = 4;
+	protected static Banco banco;
 	
 	public Tela(String nome, String[] opcoes, boolean cabecalho) {
 		this.nome = nome;
@@ -125,6 +127,10 @@ public abstract class Tela {
 
 	protected void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+
+	public static Banco getBanco() {
+		return banco;
 	}
 
 }

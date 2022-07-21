@@ -5,7 +5,6 @@ import java.time.format.DateTimeParseException;
 
 import br.com.letscode.excecoes.ContaJaExisteException;
 import br.com.letscode.excecoes.PessoaDuplicadaException;
-import br.com.letscode.modelos.Banco;
 import br.com.letscode.modelos.Cadastro;
 import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
@@ -20,7 +19,7 @@ public abstract class Formulario {
 		System.out.println("Informe seu documento: ");
 		int documento = -1;
 		documento = Console.lerInt(0, Integer.MAX_VALUE);
-		return Banco.selecionada.getCliente(documento);
+		return Tela.getBanco().selecionada().getCliente(documento);
 	}
 
 	public static void meusDados(Pessoa cliente) {
@@ -29,7 +28,7 @@ public abstract class Formulario {
 			meusDados((PessoaFisica) cliente);
 		if (cliente instanceof PessoaJuridica)
 			meusDados((PessoaJuridica) cliente);
-		Cadastro cadastro = Banco.selecionada.getCadastro(cliente);
+		Cadastro cadastro = Tela.getBanco().selecionada().getCadastro(cliente);
 		System.out.println("Conta corrente número " + cadastro.getContaCorrente().getNumero());
 		if (cadastro.getContaInvestimento() != null)
 			System.out.println("Conta poupança número " + cadastro.getContaInvestimento().getNumero());
@@ -74,7 +73,7 @@ public abstract class Formulario {
 			if (novoCliente == null)
 				continue;
 			try {
-				Banco.selecionada.abrirConta(novoCliente, ContaCorrente.class);
+				Tela.getBanco().selecionada().abrirConta(novoCliente, ContaCorrente.class);
 			} catch (ContaJaExisteException e) {
 				System.out.println("ERRO: " + e);
 			}
@@ -118,7 +117,7 @@ public abstract class Formulario {
 		}
 
 		PessoaFisica novoCliente = new PessoaFisica(nome, documento, endereco, telefone, nascimento);
-		Banco.selecionada.cadastrarCliente(novoCliente);
+		Tela.getBanco().selecionada().cadastrarCliente(novoCliente);
 		return novoCliente;
 	}
 
@@ -149,7 +148,7 @@ public abstract class Formulario {
 			System.out.printf("%-30s", "CPF do dono:");
 			int cpfDono = Console.lerInt(0, Integer.MAX_VALUE);
 			try {
-				dono = (PessoaFisica) Banco.selecionada.getCliente(cpfDono);
+				dono = (PessoaFisica) Tela.getBanco().selecionada().getCliente(cpfDono);
 				if (dono == null)
 					throw new ClassCastException();
 				break;
@@ -158,7 +157,7 @@ public abstract class Formulario {
 				if (Tela.sc.nextLine().toLowerCase().equals("s")) {
 					dono = cadastrarClientePf();
 					try {
-						Banco.selecionada.abrirConta(dono, ContaCorrente.class);
+						Tela.getBanco().selecionada().abrirConta(dono, ContaCorrente.class);
 					} catch (ContaJaExisteException err) {
 						System.out.println("ERRO: " + err);
 					}
@@ -168,7 +167,7 @@ public abstract class Formulario {
 		}
 
 		PessoaJuridica novoCliente = new PessoaJuridica(nome, documento, endereco, telefone, dono);
-		Banco.selecionada.cadastrarCliente(novoCliente);
+		Tela.getBanco().selecionada().cadastrarCliente(novoCliente);
 		return novoCliente;
 	}
 }

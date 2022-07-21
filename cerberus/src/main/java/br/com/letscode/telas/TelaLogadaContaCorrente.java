@@ -3,7 +3,6 @@ package br.com.letscode.telas;
 import br.com.letscode.Formulario;
 import br.com.letscode.excecoes.SairDaTelaException;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
-import br.com.letscode.modelos.Banco;
 import br.com.letscode.modelos.conta.Conta;
 import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
@@ -28,7 +27,7 @@ public class TelaLogadaContaCorrente extends Tela {
 						"Voltar" },
 						false);
 		this.cliente = cliente;
-		this.conta = (ContaCorrente) Banco.selecionada.getCadastro(cliente).getContaCorrente();
+		this.conta = (ContaCorrente) Tela.getBanco().selecionada().getCadastro(cliente).getContaCorrente();
 	}
 	
 	@Override
@@ -63,7 +62,7 @@ public class TelaLogadaContaCorrente extends Tela {
 		System.out.print("Informe numero da conta para transferencia");
 		
 		int numeroDestino = Console.lerInt(0, Integer.MAX_VALUE);
-		Conta destino = Banco.selecionada.getConta(numeroDestino);
+		Conta destino = Tela.getBanco().selecionada().getConta(numeroDestino);
 		if (destino == null){
 			super.setMensagem("Conta de destino não encontrada");
 			return;

@@ -4,16 +4,19 @@ import br.com.letscode.Formulario;
 import br.com.letscode.excecoes.BancoJayException;
 import br.com.letscode.excecoes.PessoaDuplicadaException;
 import br.com.letscode.excecoes.SairDaTelaException;
+import br.com.letscode.modelos.Banco;
 import br.com.letscode.modelos.pessoa.Pessoa;
 
 public class TelaInicial extends Tela {
 
-	public TelaInicial() throws BancoJayException {
+	public TelaInicial(Banco banco) throws BancoJayException {
 		super(
 			"Tela Inicial",
 			new String[] {"Entrar", "Cadastrar", "Sair"},
 			true);
-			super.iniciar();
+		Tela.banco = banco;
+		super.iniciar();
+
 	}
 
 	@Override

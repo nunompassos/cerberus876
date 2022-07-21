@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import br.com.letscode.excecoes.AgenciaDuplicadaException;
 import br.com.letscode.excecoes.ContaJaExisteException;
 import br.com.letscode.modelos.conta.*;
 import br.com.letscode.modelos.pessoa.*;
@@ -16,7 +15,6 @@ import br.com.letscode.util.DigitoVerificador;
 public class Agencia implements Serializable {
 
 	private static final long serialVersionUID = 3000000L;
-	private static final Set<Integer> numerosDeAgencia = new HashSet<>();
 
 	private final int numero;
 	private final Set<Pessoa> clientes = new HashSet<>();
@@ -25,11 +23,8 @@ public class Agencia implements Serializable {
 	private final Map<Pessoa, Cadastro> mapPessoasContas = new HashMap<>();// [0] = CC, [1] = CI, [2] = CP
 	
 
-	public Agencia(int numero) throws AgenciaDuplicadaException{
-		if (Agencia.numerosDeAgencia.contains(numero))
-			throw new AgenciaDuplicadaException();
+	public Agencia(int numero) {
 		this.numero = numero;
-		Agencia.numerosDeAgencia.add(numero);
 	}
 
 	public boolean cadastrarCliente(Pessoa cliente) {
