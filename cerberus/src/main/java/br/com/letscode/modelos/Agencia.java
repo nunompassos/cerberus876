@@ -37,7 +37,7 @@ public class Agencia implements Serializable {
 			return this.cadastrarCliente((PessoaFisica) cliente);
 		else if (cliente instanceof PessoaJuridica)
 			return this.cadastrarCliente((PessoaJuridica) cliente);
-		else 
+		else
 			throw new ClassCastException("Tipo de cliente inválido");
 	}
 
@@ -66,29 +66,23 @@ public class Agencia implements Serializable {
 			throw new IllegalArgumentException("Cliente não pode ser nulo");
 		verificaSeTemConta(cliente, tipoDeConta);
 		this.cadastrarCliente(cliente);
-		
-		int numero = DigitoVerificador.geraNumeroConta(tipoDeConta, 
-														Collections.unmodifiableSet(numerosDeConta));
+
+		int numero = DigitoVerificador.geraNumeroConta(tipoDeConta,
+				Collections.unmodifiableSet(numerosDeConta));
 		numerosDeConta.add(numero);
 		Cadastro cadastro = mapPessoasContas.get(cliente);
 		Conta novaConta;
 
-		if (tipoDeConta == ContaCorrente.class) {
+		if (tipoDeConta == ContaCorrente.class)
 			novaConta = new ContaCorrente(numero, cliente);
-			cadastro.setContaCorrente((ContaCorrente) novaConta);
-		}
-		else if (tipoDeConta == ContaInvestimento.class) {
+		else if (tipoDeConta == ContaInvestimento.class)
 			novaConta = new ContaInvestimento(numero, cliente);
-			cadastro.setContaInvestimento((ContaInvestimento) novaConta);
-		}
-		else if (tipoDeConta == ContaPoupanca.class) {
+		else if (tipoDeConta == ContaPoupanca.class)
 			novaConta = new ContaPoupanca(numero, (PessoaFisica) cliente);
-			cadastro.setContaPoupanca((ContaPoupanca) novaConta);
-		}
-		else {
+		else
 			throw new IllegalArgumentException("tipoDeConta inválido");
-		}
 
+		cadastro.setContaDoTipo(tipoDeConta, novaConta);
 		contas.put(novaConta.getNumero(), novaConta);
 		return numero;
 	}
@@ -97,7 +91,8 @@ public class Agencia implements Serializable {
 		Conta existente;
 
 		if ((existente = this.getContaDoTipo(cliente, tipoDeConta)) != null) {
-			throw new ContaJaExisteException(String.format("Cliente já tem %s com número %d", tipoDeConta.getSimpleName(), existente.getNumero()));
+			throw new ContaJaExisteException(
+					String.format("Cliente já tem %s com número %d", tipoDeConta.getSimpleName(), existente.getNumero()));
 		}
 	}
 
@@ -106,23 +101,17 @@ public class Agencia implements Serializable {
 	}
 
 	public Conta getConta(int numero) {
-				return contas.get(numero);
+		return contas.get(numero);
 	}
 
 	public Cadastro getCadastro(Pessoa cliente) {
 		return mapPessoasContas.get(cliente);
 	}
 
-	private Conta getContaDoTipo(Pessoa cliente, Class<? extends Conta> tipoDeConta) {
+	public <C extends Conta> C getContaDoTipo(Pessoa cliente, Class<C> tipoDeConta) {
 		if (!mapPessoasContas.containsKey(cliente))
 			return null;
-		if (tipoDeConta == ContaCorrente.class)
-			return mapPessoasContas.get(cliente).getContaCorrente();
-		if (tipoDeConta == ContaInvestimento.class)
-			return mapPessoasContas.get(cliente).getContaInvestimento();
-		if (tipoDeConta == ContaPoupanca.class)
-			return mapPessoasContas.get(cliente).getContaPoupanca();
-		return null;
+		return mapPessoasContas.get(cliente).getContaDoTipo(tipoDeConta);
 	}
 
 	public Pessoa getCliente(int documento) {
@@ -134,6 +123,8 @@ public class Agencia implements Serializable {
 	}
 
 	public void passarMes() {
-		contas.forEach((numero, conta) -> {conta.passarMes();});
+		contas.forEach((numero, conta) -> {
+			conta.passarMes();
+		});
 	}
 }
