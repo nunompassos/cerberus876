@@ -28,7 +28,7 @@ public class TelaLogadaContaCorrente extends Tela {
 						"Voltar" },
 						false);
 		this.cliente = cliente;
-		this.conta = (ContaCorrente) Banco.selecionada.getContas(cliente)[0];
+		this.conta = (ContaCorrente) Banco.selecionada.getCadastro(cliente).getContaCorrente();
 	}
 	
 	@Override

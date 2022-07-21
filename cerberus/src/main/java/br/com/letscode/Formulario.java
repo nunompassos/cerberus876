@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import br.com.letscode.excecoes.ContaJaExisteException;
 import br.com.letscode.excecoes.PessoaDuplicadaException;
 import br.com.letscode.modelos.Banco;
-import br.com.letscode.modelos.conta.Conta;
+import br.com.letscode.modelos.Cadastro;
 import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
@@ -29,12 +29,12 @@ public abstract class Formulario {
 			meusDados((PessoaFisica) cliente);
 		if (cliente instanceof PessoaJuridica)
 			meusDados((PessoaJuridica) cliente);
-		Conta[] contas = Banco.selecionada.getContas(cliente);
-		System.out.println("Conta corrente número " + contas[0].getNumero());
-		if (contas[1] != null)
-			System.out.println("Conta poupança número " + contas[1].getNumero());
-		if (contas[2] != null)
-			System.out.println("Conta investimentos número " + contas[2].getNumero());
+		Cadastro cadastro = Banco.selecionada.getCadastro(cliente);
+		System.out.println("Conta corrente número " + cadastro.getContaCorrente().getNumero());
+		if (cadastro.getContaInvestimento() != null)
+			System.out.println("Conta poupança número " + cadastro.getContaInvestimento().getNumero());
+		if (cadastro.getContaPoupanca() != null)
+			System.out.println("Conta investimentos número " + cadastro.getContaPoupanca().getNumero());
 		System.out.println("\nAperte ENTER para continuar...");
 		Tela.sc.nextLine();
 	}
