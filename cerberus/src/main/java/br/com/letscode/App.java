@@ -1,94 +1,50 @@
 package br.com.letscode;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-/**
- * Hello world!
- */
 public class App {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        final Pessoa p1 = new Pessoa("Nuno", "Passos", 36, "Castanho");
-        p1.criarCartão(563802);
-        //        System.out.println(p1);
-        final Pessoa p2 = p1.criarClone();
-        //        System.out.println(p2);
+    public static void main(String... args) {
+        ArrayList<Number> integerArrayList = new ArrayList<>();
+        integerArrayList.add(1d);
+        integerArrayList.add(2d);
+        integerArrayList.add(3d);
+        integerArrayList.add(4d);
+        integerArrayList.add(5d);
 
-        final Pessoa p3 = new Pessoa("Alexandre", "Xavier", 47, "Preto");
-        final Pessoa p4 = new Pessoa("Beatriz", "Matos", 24, "Louro");
-        final Pessoa p5 = new Pessoa("Bruno", "Andrade", 19, "Vermelho");
-        final Pessoa p6 = new Pessoa("Filipe", "Silva", 52, "Azul");
-
-        Pessoa[] listaPessoas = {p1, p2, p3, p4, p5, p6};
-        Arrays.sort(listaPessoas);
-        /*for (Pessoa p : listaPessoas) {
-            System.out.println(p);
-        }*/
-
-        // Mexivel m = (int x) -> System.out.println(x);
-        // Arrays.stream(listaPessoas).mapToInt(pessoa -> pessoa.getIdade()).forEach(Mexivel::mexer);
-
-        // Mexivel.mexer();
-/*
-        Mexivel m = new Mexivel() {
-            @Override
-            public void mexer() {
-                System.out.println("A Inner Class está a andar!");
-            }
-        };
-
-        class Carro implements Mexivel {
-
-            @Override
-            public void mexer() {
-                System.out.println("Andei 1 Km!");
-            }
+        Double[] doubleArray = new Double[6]; integerArrayList.toArray(doubleArray);
+        for(Double d : doubleArray) {
+            System.out.println(d);
         }
-        Carro c = new Carro();*/
+        Integer[] intArray = new Integer[5];
 
-        List list = new ArrayList();
-        List<Integer> intList = List.of(1, 2, 3, 4, 5);
-        int i = intList.get(2);
+        Set<Integer> intSet = new HashSet<>();
+        intSet.add(1);
+        intSet.add(2);
+        intSet.add(3);
+        intSet.add(2);
+        intSet.add(1);
 
-        Integer[] intArray = {7, 65, 4, 3, 2, 63, 75};
-        orderArray(intArray);
-        for (Integer integer: intArray) {
-            System.out.print(integer + " ");
+        // intSet.forEach(System.out::println);
+
+        Map<Integer, String> stringMap = new HashMap<>();
+        stringMap.put(1, "Olá");
+        stringMap.put(2, "Olá");
+        stringMap.put(3, "Olá");
+        stringMap.put(1, "Adeus");
+        stringMap.put(4, "Olá");
+
+        //stringMap.forEach( (k, v) -> System.out.println(k + " " + v));
+
+    }
+
+    Integer[] copyOf(Integer[] array, int newCapacity) {
+        Integer[] result = new Integer[newCapacity];
+        for(int i = 0; i < array.length; i++) {
+            result[i] = array[i];
         }
-        System.out.println();
-
-        String[] stringArray = {"Ana", "Mario", "Alexandre", "Beatriz"};
-        orderArray(stringArray);
-        Arrays.stream(stringArray).forEach(s -> System.out.print( s + " "));
-
-        Integer j = null;
-        Optional<Integer> integerOptional = Optional.empty();
-
+        return result;
     }
-
-    public static <T extends Number> void orderArray(T[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[i].intValue() < array[j].intValue()) {
-                    swap(array, i, j);
-                }
-            }
-        }
-    }
-
-    public static <T> void orderArray(T[] array) {
-        Arrays.sort(array);
-    }
-
-    public static void swap(Object[] array, int x, int y) {
-        Object aux = array[x];
-        array[x] = array[y];
-        array[y] = aux;
-    }
-
 }
