@@ -1,9 +1,11 @@
 package br.com.letscode.modelos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import br.com.letscode.excecoes.AgenciaDuplicadaException;
 import br.com.letscode.excecoes.ContaJaExisteException;
@@ -14,70 +16,54 @@ import br.com.letscode.util.DigitoVerificador;
 public class Agencia implements Serializable {
 
 	private static final long serialVersionUID = 3000000L;
-
-	private final int numero;
-	private final static ArrayList<Integer> numerosDeAgencia = new ArrayList<Integer>();
-
-	private final ArrayList<Conta> contas;
-	private final ArrayList<Integer> numerosDeConta;
-
-	private final ArrayList<Pessoa> clientes;
-	private final ArrayList<PessoaFisica> clientesPf;
-	private final ArrayList<PessoaJuridica> clientesPj;
-
-	// [0] = CC, [1] = CI, [2] = CP
-	private final HashMap<Pessoa, Conta[]> mapPessoasContas;
-	private final HashMap<Class<?>, Integer> posicao = new HashMap<Class<?>, Integer>();
+	private static final Set<Integer> numerosDeAgencia = new HashSet<>();
+	private static final Map<Class<?>, Integer> posicao = new HashMap<>();
 	{
 		posicao.put(ContaCorrente.class, 0);
 		posicao.put(ContaInvestimento.class, 1);
 		posicao.put(ContaPoupanca.class, 2);
 	}
 
+	private final int numero;
+	private final Set<Pessoa> clientes = new HashSet<>();
+	private final Set<Integer> numerosDeConta = new HashSet<>();
+	private final Map<Integer, Conta> contas = new HashMap<>();
+	private final Map<Pessoa, Conta[]> mapPessoasContas = new HashMap<>();// [0] = CC, [1] = CI, [2] = CP
+	
+
 	public Agencia(int numero) throws AgenciaDuplicadaException{
 		if (Agencia.numerosDeAgencia.contains(numero))
 			throw new AgenciaDuplicadaException();
 		this.numero = numero;
 		Agencia.numerosDeAgencia.add(numero);
-
-		mapPessoasContas = new HashMap<Pessoa, Conta[]>();
-
-		contas = new ArrayList<Conta>();
-		numerosDeConta = new ArrayList<Integer>();
-
-		clientes = new ArrayList<Pessoa>();
-		clientesPf = new ArrayList<PessoaFisica>();
-		clientesPj = new ArrayList<PessoaJuridica>();
 	}
 
 	public void cadastrarCliente(Pessoa cliente) {
-		if (cliente == null)
-			throw new IllegalArgumentException("Cliente não pode ser nulo");
 		if (cliente instanceof PessoaFisica)
 			this.cadastrarCliente((PessoaFisica) cliente);
 		else if (cliente instanceof PessoaJuridica)
 			this.cadastrarCliente((PessoaJuridica) cliente);
+		else 
+			throw new ClassCastException("Tipo de cliente inválido");
 	}
 
 	private void cadastrarCliente(PessoaFisica pessoa) {
 		if (clientes.contains(pessoa))
 			return;
 		clientes.add(pessoa);
-		clientesPf.add(pessoa);
 		mapPessoasContas.put(pessoa, new Conta[3]);
 	}
 
-	private void cadastrarCliente(PessoaJuridica empresa) {
+	private boolean cadastrarCliente(PessoaJuridica empresa) {
 		if (clientes.contains(empresa))
-			return;
+			return false;
 		clientes.add(empresa);
-		clientesPj.add(empresa);
 		mapPessoasContas.put(empresa, new Conta[3]);
 
 		PessoaFisica dono = empresa.getResponsavel();
-		if (clientesPf.contains(dono))
-			return;
-		clientesPf.add(dono);
+		if (!clientes.contains(dono))
+			clientes.add(dono);
+		return true;
 	}
 
 	public int abrirConta(Pessoa cliente, Class<?> tipoDeConta) throws ContaJaExisteException {
@@ -101,14 +87,14 @@ public class Agencia implements Serializable {
 			throw new IllegalArgumentException("tipoDeConta inválido");
 
 		mapPessoasContas.get(cliente)[posicao.get(tipoDeConta)] = novaConta;
-		contas.add(novaConta);
+		contas.put(novaConta.getNumero(), novaConta);
 		return numero;
 	}
 
 	private void verificaSeTemConta(Pessoa cliente, Class<?> tipoDeConta) throws ContaJaExisteException {
 		if (mapPessoasContas.get(cliente)[posicao.get(tipoDeConta)] != null) {
 			Conta existente = mapPessoasContas.get(cliente)[0];
-			throw new ContaJaExisteException("Cliente já tem conta-corrente com número " + existente.getNumero());
+			throw new ContaJaExisteException(String.format("Cliente já tem %s com número %d", tipoDeConta.getName(), existente.getNumero()));
 		}
 	}
 
@@ -136,11 +122,7 @@ public class Agencia implements Serializable {
 	}
 
 	public Conta getConta(int numero) {
-		for (Conta conta : contas) {
-			if (conta.getNumero() == numero)
-				return conta;
-		}
-		return null;
+				return contas.get(numero);
 	}
 
 	public Conta[] getContas(Pessoa cliente) {
@@ -156,9 +138,6 @@ public class Agencia implements Serializable {
 	}
 
 	public void passarMes() {
-		for (Conta conta : contas) {
-			conta.passarMes();
-		}
+		contas.forEach((numero, conta) -> {conta.passarMes();});
 	}
-
 }
