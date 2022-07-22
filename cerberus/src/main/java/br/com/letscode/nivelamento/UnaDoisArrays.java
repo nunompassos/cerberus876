@@ -42,7 +42,11 @@ public class UnaDoisArrays {
                     arrayConsolidado[i] = aux;
                 }
             }
-            System.out.println(arrayConsolidado[i]);
+            if (i == arrayConsolidado.length -1) {
+                System.out.printf("%d", arrayConsolidado[i]);
+            } else {
+                System.out.printf("%d, ", arrayConsolidado[i]);
+            }
         }
 
     }
