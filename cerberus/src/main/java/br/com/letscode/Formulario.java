@@ -94,10 +94,11 @@ public abstract class Formulario {
 		int documento = -1;
 		while (true) {
 			documento = Console.lerInt(0, Integer.MAX_VALUE);
-			if (Pessoa.documentos.contains(documento)) {
-				System.out.println("CPF já cadastrado...");
-				continue;
-			}
+			// TODO verificar se o banco tem pessoa, não na classe pessoa
+			// if (Pessoa.documentos.contains(documento)) {
+			// 	System.out.println("CPF já cadastrado...");
+			// 	continue;
+			// }
 			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
@@ -133,10 +134,11 @@ public abstract class Formulario {
 		int documento = -1;
 		while (true) {
 			documento = Console.lerInt(0, Integer.MAX_VALUE);
-			if (Pessoa.documentos.contains(documento)) {
-				System.out.println("CNPJ já cadastrado...");
-				continue;
-			}
+			// TODO verificar se o banco tem pessoa, não na classe pessoa
+			// if (Pessoa.documentos.contains(documento)) {
+			// 	System.out.println("CNPJ já cadastrado...");
+			// 	continue;
+			// }
 			break;
 		}
 		System.out.printf("%-30s", "Endereço :");

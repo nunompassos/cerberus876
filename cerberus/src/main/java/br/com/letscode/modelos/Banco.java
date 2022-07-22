@@ -9,6 +9,7 @@ import java.util.Set;
 public class Banco implements Serializable {
 	private static final long serialVersionUID = 4000000L;
 
+	// TODO verificar se o banco tem pessoa, não na classe pessoa
 	private final Map<Integer, Agencia> agencias = new HashMap<>();
 	private final Set<Integer> numerosDeAgencia = new HashSet<>();
 	private Agencia selecionada;

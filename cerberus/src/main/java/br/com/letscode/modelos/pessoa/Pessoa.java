@@ -1,7 +1,7 @@
 package br.com.letscode.modelos.pessoa;
 
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.HashSet;
+// import java.util.Set;
 import java.io.Serializable;
 
 import br.com.letscode.excecoes.PessoaDuplicadaException;
@@ -14,13 +14,14 @@ public abstract class Pessoa implements Serializable {
 	private String endereco;
 	private String telefone;
 	private int documento;
-	public static final Set<Integer> documentos = new HashSet<Integer>();
+	// TODO verificar se o banco tem pessoa, não na classe pessoa
+	// public static final Set<Integer> documentos = new HashSet<Integer>();
 
 	Pessoa(String nome, String endereco, String telefone, int documento) throws PessoaDuplicadaException{
-		if (Pessoa.documentos.contains(documento))
-			throw new PessoaDuplicadaException();
+		// if (Pessoa.documentos.contains(documento))
+			// throw new PessoaDuplicadaException();
 		this.documento = documento;
-		Pessoa.documentos.add(documento);
+		// Pessoa.documentos.add(documento);
 		this.nome = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;
@@ -55,6 +56,11 @@ public abstract class Pessoa implements Serializable {
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Pessoa)) return false;
 		return this.documento == ((Pessoa)obj).documento;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.documento;
 	}
 
 	@Override
