@@ -88,6 +88,11 @@ public abstract class Conta implements Serializable {
 	}
 
 	@Override
+	public int hashCode() {
+		return this.numero;
+	}
+
+	@Override
 	public String toString() {
 		return this.getNumero() + ", " +
 				this.getTitular().getNome() + ", " +

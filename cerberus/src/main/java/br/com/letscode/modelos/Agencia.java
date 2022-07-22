@@ -117,6 +117,11 @@ public class Agencia implements Serializable {
 		return null;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.numero;
+	}
+
 	public void passarMes() {
 		contas.forEach((numero, conta) -> {
 			conta.passarMes();
