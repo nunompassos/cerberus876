@@ -11,18 +11,17 @@ public class ContaInvestimento extends Conta {
 
 	public ContaInvestimento(int numero, Pessoa titular) {
 		super(numero, titular);
-		this.setPerfil('C');
+		this.setPerfil(PerfilInvestidor.CONSERVADOR);
 	}
 
 	public PerfilInvestidor getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(char perfil) {
-		PerfilInvestidor p = PerfilInvestidor.deChar(perfil);
-		if (p == null)
+	public void setPerfil(PerfilInvestidor perfil) {
+		if (perfil == null)
 			throw new IllegalArgumentException("Perfil " + perfil + "inválido");
-		this.perfil = p;
+		this.perfil = perfil;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package br.com.letscode.telas;
 import br.com.letscode.Formulario;
 import br.com.letscode.excecoes.SairDaTelaException;
 import br.com.letscode.excecoes.SaldoInsuficienteException;
+import br.com.letscode.modelos.Cadastro;
 import br.com.letscode.modelos.conta.Conta;
 import br.com.letscode.modelos.conta.ContaCorrente;
 import br.com.letscode.modelos.pessoa.Pessoa;
@@ -11,23 +12,25 @@ import br.com.letscode.util.Console;
 public class TelaLogadaContaCorrente extends Tela {
 
 	private ContaCorrente conta;
+	private Cadastro cadastro;
 	private Pessoa cliente;
 
 	public TelaLogadaContaCorrente(Pessoa cliente) {
 		super(
 				"Conta corrente",
 				new String[] {
-						"Meus dados",
-						"Depósito",
-						"Saque",
-						"Transferir",
-						"Empréstimos",
-						"Pupança",
-						"Investimentos",
-						"Voltar" },
+						"Meus dados",			//1 ok
+						"Depósito",				//2 ok
+						"Saque",					//3 ok
+						"Transferir",			//4 ok
+						"Empréstimos",		//5
+						"Pupança",				//6
+						"Investimentos",	//7 ok
+						"Voltar" },				//8 ok
 						false);
 		this.cliente = cliente;
-		this.conta = (ContaCorrente) Tela.getBanco().selecionada().getCadastro(cliente).getContaCorrente();
+		this.cadastro = Tela.getBanco().selecionada().getCadastro(cliente);
+		this.conta = cadastro.getContaCorrente();
 	}
 	
 	@Override
@@ -85,7 +88,12 @@ public class TelaLogadaContaCorrente extends Tela {
 	
 	@Override
 	protected void opcao7() {
-		
+		if (cadastro.getContaInvestimento() == null) {
+			if (!Formulario.fazerContaInvestimento(cliente, cadastro, Tela.banco.selecionada())) {
+				return;
+			}
+		}
+		new TelaLogadaContaInvestimento(cadastro).iniciar();
 	}
 	
 	@Override
@@ -96,6 +104,8 @@ public class TelaLogadaContaCorrente extends Tela {
 	@Override
 	protected void mostraInfo() {
 		Console.printaCentro(cliente.getNome());
+		Console.printaCentro("CONTA CORRENTE: " + conta.getNumero());
+		System.out.println();
 		Console.printaCentro(String.format(
 				"SALDO: %s\tDÍVIDA: %s\tLIMITE: %s",
 				conta.getSaldoFormatado(),

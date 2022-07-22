@@ -3,10 +3,13 @@ package br.com.letscode;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import br.com.letscode.enums.PerfilInvestidor;
 import br.com.letscode.excecoes.ContaJaExisteException;
 import br.com.letscode.excecoes.PessoaDuplicadaException;
+import br.com.letscode.modelos.Agencia;
 import br.com.letscode.modelos.Cadastro;
 import br.com.letscode.modelos.conta.ContaCorrente;
+import br.com.letscode.modelos.conta.ContaInvestimento;
 import br.com.letscode.modelos.pessoa.Pessoa;
 import br.com.letscode.modelos.pessoa.PessoaFisica;
 import br.com.letscode.modelos.pessoa.PessoaJuridica;
@@ -31,9 +34,9 @@ public abstract class Formulario {
 		Cadastro cadastro = Tela.getBanco().selecionada().getCadastro(cliente);
 		System.out.println("Conta corrente número " + cadastro.getContaCorrente().getNumero());
 		if (cadastro.getContaInvestimento() != null)
-			System.out.println("Conta poupança número " + cadastro.getContaInvestimento().getNumero());
+			System.out.println("Conta investimentos número " + cadastro.getContaInvestimento().getNumero());
 		if (cadastro.getContaPoupanca() != null)
-			System.out.println("Conta investimentos número " + cadastro.getContaPoupanca().getNumero());
+			System.out.println("Conta poupança número " + cadastro.getContaPoupanca().getNumero());
 		System.out.println("\nAperte ENTER para continuar...");
 		Tela.sc.nextLine();
 	}
@@ -171,5 +174,48 @@ public abstract class Formulario {
 		PessoaJuridica novoCliente = new PessoaJuridica(nome, documento, endereco, telefone, dono);
 		Tela.getBanco().selecionada().cadastrarCliente(novoCliente);
 		return novoCliente;
+	}
+
+	public static void mudarPerfil(ContaInvestimento conta) {
+		Console.limparConsole();
+		Console.printaCentro("Escolha o perfil de investidor: ");
+		System.out.println();
+		Console.printaCentro("1:Conservador    2:Moderado    3:Agressivo");
+		PerfilInvestidor novoPerfil;
+		switch (Console.lerInt(1, 3)) {
+			case 1:
+				novoPerfil = PerfilInvestidor.CONSERVADOR;
+				break;
+			case 2:
+				novoPerfil = PerfilInvestidor.MODERADO;
+				break;
+			case 3:
+				novoPerfil = PerfilInvestidor.AGRESSIVO;
+				break;
+			default:
+				throw new IllegalArgumentException("Opção inválida");
+		}
+		conta.setPerfil(novoPerfil);
+	}
+
+	public static boolean fazerContaInvestimento(Pessoa cliente, Cadastro cadastro, Agencia agencia) {
+		System.out.println("Você não tem conta investimento. Criar uma? (s/n)");
+		String escolha;
+		
+		do {
+			escolha = Tela.sc.nextLine();
+		}	while (!escolha.equals("s") && !escolha.equals("n"));
+		
+		if (escolha.equals("s")) {
+			try {
+				agencia.abrirConta(cliente, ContaInvestimento.class);
+				return true;
+			} catch (ContaJaExisteException e) {
+				System.out.println("A conta já existe. É a número " + cadastro.getContaInvestimento().getNumero());
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 }

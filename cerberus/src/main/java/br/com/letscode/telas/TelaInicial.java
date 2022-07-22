@@ -6,13 +6,19 @@ import br.com.letscode.excecoes.PessoaDuplicadaException;
 import br.com.letscode.excecoes.SairDaTelaException;
 import br.com.letscode.modelos.Banco;
 import br.com.letscode.modelos.pessoa.Pessoa;
+import br.com.letscode.util.Console;
 
 public class TelaInicial extends Tela {
 
 	public TelaInicial(Banco banco) throws BancoJayException {
 		super(
 			"Tela Inicial",
-			new String[] {"Entrar", "Cadastrar", "Sair"},
+			new String[] {
+				"Entrar", 				//1 ok
+				"Cadastrar", 			//2 ok
+				"Trocar Agencia", //3
+				"Passar um mês", 	//4
+				"Sair"},					//5
 			true);
 		Tela.banco = banco;
 		super.iniciar();
@@ -39,18 +45,20 @@ public class TelaInicial extends Tela {
 		}
 	}
 	@Override
-	protected void opcao3() throws SairDaTelaException {throw new SairDaTelaException();}
+	protected void opcao3() {}
 	@Override
-	protected void opcao4() throws SairDaTelaException {opcao3();}
+	protected void opcao4() {Tela.banco.selecionada().passarMes();}
 	@Override
-	protected void opcao5() throws SairDaTelaException {opcao3();}
+	protected void opcao5() throws SairDaTelaException {throw new SairDaTelaException();}
 	@Override
-	protected void opcao6() throws SairDaTelaException {opcao3();}
+	protected void opcao6() {}
 	@Override
-	protected void opcao7() throws SairDaTelaException {opcao3();}
+	protected void opcao7() {}
 	@Override
-	protected void opcao8() throws SairDaTelaException {opcao3();}
+	protected void opcao8() {}
 	@Override
-	protected void mostraInfo() {};
+	protected void mostraInfo() {
+		Console.printaCentro("AGENCIA: " + Tela.banco.selecionada().getNumero());
+	};
 	
 }
