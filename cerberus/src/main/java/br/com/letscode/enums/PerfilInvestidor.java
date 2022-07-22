@@ -40,9 +40,4 @@ public enum PerfilInvestidor {
 		return min + PerfilInvestidor.random.nextDouble() * (max - min);
 	}
 
-	@Override
-	public String toString() {
-		return this.name();
-	}
-
 }
