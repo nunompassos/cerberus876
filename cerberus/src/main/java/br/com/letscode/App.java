@@ -1,12 +1,11 @@
 package br.com.letscode;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class App {
     public static void main(String... args) {
+
+
         ArrayList<Number> integerArrayList = new ArrayList<>();
         integerArrayList.add(1d);
         integerArrayList.add(2d);

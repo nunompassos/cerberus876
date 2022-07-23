@@ -2,43 +2,46 @@ package br.com.letscode;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
-import java.util.Comparator;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa> {
 
     private String nome;
     private String apelido;
-    private int idade;
     private int cpf;
+    private final LocalDateTime dataNascimento;
 
-    public Pessoa(final String _nome, final String _apelido, final int _idade) {
+    public Pessoa(final String _nome, final String _apelido, final LocalDateTime _dataNascimento) {
         this.nome = _nome;
         this.apelido = _apelido;
-        this.idade = _idade;
+        if (_dataNascimento.isAfter(LocalDateTime.now())) {
+            throw new InvalidParameterException();
+        }
+        this.dataNascimento = _dataNascimento;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCompleto() {
+        return nome + apelido;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getApelido() {
-        return apelido;
-    }
-
     public void setApelido(String apelido) {
         this.apelido = apelido;
     }
 
-    public int getIdade() {
-        return idade;
+    public long getIdade() {
+        return Duration
+            .between(this.dataNascimento, LocalDateTime.now())
+            .get(ChronoUnit.YEARS);
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public LocalDateTime getDataNascimento() {
+        return dataNascimento;
     }
 
     public int getCpf() {
@@ -52,7 +55,6 @@ public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa> {
         this.cpf = _cpf;
     }
 
-
     public Pessoa clone() throws CloneNotSupportedException {
         return (Pessoa) super.clone();
     }
@@ -63,12 +65,12 @@ public class Pessoa implements Cloneable, Serializable, Comparable<Pessoa> {
 
     @Override
     public String toString() {
-        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.idade + " anos."
+        return "Eu chamo-me " + this.nome + " " + this.apelido + " e tenho " + this.getIdade() + " anos."
             + (this.cpf != 0 ? " O meu CPF é: " + this.cpf : "");
     }
 
     @Override
     public int compareTo(Pessoa o) {
-        return this.nome.compareTo(o.getNome());
+        return this.nome.compareTo(o.getNomeCompleto());
     }
 }
