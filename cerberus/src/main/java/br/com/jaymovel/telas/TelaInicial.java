@@ -1,20 +1,18 @@
 package br.com.jaymovel.telas;
 
 import br.com.jaymovel.Formulario;
-import br.com.jaymovel.excecoes.BancoJayException;
+import br.com.jaymovel.excecoes.JayMovelException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.excecoes.SairDaTelaException;
-import br.com.jaymovel.modelos.Banco;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 
 public class TelaInicial extends Tela {
 
-	public TelaInicial(Banco banco) throws BancoJayException {
+	public TelaInicial() throws JayMovelException {
 		super(
 			"Tela Inicial",
 			new String[] {"Entrar", "Cadastrar", "Sair"},
 			true);
-		Tela.banco = banco;
 		super.iniciar();
 
 	}
@@ -26,13 +24,13 @@ public class TelaInicial extends Tela {
 			super.setMensagem("Cliente não encontrado.");
 			return;
 		}
-		new TelaLogadaContaCorrente(cliente).iniciar();
+		new TelaLogada(cliente).iniciar();
 	}
 	@Override
 	protected void opcao2() {
 		try {
 			Pessoa cliente = Formulario.cadastrarCliente();
-			new TelaLogadaContaCorrente(cliente).iniciar();
+			new TelaLogada(cliente).iniciar();
 		}
 		catch (PessoaDuplicadaException e) {
 			super.setMensagem("ERRO: " + e);

@@ -3,7 +3,6 @@ package br.com.jaymovel.telas;
 import java.util.Scanner;
 
 import br.com.jaymovel.excecoes.SairDaTelaException;
-import br.com.jaymovel.modelos.Banco;
 import br.com.jaymovel.util.Console;
 
 // public class Tela {
@@ -16,7 +15,6 @@ public abstract class Tela {
 	private String mensagem = "";
 	
 	protected static final int opcoesPorLinha = 4;
-	protected static Banco banco;
 	
 	public Tela(String nome, String[] opcoes, boolean cabecalho) {
 		this.nome = nome;
@@ -127,10 +125,6 @@ public abstract class Tela {
 
 	protected void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
-	}
-
-	public static Banco getBanco() {
-		return banco;
 	}
 
 }
