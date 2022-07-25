@@ -1,12 +1,22 @@
 package br.com.jaymovel.telas;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 
 public class TelaLogada extends Tela {
 
+	private static final Map<Integer, String> opcoes = new HashMap<>();
+	{
+		opcoes.put(1, "Alugar");
+		opcoes.put(2, "Pagar");
+		opcoes.put(3, "Sair");
+	}
+
 	public TelaLogada(Pessoa cliente) {
-		super("Tela Logada", new String[]{}, false);
+		super("Tela Logada", opcoes, false);
 		//TODO Auto-generated constructor stub
 	}
 

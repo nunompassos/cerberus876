@@ -6,6 +6,7 @@ import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
+import br.com.jaymovel.telas.TelaInicial;
 
 public class App {
     public static void main(String[] args) throws JayMovelException {
@@ -43,7 +44,7 @@ public class App {
         // FileInputStream("dados.bin"));
         // Banco.selecionada = (Agencia) ois.readObject();
         // ois.close();
-        // new TelaInicial();
+        new TelaInicial();
         // ObjectOutputStream oos = new ObjectOutputStream(new
         // FileOutputStream("dados.bin"));
         // oos.writeObject(Banco.selecionada);

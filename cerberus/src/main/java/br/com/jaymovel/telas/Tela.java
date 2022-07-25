@@ -1,6 +1,9 @@
 package br.com.jaymovel.telas;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.util.Console;
@@ -10,13 +13,13 @@ public abstract class Tela {
 
 	public static Scanner sc = new Scanner(System.in);
 	private boolean cabecalho;
-	private String[] opcoes;
+	Map<Integer, String> opcoes;
 	private String nome;
 	private String mensagem = "";
 	
 	protected static final int opcoesPorLinha = 4;
 	
-	public Tela(String nome, String[] opcoes, boolean cabecalho) {
+	public Tela(String nome, Map<Integer, String> opcoes, boolean cabecalho) {
 		this.nome = nome;
 		this.opcoes = opcoes;
 		this.cabecalho = cabecalho;
@@ -54,7 +57,7 @@ public abstract class Tela {
 				System.out.println(this.mensagem);
 				System.out.println();
 				this.setMensagem("");
-				switch (Console.lerInt(1, this.opcoes.length)) {
+				switch (Console.lerInt(1, this.opcoes.size())) {
 					case 1:
 					this.opcao1();
 					break;
@@ -96,18 +99,32 @@ public abstract class Tela {
 	}
 	
 	protected void mostraOpcoes() {
-		for (int i = 0; i < opcoes.length; i += opcoesPorLinha) {
-			String linha = "";
-			for (int j = 0; j < opcoesPorLinha; j++) {
-				try {
-					linha += String.format("%d: %s    ", i + j + 1, opcoes[j + i]);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					break;
-				}
+		
+		String linha = "";
+		int i = 1;
+		for (Entry<Integer, String> opcao: opcoes.entrySet()) {
+			linha += String.format("%d: %s", opcao.getKey(), opcao.getValue());
+			if (i % opcoesPorLinha == 0) {
+				Console.printaCentro(linha);
+				linha = "";
+			} else {
+				linha += "    ";
 			}
-			Console.printaCentro(linha);
-			System.out.println();
+			i++;
 		}
+		Console.printaCentro(linha);
+		// for (int i = 0; i < opcoes.length; i += opcoesPorLinha) {
+		// 	String linha = "";
+		// 	for (int j = 0; j < opcoesPorLinha; j++) {
+		// 		try {
+		// 			linha += String.format("%d: %s    ", i + j + 1, opcoes[j + i]);
+		// 		} catch (ArrayIndexOutOfBoundsException e) {
+		// 			break;
+		// 		}
+		// 	}
+		// 	Console.printaCentro(linha);
+		// 	System.out.println();
+		// }
 	}
 	
 	protected void mostraCabecalho() {
