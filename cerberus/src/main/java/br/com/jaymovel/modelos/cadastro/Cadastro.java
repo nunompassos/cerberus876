@@ -1,6 +1,8 @@
 package br.com.jaymovel.modelos.cadastro;
 
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import br.com.jaymovel.modelos.pessoa.Pessoa;
@@ -12,13 +14,25 @@ public class Cadastro {
 
 	Cadastro(Pessoa cliente) {
 		if (cliente == null)
-			throw new IllegalArgumentException("Cadastro tem que ter pessoa");
+			throw new IllegalArgumentException("Cadastro tem que ter cliente");
 		this.cliente = cliente;
 	}
 
-	public void novoAluguel(Veiculo veiculo, int dias) {
+	public BigDecimal getDivida() {
+		BigDecimal divida = BigDecimal.ZERO;
+		for (Aluguel aluguel: alugueis) {
+			divida = divida.add(aluguel.calculaPreco());
+		}
+		return divida;
+	}
+
+	public void adicionaAluguel(Veiculo veiculo, int dias) {
 		Aluguel novoAluguel = new Aluguel(veiculo, this.cliente, dias);
 		this.alugueis.add(novoAluguel);
+	}
+
+	public Collection<Aluguel> getAlugueis() {
+		return Collections.unmodifiableCollection(alugueis);
 	}
 
 	public Pessoa getCliente() {
