@@ -1,4 +1,4 @@
-package br.com.jaymovel.modelos.cadastro;
+package br.com.jaymovel;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
+import br.com.jaymovel.modelos.Cadastro;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 

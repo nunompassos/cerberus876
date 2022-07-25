@@ -1,4 +1,4 @@
-package br.com.jaymovel.modelos.cadastro;
+package br.com.jaymovel.modelos;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -12,7 +12,7 @@ public class Cadastro {
 	private final Pessoa cliente;
 	private final Collection<Aluguel> alugueis = new LinkedList<>();
 
-	Cadastro(Pessoa cliente) {
+	public Cadastro(Pessoa cliente) {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cadastro tem que ter cliente");
 		this.cliente = cliente;

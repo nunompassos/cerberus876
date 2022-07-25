@@ -1,4 +1,4 @@
-package br.com.jaymovel.modelos.cadastro;
+package br.com.jaymovel.modelos;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

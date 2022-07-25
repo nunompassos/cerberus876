@@ -2,7 +2,6 @@ package br.com.jaymovel;
 
 import br.com.jaymovel.enums.TipoVeiculo;
 import br.com.jaymovel.excecoes.JayMovelException;
-import br.com.jaymovel.modelos.cadastro.Agencia;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
