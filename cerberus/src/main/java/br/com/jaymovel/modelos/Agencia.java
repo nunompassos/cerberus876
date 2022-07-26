@@ -1,4 +1,4 @@
-package br.com.jaymovel;
+package br.com.jaymovel.modelos;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -6,7 +6,6 @@ import java.util.Map;
 
 import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
-import br.com.jaymovel.modelos.Cadastro;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 
@@ -14,7 +13,7 @@ public class Agencia {
 	private final Map<Integer, Pessoa> mapDocumentoCliente = new HashMap<>();
 	private final Map<Pessoa, Cadastro> mapPessoaCadstro = new HashMap<>();
 
-	public boolean cadastraCliente (Pessoa cliente) throws PessoaDuplicadaException {
+	public boolean cadastraCliente(Pessoa cliente) throws PessoaDuplicadaException {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo!");
 		if (mapDocumentoCliente.containsKey(cliente.getDocumento()))
@@ -24,20 +23,22 @@ public class Agencia {
 		return true;
 	}
 
-	public void novoAluguel (int documentoCliente, Veiculo veiculo, int dias) throws ClienteNaoCadastradoException {
+	public void novoAluguel(int documentoCliente, Veiculo veiculo, int dias) throws ClienteNaoCadastradoException {
 		Pessoa cliente = getCliente(documentoCliente);
+		if (cliente == null)
+			throw new ClienteNaoCadastradoException();
 		mapPessoaCadstro.get(cliente).adicionaAluguel(veiculo, dias);
 	}
 
-	public BigDecimal calculaDivida(int documentoCliente) throws ClienteNaoCadastradoException {
-		Cadastro cadastro = mapPessoaCadstro.get(getCliente(documentoCliente));
+	public BigDecimal calculaDivida(int documentoCliente) {
+		Pessoa cliente = getCliente(documentoCliente);
+		if (cliente == null)
+			return BigDecimal.ZERO;
+		Cadastro cadastro = mapPessoaCadstro.get(cliente);
 		return cadastro.getDivida();
 	}
 
-	private Pessoa getCliente(int documentoCliente) throws ClienteNaoCadastradoException {
-		Pessoa cliente = mapDocumentoCliente.get(documentoCliente);
-		if (cliente == null) 
-			throw new ClienteNaoCadastradoException();
-		return cliente;
+	public Pessoa getCliente(int documentoCliente) {
+		return mapDocumentoCliente.get(documentoCliente);
 	}
 }

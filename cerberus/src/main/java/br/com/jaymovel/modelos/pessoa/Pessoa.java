@@ -4,8 +4,6 @@ package br.com.jaymovel.modelos.pessoa;
 // import java.util.Set;
 import java.io.Serializable;
 
-import br.com.jaymovel.excecoes.PessoaDuplicadaException;
-
 public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1000000L;
@@ -14,14 +12,9 @@ public abstract class Pessoa implements Serializable {
 	private String endereco;
 	private String telefone;
 	private int documento;
-	// TODO verificar se o banco tem pessoa, não na classe pessoa
-	// public static final Set<Integer> documentos = new HashSet<Integer>();
 
-	Pessoa(String nome, String endereco, String telefone, int documento) throws PessoaDuplicadaException{
-		// if (Pessoa.documentos.contains(documento))
-			// throw new PessoaDuplicadaException();
+	Pessoa(String nome, String endereco, String telefone, int documento) {
 		this.documento = documento;
-		// Pessoa.documentos.add(documento);
 		this.nome = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;

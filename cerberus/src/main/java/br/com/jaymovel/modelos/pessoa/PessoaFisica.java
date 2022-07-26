@@ -5,7 +5,6 @@ import java.time.Period;
 
 import br.com.jaymovel.enums.EstadoCivil;
 import br.com.jaymovel.enums.Genero;
-import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 
 public class PessoaFisica extends Pessoa {
 
@@ -21,7 +20,7 @@ public class PessoaFisica extends Pessoa {
 			int documento,
 			String endereco,
 			String telefone,
-			String nascimento) throws PessoaDuplicadaException {
+			String nascimento) {
 		super(nome, endereco, telefone, documento);
 		this.nascimento = LocalDate.parse(nascimento);
 	}
@@ -34,7 +33,7 @@ public class PessoaFisica extends Pessoa {
 			String nascimento,
 			char genero,
 			char estadoCivil,
-			String profissao) throws PessoaDuplicadaException {
+			String profissao) {
 		this(nome, documento, endereco, telefone, nascimento);
 		this.setGenero(genero);
 		this.setEstadoCivil(estadoCivil);

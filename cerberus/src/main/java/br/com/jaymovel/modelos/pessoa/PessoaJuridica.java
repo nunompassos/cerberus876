@@ -1,7 +1,5 @@
 package br.com.jaymovel.modelos.pessoa;
 
-import br.com.jaymovel.excecoes.PessoaDuplicadaException;
-
 public class PessoaJuridica extends Pessoa {
 
 	private static final long serialVersionUID = 1200000L;
@@ -13,7 +11,7 @@ public class PessoaJuridica extends Pessoa {
 			int documento,
 			String endereco,
 			String telefone,
-			PessoaFisica responsavel) throws PessoaDuplicadaException {
+			PessoaFisica responsavel) {
 		super(nome, endereco, telefone, documento);
 		this.setResponsavel(responsavel);
 	}

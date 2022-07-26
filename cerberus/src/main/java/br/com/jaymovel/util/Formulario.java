@@ -1,14 +1,12 @@
-package br.com.jaymovel;
+package br.com.jaymovel.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
 import br.com.jaymovel.telas.Tela;
-import br.com.jaymovel.util.Console;
 
 public abstract class Formulario {
 
@@ -16,8 +14,7 @@ public abstract class Formulario {
 		System.out.println("Informe seu documento: ");
 		int documento = -1;
 		documento = Console.lerInt(0, Integer.MAX_VALUE);
-		//TODO pegar pessoa a partir de documento no cadastro
-		return null;
+		return Tela.getAgencia().getCliente(documento);
 	}
 
 	public static void meusDados(Pessoa cliente) {
@@ -46,7 +43,7 @@ public abstract class Formulario {
 		System.out.println("Responsável: " + cliente.getResponsavel().getNome());
 	}
 
-	public static Pessoa cadastrarCliente() throws PessoaDuplicadaException {
+	public static Pessoa cadastrarCliente() {
 		while (true) {
 			Console.limparConsole();
 			System.out.println();
@@ -59,10 +56,10 @@ public abstract class Formulario {
 					escolha.toLowerCase().equals("juridica"))
 				// novoCliente = cadastrarClientePj();
 				// TODO formulario cadastrar PJ
-			if (escolha.toLowerCase().equals("pf") ||
-					escolha.toLowerCase().equals("fisica") ||
-					escolha.toLowerCase().equals("pessoa fisica"))
-				novoCliente = cadastrarClientePf();
+				if (escolha.toLowerCase().equals("pf") ||
+						escolha.toLowerCase().equals("fisica") ||
+						escolha.toLowerCase().equals("pessoa fisica"))
+					novoCliente = cadastrarClientePf();
 			if (novoCliente == null)
 				continue;
 			return novoCliente;
@@ -70,7 +67,7 @@ public abstract class Formulario {
 
 	}
 
-	public static PessoaFisica cadastrarClientePf() throws PessoaDuplicadaException {
+	public static PessoaFisica cadastrarClientePf() {
 		Console.limparConsole();
 		System.out.println();
 		Console.printaCentro("Informe os dados do cliente");
@@ -82,11 +79,10 @@ public abstract class Formulario {
 		int documento = -1;
 		while (true) {
 			documento = Console.lerInt(0, Integer.MAX_VALUE);
-			// TODO verificar se o banco tem pessoa, não na classe pessoa
-			// if (Pessoa.documentos.contains(documento)) {
-			// 	System.out.println("CPF já cadastrado...");
-			// 	continue;
-			// }
+			if (Tela.getAgencia().getCliente(documento) != null) {
+				System.out.println("CPF já cadastrado...");
+				continue;
+			}
 			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
