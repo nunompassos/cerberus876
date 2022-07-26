@@ -55,7 +55,7 @@ public abstract class Formulario {
 					escolha.toLowerCase().equals("pessoa juridica") ||
 					escolha.toLowerCase().equals("juridica"))
 				// novoCliente = cadastrarClientePj();
-				// TODO formulario cadastrar PJ
+				// TODO formulario cadastrar PJ JAY
 				if (escolha.toLowerCase().equals("pf") ||
 						escolha.toLowerCase().equals("fisica") ||
 						escolha.toLowerCase().equals("pessoa fisica"))

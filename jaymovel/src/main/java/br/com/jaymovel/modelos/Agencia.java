@@ -1,44 +1,46 @@
 package br.com.jaymovel.modelos;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 
-public class Agencia {
-	private final Map<Integer, Pessoa> mapDocumentoCliente = new HashMap<>();
-	private final Map<Pessoa, Cadastro> mapPessoaCadstro = new HashMap<>();
+public class Agencia implements Serializable {
 
-	public boolean cadastraCliente(Pessoa cliente) throws PessoaDuplicadaException {
+	private final Map<Integer, Pessoa> mapCliente = new HashMap<>();
+	private final Map<Integer, CadastroCliente> mapCadastro = new HashMap<>();
+	private final Map<Integer, Veiculo> veiculos = new HashMap<>();
+	private final Map<Veiculo, Boolean> disponibilidade = new HashMap<>();
+
+	public void adicionaCliente(Pessoa cliente) throws PessoaDuplicadaException {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo!");
-		if (mapDocumentoCliente.containsKey(cliente.getDocumento()))
+		if (mapCliente.containsKey(cliente.getDocumento()))
 			throw new PessoaDuplicadaException("Documento já cadastrado");
-		mapDocumentoCliente.put(cliente.getDocumento(), cliente);
-		mapPessoaCadstro.put(cliente, new Cadastro(cliente));
-		return true;
-	}
-
-	public void novoAluguel(int documentoCliente, Veiculo veiculo, int dias) throws ClienteNaoCadastradoException {
-		Pessoa cliente = getCliente(documentoCliente);
-		if (cliente == null)
-			throw new ClienteNaoCadastradoException();
-		mapPessoaCadstro.get(cliente).adicionaAluguel(veiculo, dias);
-	}
-
-	public BigDecimal calculaDivida(int documentoCliente) {
-		Pessoa cliente = getCliente(documentoCliente);
-		if (cliente == null)
-			return BigDecimal.ZERO;
-		Cadastro cadastro = mapPessoaCadstro.get(cliente);
-		return cadastro.getDivida();
+		mapCliente.put(cliente.getDocumento(), cliente);
+		mapCadastro.put(cliente.getDocumento(), new CadastroCliente());
 	}
 
 	public Pessoa getCliente(int documentoCliente) {
-		return mapDocumentoCliente.get(documentoCliente);
+		return mapCliente.get(documentoCliente);
+	}
+
+	public void adicionaVeiculo(Veiculo veiculo) {
+		//TODO adicionar o veiculo no acervo, dar um jeito de saber quais estão alugados e quais estão disponíveis
+	}
+
+	public void fazAluguel(int documento, int chassi) {
+		//TODO comparar esse chassi com os carros disponíveis e montar um aluguel para aquele cliente.
+	}
+
+	public void terminaAluguel(int numeroAluguel) {
+		//TODO terminar o Aluguel com numero indicado JAY
+	}
+
+	public CadastroCliente getCadastro(int documento) {
+		return mapCadastro.get(documento);
 	}
 }

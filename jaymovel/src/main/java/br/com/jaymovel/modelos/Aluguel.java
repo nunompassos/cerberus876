@@ -14,19 +14,23 @@ public class Aluguel {
 
 	public static final Map<TipoVeiculo, BigDecimal> precos = new HashMap<>();
 	{
-		precos.put(TipoVeiculo.PEQUENO, BigDecimal.valueOf(12000, 2));
-		precos.put(TipoVeiculo.MEDIO, BigDecimal.valueOf(18000, 2));
-		precos.put(TipoVeiculo.SUV, BigDecimal.valueOf(25000, 2));
+		precos.put(TipoVeiculo.PEQUENO, BigDecimal.valueOf(10000, 2));
+		precos.put(TipoVeiculo.MEDIO, BigDecimal.valueOf(15000, 2));
+		precos.put(TipoVeiculo.SUV, BigDecimal.valueOf(20000, 2));
 	}
+	private static int IDS;
 
 	private Veiculo veiculo;
 	private Pessoa cliente;
 	private BigDecimal dias;
+	private final int id;
 
 	public Aluguel(Veiculo veiculo, Pessoa cliente, int dias) {
 		this.veiculo = veiculo;
 		this.cliente = cliente;
 		this.dias = BigDecimal.valueOf(dias);
+		this.id = IDS;
+		IDS++;
 	}
 
 	private BigDecimal calculaDesconto() {
@@ -39,5 +43,9 @@ public class Aluguel {
 
 	public BigDecimal calculaPreco() {
 		return precos.get(veiculo.getTipo()).multiply(dias).multiply(calculaDesconto());
+	}
+
+	public int getId() {
+		return id;
 	}
 }

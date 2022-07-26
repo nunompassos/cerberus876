@@ -4,6 +4,7 @@ import br.com.jaymovel.enums.TipoVeiculo;
 
 public class Veiculo {
 	private TipoVeiculo tipo;
+	//TODO Colocar mais campos (modelo, cor etc)
 
 	public Veiculo(TipoVeiculo tipo) {
 		if (tipo == null)
