@@ -15,7 +15,7 @@ public class TelaLogada extends Tela {
 		opcoes.put(3, "Sair");
 	}
 
-	public TelaLogada(Pessoa cliente) {
+	TelaLogada(Pessoa cliente) {
 		super("Tela Logada", opcoes, false);
 		//TODO Auto-generated constructor stub
 	}
@@ -34,44 +34,28 @@ public class TelaLogada extends Tela {
 
 	@Override
 	protected void opcao3() throws SairDaTelaException {
-		// TODO Auto-generated method stub
+		throw new SairDaTelaException();
 		
 	}
 
 	@Override
-	protected void opcao4() throws SairDaTelaException {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void opcao4() {}
 
 	@Override
-	protected void opcao5() throws SairDaTelaException {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void opcao5() {}
 
 	@Override
-	protected void opcao6() throws SairDaTelaException {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void opcao6() {}
 
 	@Override
-	protected void opcao7() throws SairDaTelaException {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void opcao7() {}
 
 	@Override
-	protected void opcao8() throws SairDaTelaException {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void opcao8() {}
 
 	@Override
 	protected void mostraInfo() {
-		// TODO Auto-generated method stub
-		
+
 	}
 	
 }

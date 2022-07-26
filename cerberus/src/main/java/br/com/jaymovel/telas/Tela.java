@@ -1,25 +1,26 @@
 package br.com.jaymovel.telas;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 import br.com.jaymovel.excecoes.SairDaTelaException;
+import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.util.Console;
 
 // public class Tela {
 public abstract class Tela {
 
 	public static Scanner sc = new Scanner(System.in);
+	protected static Agencia agencia;
 	private boolean cabecalho;
-	Map<Integer, String> opcoes;
+	private Map<Integer, String> opcoes;
 	private String nome;
 	private String mensagem = "";
 	
 	protected static final int opcoesPorLinha = 4;
 	
-	public Tela(String nome, Map<Integer, String> opcoes, boolean cabecalho) {
+	protected Tela(String nome, Map<Integer, String> opcoes, boolean cabecalho) {
 		this.nome = nome;
 		this.opcoes = opcoes;
 		this.cabecalho = cabecalho;
@@ -89,7 +90,7 @@ public abstract class Tela {
 		}
 	}
 	
-	protected void mostrar() {
+	private void mostrar() {
 		Console.limparConsole();
 		if (this.cabecalho) this.mostraCabecalho();
 		this.mostraInfo();
@@ -98,7 +99,7 @@ public abstract class Tela {
 		System.out.println();
 	}
 	
-	protected void mostraOpcoes() {
+	private void mostraOpcoes() {
 		
 		String linha = "";
 		int i = 1;
@@ -127,13 +128,11 @@ public abstract class Tela {
 		// }
 	}
 	
-	protected void mostraCabecalho() {
+	private void mostraCabecalho() {
 		Console.printaCentro("", '-');
-		Console.printaCentro("Banco do Jay", '-');
+		Console.printaCentro("Jay Móvel", '-');
 		Console.printaCentro("", '-');
-		Console.printaCentro("Aqui seu dinheiro é meu", '-');
-		Console.printaCentro("(Não, pera.. é seu, mas eu controlo!)", '-');
-		Console.printaCentro("(Não... eu cuido!)", '-');
+		Console.printaCentro("Para você sair do lugar!", '-');
 		Console.printaCentro("", '-');
 		System.out.println();
 		Console.printaCentro(nome);
@@ -142,6 +141,10 @@ public abstract class Tela {
 
 	protected void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
+	}
+
+	public static Agencia getAgencia() {
+		return Tela.agencia;
 	}
 
 }

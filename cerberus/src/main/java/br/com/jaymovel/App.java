@@ -2,6 +2,7 @@ package br.com.jaymovel;
 
 import br.com.jaymovel.enums.TipoVeiculo;
 import br.com.jaymovel.excecoes.JayMovelException;
+import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
@@ -44,7 +45,7 @@ public class App {
         // FileInputStream("dados.bin"));
         // Banco.selecionada = (Agencia) ois.readObject();
         // ois.close();
-        new TelaInicial();
+        new TelaInicial(a);
         // ObjectOutputStream oos = new ObjectOutputStream(new
         // FileOutputStream("dados.bin"));
         // oos.writeObject(Banco.selecionada);
