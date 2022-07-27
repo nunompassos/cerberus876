@@ -12,7 +12,7 @@ import br.com.jaymovel.util.Console;
 public abstract class Tela {
 
 	public static Scanner sc = new Scanner(System.in);
-	protected static Agencia agencia;
+	public static Agencia agencia;
 	private boolean cabecalho;
 	private Map<Integer, String> opcoes;
 	private String nome;

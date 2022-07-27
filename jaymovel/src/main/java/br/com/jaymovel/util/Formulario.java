@@ -54,12 +54,11 @@ public abstract class Formulario {
 			if (escolha.toLowerCase().equals("pj") ||
 					escolha.toLowerCase().equals("pessoa juridica") ||
 					escolha.toLowerCase().equals("juridica"))
-				// novoCliente = cadastrarClientePj();
-				// TODO formulario cadastrar PJ JAY
-				if (escolha.toLowerCase().equals("pf") ||
-						escolha.toLowerCase().equals("fisica") ||
-						escolha.toLowerCase().equals("pessoa fisica"))
-					novoCliente = cadastrarClientePf();
+				novoCliente = cadastrarClientePj();
+			if (escolha.toLowerCase().equals("pf") ||
+					escolha.toLowerCase().equals("fisica") ||
+					escolha.toLowerCase().equals("pessoa fisica"))
+				novoCliente = cadastrarClientePf();
 			if (novoCliente == null)
 				continue;
 			return novoCliente;
@@ -102,6 +101,46 @@ public abstract class Formulario {
 		}
 
 		PessoaFisica novoCliente = new PessoaFisica(nome, documento, endereco, telefone, nascimento);
+		return novoCliente;
+	}
+
+	public static PessoaJuridica cadastrarClientePj() {
+		Console.limparConsole();
+		System.out.println();
+		Console.printaCentro("Informe os dados da empresa");
+		// Console.printaCentro("(escreva CANCELAR para sair)");
+		System.out.println();
+		System.out.printf("%-30s", "Razão social :");
+		String nome = Tela.sc.nextLine();
+		System.out.printf("%-30s", "CNPJ :");
+		int documento = -1;
+		while (true) {
+			documento = Console.lerInt(0, Integer.MAX_VALUE);
+			if (Tela.getAgencia().getCliente(documento) != null) {
+				System.out.println("CNPJ já cadastrado...");
+				continue;
+			}
+			break;
+		}
+		System.out.printf("%-30s", "Endereço :");
+		String endereco = Tela.sc.nextLine();
+		System.out.printf("%-30s", "Telefone :");
+		String telefone = Tela.sc.nextLine();
+		PessoaFisica dono = null;
+		while (true) {
+			System.out.printf("%-30s", "CPF do dono:");
+			int cpfDono = Console.lerInt(0, Integer.MAX_VALUE);
+			dono = (PessoaFisica) Tela.agencia.getCliente(cpfDono);
+
+			if (dono == null) {
+				System.out.println("Dono não encontrado. Cadastrar dono (s/n)?");
+				if (Tela.sc.nextLine().toLowerCase().equals("s")) {
+					dono = cadastrarClientePf();
+					break;
+				}
+			}
+		}
+		PessoaJuridica novoCliente = new PessoaJuridica(nome, documento, endereco, telefone, dono);
 		return novoCliente;
 	}
 
