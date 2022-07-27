@@ -18,12 +18,12 @@ public class Aluguel {
 		precos.put(TipoVeiculo.MEDIO, BigDecimal.valueOf(15000, 2));
 		precos.put(TipoVeiculo.SUV, BigDecimal.valueOf(20000, 2));
 	}
-	private static int IDS;
+	private static long IDS;
 
 	private Veiculo veiculo;
 	private Pessoa cliente;
 	private BigDecimal dias;
-	private final int id;
+	private final long id;
 
 	public Aluguel(Veiculo veiculo, Pessoa cliente, int dias) {
 		this.veiculo = veiculo;
@@ -45,7 +45,7 @@ public class Aluguel {
 		return precos.get(veiculo.getTipo()).multiply(dias).multiply(calculaDesconto());
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -69,6 +69,6 @@ public class Aluguel {
 
 	@Override
 	public int hashCode() {
-		return this.id;
+		return (int) this.id;
 	}
 }

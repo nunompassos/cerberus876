@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CadastroCliente {
 
-	private final Map<Integer, Aluguel> alugueis = new HashMap<>();
+	private final Map<Long, Aluguel> alugueis = new HashMap<>();
 
 	public BigDecimal getDivida() {
 		BigDecimal divida = BigDecimal.ZERO;
@@ -21,11 +21,11 @@ public class CadastroCliente {
 		this.alugueis.put(novoAluguel.getId(), novoAluguel);
 	}
 
-	public Aluguel removeAluguel(int idAluguel) {
+	public Aluguel removeAluguel(long idAluguel) {
 		return this.alugueis.remove(idAluguel);
 	}
 
-	public Map<Integer, Aluguel> getAlugueis() {
+	public Map<Long, Aluguel> getAlugueis() {
 		return Collections.unmodifiableMap(alugueis);
 	}
 }

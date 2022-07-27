@@ -40,7 +40,7 @@ public class Agencia implements Serializable {
 		//TODO comparar esse chassi com os carros disponíveis e montar um aluguel para aquele cliente.
 	}
 
-	public void terminaAluguel(int numeroAluguel) {
+	public void terminaAluguel(long numeroAluguel) {
 		Aluguel terminado= null;
 		for (CadastroCliente cadastro : mapCadastro.values()) {
 			Aluguel daVez = cadastro.removeAluguel(numeroAluguel);
