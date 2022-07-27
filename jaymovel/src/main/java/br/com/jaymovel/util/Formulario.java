@@ -172,12 +172,18 @@ public abstract class Formulario {
 
 	public static boolean confimaAluguel(Aluguel novoAluguel) {
 		Console.limparConsole();
-		System.out.println(novoAluguel.getVeiculo());
-		Console.printaCentro("Período: " + novoAluguel.getDias() + " dias");
-		Console.printaCentro(String.format("Valor do aluguel: %.2f", novoAluguel.calculaPreco()), '$');
+		Console.printaCentro(novoAluguel.getVeiculo().toString());
 		System.out.println();
+
+		Console.printaCentro("Período: " + novoAluguel.getDias() + " dias");
+		System.out.println();
+		
+		Console.printaCentro(String.format("  Valor do aluguel: R$ %.2f  ", novoAluguel.calculaPreco()), '$');
+		System.out.println();
+		
 		Console.printaCentro("Confirma operação (s/n) ?");
 		String escolha = Tela.sc.nextLine();
+		
 		return (escolha.toLowerCase().equals("s") ||
 				escolha.toLowerCase().equals("sim"));
 	}

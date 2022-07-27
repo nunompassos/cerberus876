@@ -28,4 +28,12 @@ public class Veiculo {
 	public void setTipo(TipoVeiculo tipo) {
 		this.tipo = tipo;
 	}
+
+	@Override
+	public String toString() {
+		return String.format(
+			"[Tipo: %s, Chassi: %d]",
+			tipo,
+			chassi);
+	}
 }
