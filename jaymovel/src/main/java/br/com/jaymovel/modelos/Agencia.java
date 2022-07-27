@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
+import br.com.jaymovel.excecoes.VeiculoDuplicadoException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 
@@ -28,8 +29,11 @@ public class Agencia implements Serializable {
 		return mapCliente.get(documentoCliente);
 	}
 
-	public void adicionaVeiculo(Veiculo veiculo) {
-		//TODO adicionar o veiculo no acervo, dar um jeito de saber quais estão alugados e quais estão disponíveis
+	public void adicionaVeiculo(Veiculo veiculo) throws VeiculoDuplicadoException {
+		if (this.veiculos.containsKey(veiculo.getChassi()))
+			throw new VeiculoDuplicadoException("Já existe um veículo com esse chassi no acervo");
+		this.veiculos.put(veiculo.getChassi(), veiculo);
+		this.disponibilidade.put(veiculo, true);
 	}
 
 	public void fazAluguel(int documento, int chassi) {
