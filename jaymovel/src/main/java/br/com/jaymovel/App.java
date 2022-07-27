@@ -27,11 +27,18 @@ public class App {
                 "telefone",
                 (PessoaFisica) ze);
         Veiculo carroPequeno = new Veiculo(TipoVeiculo.PEQUENO);
+        carroPequeno.setChassi(1);
         Veiculo carroMedio = new Veiculo(TipoVeiculo.MEDIO);
+        carroMedio.setChassi(2);
         Veiculo suv = new Veiculo(TipoVeiculo.SUV);
+        suv.setChassi(3);
         //TODO criar um acervo de carros para pôr na Agência aqui na App
-
         Agencia a = new Agencia();
+        a.adicionaCliente(ze);
+        a.adicionaCliente(sandubas);
+        a.adicionaVeiculo(carroPequeno);
+        a.adicionaVeiculo(carroMedio);
+        a.adicionaVeiculo(suv);
 
         // a.adicionaCliente(ze);
         // CadastroCliente cadastroZe = a.getCadastro(123);
@@ -49,7 +56,7 @@ public class App {
         // FileInputStream("dados.bin"));
         // Banco.selecionada = (Agencia) ois.readObject();
         // ois.close();
-        // new TelaInicial(a);
+        new TelaInicial(a);
         // ObjectOutputStream oos = new ObjectOutputStream(new
         // FileOutputStream("dados.bin"));
         // oos.writeObject(Banco.selecionada);
