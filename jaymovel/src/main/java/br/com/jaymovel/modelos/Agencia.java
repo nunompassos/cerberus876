@@ -1,16 +1,22 @@
 package br.com.jaymovel.modelos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.excecoes.VeiculoDuplicadoException;
+import br.com.jaymovel.excecoes.VeiculoNaoCadastradoException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 
 public class Agencia implements Serializable {
 
+	public static final int MAXIMO_DIAS_POR_LOCACAO = 30;
 	private final Map<Integer, Pessoa> clientes = new HashMap<>();
 	private final Map<Pessoa, CadastroCliente> cadastros = new HashMap<>();
 	private final Map<Integer, Veiculo> veiculos = new HashMap<>();
@@ -36,8 +42,15 @@ public class Agencia implements Serializable {
 		this.disponibilidade.put(veiculo, true);
 	}
 
-	public void fazAluguel(int documento, int chassi) {
-		//TODO comparar esse chassi com os carros disponíveis e montar um aluguel para aquele cliente.
+	public void fazAluguel(Aluguel novoAluguel) throws ClienteNaoCadastradoException, VeiculoNaoCadastradoException {
+		if (!cadastros.containsKey(novoAluguel.getCliente())) {
+			throw new ClienteNaoCadastradoException();
+		}
+		if (!veiculos.containsKey(novoAluguel.getVeiculo().getChassi())) {
+			throw new VeiculoNaoCadastradoException();
+		}
+		cadastros.get(novoAluguel.getCliente()).adicionaAluguel(novoAluguel);
+		disponibilidade.put(novoAluguel.getVeiculo(), false);
 	}
 
 	public void terminaAluguel(long numeroAluguel) {
@@ -53,7 +66,7 @@ public class Agencia implements Serializable {
 		disponibilidade.put(terminado.getVeiculo(), true);
 	}
 
-	public CadastroCliente getCadastro(int documento) {
-		return mapCadastro.get(documento);
+	public List<Veiculo> getVeiculosDisponiveis() {
+		return Collections.unmodifiableList(new ArrayList<Veiculo>(veiculos.values()));
 	}
 }

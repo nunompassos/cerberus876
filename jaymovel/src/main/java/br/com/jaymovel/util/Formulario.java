@@ -2,10 +2,14 @@ package br.com.jaymovel.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
+import br.com.jaymovel.modelos.Agencia;
+import br.com.jaymovel.modelos.Aluguel;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
+import br.com.jaymovel.modelos.veiculo.Veiculo;
 import br.com.jaymovel.telas.Tela;
 
 public abstract class Formulario {
@@ -142,6 +146,40 @@ public abstract class Formulario {
 		}
 		PessoaJuridica novoCliente = new PessoaJuridica(nome, documento, endereco, telefone, dono);
 		return novoCliente;
+	}
+
+	public static Veiculo escolherVeiculoDisponivel() {
+		Console.limparConsole();
+		List<Veiculo> disponiveis = Tela.agencia.getVeiculosDisponiveis();
+		if (disponiveis.isEmpty())
+			return null; // Sem carros disponíveis
+
+		int i = 0;
+		for (Veiculo veiculo : disponiveis) {
+			System.out.printf("%d: %s%n", ++i, veiculo);
+		}
+		int escolha = Console.lerInt(1, disponiveis.size());
+
+		return disponiveis.get(escolha);
+	}
+
+	public static int escolherNumeroDeDias() {
+		Console.printaCentro("Por quantos dias você quer alugar?");
+		Console.printaCentro("(Máximo de " + Agencia.MAXIMO_DIAS_POR_LOCACAO + " dias por locação)");
+		return Console.lerInt(1, Agencia.MAXIMO_DIAS_POR_LOCACAO);
+
+	}
+
+	public static boolean confimaAluguel(Aluguel novoAluguel) {
+		Console.limparConsole();
+		System.out.println(novoAluguel.getVeiculo());
+		Console.printaCentro("Período: " + novoAluguel.getDias() + " dias");
+		Console.printaCentro(String.format("Valor do aluguel: %.2f", novoAluguel.calculaPreco()), '$');
+		System.out.println();
+		Console.printaCentro("Confirma operação (s/n) ?");
+		String escolha = Tela.sc.nextLine();
+		return (escolha.toLowerCase().equals("s") ||
+				escolha.toLowerCase().equals("sim"));
 	}
 
 }
