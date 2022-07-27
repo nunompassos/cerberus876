@@ -3,7 +3,6 @@ package br.com.jaymovel;
 import br.com.jaymovel.enums.TipoVeiculo;
 import br.com.jaymovel.excecoes.JayMovelException;
 import br.com.jaymovel.modelos.Agencia;
-import br.com.jaymovel.modelos.CadastroCliente;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
@@ -12,6 +11,8 @@ import br.com.jaymovel.telas.TelaInicial;
 
 public class App {
     public static void main(String[] args) throws JayMovelException {
+
+        Agencia a = new Agencia();
 
         Pessoa ze = new PessoaFisica(
                 "Zé da Silva",
@@ -26,19 +27,16 @@ public class App {
                 "endereco",
                 "telefone",
                 (PessoaFisica) ze);
-        Veiculo carroPequeno = new Veiculo(TipoVeiculo.PEQUENO);
-        carroPequeno.setChassi(1);
-        Veiculo carroMedio = new Veiculo(TipoVeiculo.MEDIO);
-        carroMedio.setChassi(2);
-        Veiculo suv = new Veiculo(TipoVeiculo.SUV);
-        suv.setChassi(3);
-        //TODO criar um acervo de carros para pôr na Agência aqui na App
-        Agencia a = new Agencia();
         a.adicionaCliente(ze);
         a.adicionaCliente(sandubas);
+        
+        Veiculo carroPequeno = new Veiculo(TipoVeiculo.PEQUENO, 1);
+        Veiculo carroMedio = new Veiculo(TipoVeiculo.MEDIO, 2);
+        Veiculo suv = new Veiculo(TipoVeiculo.SUV, 3);
         a.adicionaVeiculo(carroPequeno);
         a.adicionaVeiculo(carroMedio);
         a.adicionaVeiculo(suv);
+        // TODO criar um acervo de carros para pôr na Agência aqui na App
 
         // a.adicionaCliente(ze);
         // CadastroCliente cadastroZe = a.getCadastro(123);
