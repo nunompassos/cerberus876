@@ -160,7 +160,7 @@ public abstract class Formulario {
 		}
 		int escolha = Console.lerInt(1, disponiveis.size());
 
-		return disponiveis.get(escolha);
+		return disponiveis.get(escolha - 1);
 	}
 
 	public static int escolherNumeroDeDias() {
