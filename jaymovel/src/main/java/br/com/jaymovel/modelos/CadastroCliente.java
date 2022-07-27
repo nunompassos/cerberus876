@@ -17,11 +17,11 @@ public class CadastroCliente {
 		return divida;
 	}
 
-	public void adicionaAluguel(Aluguel novoAluguel) {
+	void adicionaAluguel(Aluguel novoAluguel) {
 		this.alugueis.put(novoAluguel.getId(), novoAluguel);
 	}
 
-	public Aluguel removeAluguel(long idAluguel) {
+	Aluguel removeAluguel(long idAluguel) {
 		return this.alugueis.remove(idAluguel);
 	}
 
