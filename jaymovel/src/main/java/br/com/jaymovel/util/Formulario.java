@@ -28,7 +28,7 @@ public abstract class Formulario {
 		if (cliente instanceof PessoaJuridica)
 			meusDados((PessoaJuridica) cliente);
 		System.out.println("\nAperte ENTER para continuar...");
-		Tela.sc.nextLine();
+		Console.sc.nextLine();
 	}
 
 	public static void meusDados(PessoaFisica cliente) {
@@ -53,7 +53,7 @@ public abstract class Formulario {
 			System.out.println();
 			System.out.println("Pessoa física (PF) ou pessoa jurídica (PJ) ?");
 			System.out.println();
-			String escolha = Tela.sc.nextLine();
+			String escolha = Console.sc.nextLine();
 			Pessoa novoCliente = null;
 			if (escolha.toLowerCase().equals("pj") ||
 					escolha.toLowerCase().equals("pessoa juridica") ||
@@ -77,7 +77,7 @@ public abstract class Formulario {
 		// Console.printaCentro("(escreva CANCELAR para sair)");
 		System.out.println();
 		System.out.printf("%-30s", "Nome :");
-		String nome = Tela.sc.nextLine();
+		String nome = Console.sc.nextLine();
 		System.out.printf("%-30s", "CPF :");
 		int documento = -1;
 		while (true) {
@@ -89,13 +89,13 @@ public abstract class Formulario {
 			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
-		String endereco = Tela.sc.nextLine();
+		String endereco = Console.sc.nextLine();
 		System.out.printf("%-30s", "Telefone :");
-		String telefone = Tela.sc.nextLine();
+		String telefone = Console.sc.nextLine();
 		System.out.printf("%-30s", "Nascimento (AAAA-MM-DD):");
 		String nascimento = "";
 		while (true) {
-			nascimento = Tela.sc.nextLine();
+			nascimento = Console.sc.nextLine();
 			try {
 				LocalDate.parse(nascimento);
 				break;
@@ -115,7 +115,7 @@ public abstract class Formulario {
 		// Console.printaCentro("(escreva CANCELAR para sair)");
 		System.out.println();
 		System.out.printf("%-30s", "Razão social :");
-		String nome = Tela.sc.nextLine();
+		String nome = Console.sc.nextLine();
 		System.out.printf("%-30s", "CNPJ :");
 		int documento = -1;
 		while (true) {
@@ -127,9 +127,9 @@ public abstract class Formulario {
 			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
-		String endereco = Tela.sc.nextLine();
+		String endereco = Console.sc.nextLine();
 		System.out.printf("%-30s", "Telefone :");
-		String telefone = Tela.sc.nextLine();
+		String telefone = Console.sc.nextLine();
 		PessoaFisica dono = null;
 		while (true) {
 			System.out.printf("%-30s", "CPF do dono:");
@@ -138,7 +138,7 @@ public abstract class Formulario {
 
 			if (dono == null) {
 				System.out.println("Dono não encontrado. Cadastrar dono (s/n)?");
-				if (Tela.sc.nextLine().toLowerCase().equals("s")) {
+				if (Console.sc.nextLine().toLowerCase().equals("s")) {
 					dono = cadastrarClientePf();
 					break;
 				}
@@ -182,7 +182,7 @@ public abstract class Formulario {
 		System.out.println();
 		
 		Console.printaCentro("Confirma operação (s/n) ?");
-		String escolha = Tela.sc.nextLine();
+		String escolha = Console.sc.nextLine();
 		
 		return (escolha.toLowerCase().equals("s") ||
 				escolha.toLowerCase().equals("sim"));

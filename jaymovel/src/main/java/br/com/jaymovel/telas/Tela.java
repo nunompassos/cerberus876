@@ -2,7 +2,6 @@ package br.com.jaymovel.telas;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
 import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.modelos.Agencia;
@@ -11,7 +10,7 @@ import br.com.jaymovel.util.Console;
 // public class Tela {
 public abstract class Tela {
 
-	public static Scanner sc = new Scanner(System.in);
+	
 	public static Agencia agencia;
 	private boolean cabecalho;
 	private Map<Integer, String> opcoes;

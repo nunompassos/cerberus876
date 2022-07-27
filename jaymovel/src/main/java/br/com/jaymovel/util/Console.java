@@ -1,14 +1,16 @@
 package br.com.jaymovel.util;
 
-import br.com.jaymovel.telas.Tela;
+import java.util.Scanner;
 
 public abstract class Console {
 	
+	public static Scanner sc = new Scanner(System.in);
+
 	public static int lerInt(int min, int max) {
 		int valor = Integer.MIN_VALUE;
 		while (true) {
 			try {
-				valor = Integer.parseInt(Tela.sc.nextLine());
+				valor = Integer.parseInt(sc.nextLine());
 			} catch (Exception e) {
 			}
 			if (valor >= min && valor <= max)
@@ -22,7 +24,7 @@ public abstract class Console {
 		double valorDouble = 0;
 		while (true) {
 			try {
-				valorDouble = Double.parseDouble(Tela.sc.nextLine());
+				valorDouble = Double.parseDouble(sc.nextLine());
 			} catch (Exception e) {
 				System.out.print("Tente novamente... ");
 				continue;
