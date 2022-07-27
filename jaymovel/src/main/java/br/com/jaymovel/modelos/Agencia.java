@@ -11,22 +11,22 @@ import br.com.jaymovel.modelos.veiculo.Veiculo;
 
 public class Agencia implements Serializable {
 
-	private final Map<Integer, Pessoa> mapCliente = new HashMap<>();
-	private final Map<Integer, CadastroCliente> mapCadastro = new HashMap<>();
+	private final Map<Integer, Pessoa> clientes = new HashMap<>();
+	private final Map<Pessoa, CadastroCliente> cadastros = new HashMap<>();
 	private final Map<Integer, Veiculo> veiculos = new HashMap<>();
 	private final Map<Veiculo, Boolean> disponibilidade = new HashMap<>();
 
 	public void adicionaCliente(Pessoa cliente) throws PessoaDuplicadaException {
 		if (cliente == null)
 			throw new IllegalArgumentException("Cliente não pode ser nulo!");
-		if (mapCliente.containsKey(cliente.getDocumento()))
+		if (clientes.containsKey(cliente.getDocumento()))
 			throw new PessoaDuplicadaException("Documento já cadastrado");
-		mapCliente.put(cliente.getDocumento(), cliente);
-		mapCadastro.put(cliente.getDocumento(), new CadastroCliente());
+		clientes.put(cliente.getDocumento(), cliente);
+		cadastros.put(cliente, new CadastroCliente());
 	}
 
 	public Pessoa getCliente(int documentoCliente) {
-		return mapCliente.get(documentoCliente);
+		return clientes.get(documentoCliente);
 	}
 
 	public void adicionaVeiculo(Veiculo veiculo) throws VeiculoDuplicadoException {
@@ -42,7 +42,7 @@ public class Agencia implements Serializable {
 
 	public void terminaAluguel(long numeroAluguel) {
 		Aluguel terminado= null;
-		for (CadastroCliente cadastro : mapCadastro.values()) {
+		for (CadastroCliente cadastro : cadastros.values()) {
 			Aluguel daVez = cadastro.removeAluguel(numeroAluguel);
 			if (daVez != null) {
 				terminado = daVez;
