@@ -48,4 +48,27 @@ public class Aluguel {
 	public int getId() {
 		return id;
 	}
+
+	public Pessoa getCliente() {
+		return cliente;
+	}
+
+	public BigDecimal getDias() {
+		return dias;
+	}
+
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Aluguel)) return false;
+		return this.id == ((Aluguel) obj).id;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.id;
+	}
 }

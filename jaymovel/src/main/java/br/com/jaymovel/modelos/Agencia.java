@@ -37,7 +37,16 @@ public class Agencia implements Serializable {
 	}
 
 	public void terminaAluguel(int numeroAluguel) {
-		//TODO terminar o Aluguel com numero indicado JAY
+		Aluguel terminado= null;
+		for (CadastroCliente cadastro : mapCadastro.values()) {
+			Aluguel daVez = cadastro.removeAluguel(numeroAluguel);
+			if (daVez != null) {
+				terminado = daVez;
+				break;
+			}
+		}
+		if (terminado == null) return;//id não encontrada
+		disponibilidade.put(terminado.getVeiculo(), true);
 	}
 
 	public CadastroCliente getCadastro(int documento) {
