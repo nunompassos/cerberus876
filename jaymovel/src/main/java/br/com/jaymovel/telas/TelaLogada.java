@@ -5,6 +5,7 @@ import java.util.Map;
 
 import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.SairDaTelaException;
+import br.com.jaymovel.excecoes.VeiculoIndisponivelException;
 import br.com.jaymovel.excecoes.VeiculoNaoCadastradoException;
 import br.com.jaymovel.modelos.Aluguel;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
@@ -42,7 +43,11 @@ public class TelaLogada extends Tela {
 				this.setMensagem("Aluguel realizado com sucesso! Código: " + novoAluguel.getId());
 			} catch (VeiculoNaoCadastradoException | ClienteNaoCadastradoException e) {
 				this.setMensagem("Cliente ou veículo não cadastrados...");
+			} catch (VeiculoIndisponivelException e) {
+				this.setMensagem("Veículo selecionado está indisponível...");
 			}
+		} else {
+			this.setMensagem("Operação cancelada pelo usuário...");
 		}
 	}
 

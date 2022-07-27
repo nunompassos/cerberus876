@@ -1,15 +1,16 @@
 package br.com.jaymovel.modelos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.excecoes.VeiculoDuplicadoException;
+import br.com.jaymovel.excecoes.VeiculoIndisponivelException;
 import br.com.jaymovel.excecoes.VeiculoNaoCadastradoException;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
@@ -42,19 +43,22 @@ public class Agencia implements Serializable {
 		this.disponibilidade.put(veiculo, true);
 	}
 
-	public void fazAluguel(Aluguel novoAluguel) throws ClienteNaoCadastradoException, VeiculoNaoCadastradoException {
+	public void fazAluguel(Aluguel novoAluguel) throws ClienteNaoCadastradoException, VeiculoNaoCadastradoException, VeiculoIndisponivelException {
 		if (!cadastros.containsKey(novoAluguel.getCliente())) {
 			throw new ClienteNaoCadastradoException();
 		}
 		if (!veiculos.containsKey(novoAluguel.getVeiculo().getChassi())) {
 			throw new VeiculoNaoCadastradoException();
 		}
+		if (!disponibilidade.get(novoAluguel.getVeiculo())) {
+			throw new VeiculoIndisponivelException();
+		}
 		cadastros.get(novoAluguel.getCliente()).adicionaAluguel(novoAluguel);
 		disponibilidade.put(novoAluguel.getVeiculo(), false);
 	}
 
 	public void terminaAluguel(long numeroAluguel) {
-		Aluguel terminado= null;
+		Aluguel terminado = null;
 		for (CadastroCliente cadastro : cadastros.values()) {
 			Aluguel daVez = cadastro.removeAluguel(numeroAluguel);
 			if (daVez != null) {
@@ -62,11 +66,17 @@ public class Agencia implements Serializable {
 				break;
 			}
 		}
-		if (terminado == null) return;//id não encontrada
+		if (terminado == null)
+			return;// id não encontrada
 		disponibilidade.put(terminado.getVeiculo(), true);
 	}
 
 	public List<Veiculo> getVeiculosDisponiveis() {
-		return Collections.unmodifiableList(new ArrayList<Veiculo>(veiculos.values()));
+		return Collections.unmodifiableList(
+				veiculos
+						.values()
+						.stream()
+						.filter(this.disponibilidade::get)
+						.collect(Collectors.toList()));
 	}
 }
