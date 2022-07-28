@@ -27,7 +27,7 @@ public abstract class Formulario {
 			meusDados((PessoaFisica) cliente);
 		if (cliente instanceof PessoaJuridica)
 			meusDados((PessoaJuridica) cliente);
-		System.out.println("\nAperte ENTER para continuar...");
+		System.out.println(System.lineSeparator() + "Aperte ENTER para continuar...");
 		Console.sc.nextLine();
 	}
 
