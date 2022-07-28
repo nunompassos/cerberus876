@@ -20,7 +20,8 @@ public class TelaLogada extends Tela {
 		opcoes.put(1, "Alugar");
 		opcoes.put(2, "Finalizar aluguel");
 		opcoes.put(3, "Meus aluguéis");
-		opcoes.put(4, "Sair");
+		opcoes.put(4, "Meus Dados");
+		opcoes.put(5, "Sair");
 	}
 
 	TelaLogada(Pessoa cliente) {
@@ -52,18 +53,38 @@ public class TelaLogada extends Tela {
 	}
 
 	@Override
-	protected void opcao2() throws SairDaTelaException {
-		// TODO Auto-generated method stub
+	protected void opcao2() {
+		Aluguel finalizando;
+		try {
+			finalizando = Formulario.selecionaAluguelParaFinalizar(cliente);
+			if (Formulario.confirmaFinalizacaoAluguel(finalizando)) {
+				Tela.agencia.terminaAluguel(finalizando.getId());
+				this.setMensagem("Aluguel com código " + finalizando.getId() + " finalizado com sucesso!");
+			} else {
+				this.setMensagem("Operação cancelada pelo usuário");
+			}
+		} catch (ClienteNaoCadastradoException e) {
+			this.setMensagem("Problema com o cadastro do cliente");
+		}
 
 	}
 
 	@Override
 	protected void opcao3() {
-		// TODO Auto-generated method stub
+		try {
+			Formulario.mostraAlugueisDoCliente(cliente);
+		} catch (ClienteNaoCadastradoException e) {
+			this.setMensagem("Problema com o cadastro do cliente");
+		}
 	}
 
 	@Override
-	protected void opcao4() throws SairDaTelaException {
+	protected void opcao4() {
+		Formulario.meusDados(cliente);
+	}
+
+	@Override
+	protected void opcao5() throws SairDaTelaException {
 		throw new SairDaTelaException();
 
 	}

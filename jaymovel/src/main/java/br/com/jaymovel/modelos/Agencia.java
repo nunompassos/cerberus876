@@ -32,8 +32,18 @@ public class Agencia implements Serializable {
 		cadastros.put(cliente, new CadastroCliente());
 	}
 
-	public Pessoa getCliente(int documentoCliente) {
-		return clientes.get(documentoCliente);
+	public Pessoa getCliente(int documentoCliente) throws ClienteNaoCadastradoException {
+		Pessoa cliente = clientes.get(documentoCliente);
+		if (cliente == null) 
+			throw new ClienteNaoCadastradoException();
+		return cliente;
+	}
+
+	public CadastroCliente getCadastro(Pessoa cliente) throws ClienteNaoCadastradoException {
+		CadastroCliente cadastro = cadastros.get(cliente);
+		if (cadastro == null)
+			throw new ClienteNaoCadastradoException();
+		return cadastro;
 	}
 
 	public void adicionaVeiculo(Veiculo veiculo) throws VeiculoDuplicadoException {
@@ -43,7 +53,8 @@ public class Agencia implements Serializable {
 		this.disponibilidade.put(veiculo, true);
 	}
 
-	public void fazAluguel(Aluguel novoAluguel) throws ClienteNaoCadastradoException, VeiculoNaoCadastradoException, VeiculoIndisponivelException {
+	public void fazAluguel(Aluguel novoAluguel)
+			throws ClienteNaoCadastradoException, VeiculoNaoCadastradoException, VeiculoIndisponivelException {
 		if (!cadastros.containsKey(novoAluguel.getCliente())) {
 			throw new ClienteNaoCadastradoException();
 		}

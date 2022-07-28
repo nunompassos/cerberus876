@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.modelos.Aluguel;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
@@ -14,7 +15,7 @@ import br.com.jaymovel.telas.Tela;
 
 public abstract class Formulario {
 
-	public static Pessoa entrar() {
+	public static Pessoa entrar() throws ClienteNaoCadastradoException {
 		System.out.println("Informe seu documento: ");
 		int documento = -1;
 		documento = Console.lerInt(0, Integer.MAX_VALUE);
@@ -82,11 +83,12 @@ public abstract class Formulario {
 		int documento = -1;
 		while (true) {
 			documento = Console.lerInt(0, Integer.MAX_VALUE);
-			if (Tela.getAgencia().getCliente(documento) != null) {
+			try {
+				Tela.getAgencia().getCliente(documento);
 				System.out.println("CPF já cadastrado...");
-				continue;
+			} catch (ClienteNaoCadastradoException e) {
+				break;
 			}
-			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
 		String endereco = Console.sc.nextLine();
@@ -120,11 +122,12 @@ public abstract class Formulario {
 		int documento = -1;
 		while (true) {
 			documento = Console.lerInt(0, Integer.MAX_VALUE);
-			if (Tela.getAgencia().getCliente(documento) != null) {
+			try {
+				Tela.getAgencia().getCliente(documento);
 				System.out.println("CNPJ já cadastrado...");
-				continue;
+			} catch (ClienteNaoCadastradoException e) {
+				break;
 			}
-			break;
 		}
 		System.out.printf("%-30s", "Endereço :");
 		String endereco = Console.sc.nextLine();
@@ -134,9 +137,9 @@ public abstract class Formulario {
 		while (true) {
 			System.out.printf("%-30s", "CPF do dono:");
 			int cpfDono = Console.lerInt(0, Integer.MAX_VALUE);
-			dono = (PessoaFisica) Tela.agencia.getCliente(cpfDono);
-
-			if (dono == null) {
+			try {
+				dono = (PessoaFisica) Tela.agencia.getCliente(cpfDono);
+			} catch (ClienteNaoCadastradoException e) {
 				System.out.println("Dono não encontrado. Cadastrar dono (s/n)?");
 				if (Console.sc.nextLine().toLowerCase().equals("s")) {
 					dono = cadastrarClientePf();
@@ -177,15 +180,65 @@ public abstract class Formulario {
 
 		Console.printaCentro("Período: " + novoAluguel.getDias() + " dias");
 		System.out.println();
-		
+
 		Console.printaCentro(String.format("  Valor do aluguel: R$ %.2f  ", novoAluguel.calculaPreco()), '$');
 		System.out.println();
-		
+
 		Console.printaCentro("Confirma operação (s/n) ?");
-		String escolha = Console.sc.nextLine();
-		
-		return (escolha.toLowerCase().equals("s") ||
-				escolha.toLowerCase().equals("sim"));
+		String escolha = Console.sc.nextLine().toLowerCase();
+
+		return (escolha.equals("s") ||
+				escolha.equals("sim"));
 	}
+
+	public static Aluguel selecionaAluguelParaFinalizar(Pessoa cliente) throws ClienteNaoCadastradoException {
+		List<Aluguel> alugueis = mostraRetornaAlugueisDoCliente(cliente);
+		Console.printaCentro("Escolha um aluguel para finalizar");
+
+		int escolha = Console.lerInt(1, alugueis.size());
+
+		return alugueis.get(escolha - 1);
+	}
+
+	public static boolean confirmaFinalizacaoAluguel(Aluguel finalizando) {
+		Console.limparConsole();
+		Console.printaCentro(finalizando.getVeiculo().toString());
+		System.out.println();
+
+		Console.printaCentro("Período: " + finalizando.getDias() + " dias");
+		System.out.println();
+
+		Console.printaCentro(String.format("  Valor do aluguel: R$ %.2f  ", finalizando.calculaPreco()), '$');
+		System.out.println();
+
+		Console.printaCentro("Confirmar término do aluguel?");
+		String resposta = Console.sc.nextLine().toLowerCase();
+		return (resposta.equals("s") ||
+				resposta.equals("sim"));
+	}
+
+	public static List<Aluguel> mostraRetornaAlugueisDoCliente(Pessoa cliente) throws ClienteNaoCadastradoException {
+		Console.limparConsole();
+		List<Aluguel> alugueis = Tela.agencia.getCadastro(cliente).getAlugueis();
+
+		// mostrar os aluguéis
+		int i = 1;
+		for (Aluguel daVez : alugueis) {
+			System.out.printf(
+					"%d: %s, %d dias, R$%.2f%n",
+					i++,
+					daVez.getVeiculo(),
+					daVez.getDias().intValue(),
+					daVez.calculaPreco());
+		}
+		System.out.println();
+		return alugueis;
+	}
+
+public static void mostraAlugueisDoCliente(Pessoa cliente) throws ClienteNaoCadastradoException {
+	mostraRetornaAlugueisDoCliente(cliente);
+	Console.printaCentro("Aperte ENTER para continuar...");
+	Console.sc.nextLine();
+}
 
 }

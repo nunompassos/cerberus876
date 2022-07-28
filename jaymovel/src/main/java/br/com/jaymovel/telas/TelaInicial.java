@@ -3,6 +3,7 @@ package br.com.jaymovel.telas;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.jaymovel.excecoes.ClienteNaoCadastradoException;
 import br.com.jaymovel.excecoes.JayMovelException;
 import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.excecoes.SairDaTelaException;
@@ -31,12 +32,13 @@ public class TelaInicial extends Tela {
 
 	@Override
 	protected void opcao1() {
-		Pessoa cliente = Formulario.entrar();
-		if (cliente == null) {
+		try {
+			Pessoa cliente = Formulario.entrar();
+			new TelaLogada(cliente).iniciar();
+		} catch (ClienteNaoCadastradoException e) {
 			super.setMensagem("Cliente não encontrado.");
 			return;
 		}
-		new TelaLogada(cliente).iniciar();
 	}
 
 	@Override
