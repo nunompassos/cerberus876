@@ -44,7 +44,7 @@ public class TelaLogada extends Tela {
 		if (Formulario.confimaAluguel(novoAluguel)) {
 			try {
 				Tela.agencia.fazAluguel(novoAluguel);
-				this.setMensagem("Aluguel realizado com sucesso! Código: " + novoAluguel.getId());
+				this.setMensagem("Aluguel realizado com sucesso!");
 			} catch (VeiculoNaoCadastradoException | ClienteNaoCadastradoException e) {
 				this.setMensagem("Cliente ou veículo não cadastrados...");
 			} catch (VeiculoIndisponivelException e) {
@@ -66,7 +66,7 @@ public class TelaLogada extends Tela {
 			}
 			if (Formulario.confirmaFinalizacaoAluguel(finalizando)) {
 				Tela.agencia.terminaAluguel(finalizando.getId());
-				this.setMensagem("Aluguel com código " + finalizando.getId() + " finalizado com sucesso!");
+				this.setMensagem("Aluguel finalizado com sucesso!");
 			} else {
 				this.setMensagem("Operação cancelada pelo usuário");
 			}
