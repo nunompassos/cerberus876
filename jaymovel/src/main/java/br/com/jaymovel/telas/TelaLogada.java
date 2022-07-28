@@ -111,8 +111,12 @@ public class TelaLogada extends Tela {
 		Console.printaCentro(cliente.getNome());
 		Console.printaCentro(String.valueOf(cliente.getDocumento()));
 		System.out.println();
-		Console.printaCentro(String.format("Dívida: R$%.2f", divida));
-		Console.printaCentro(String.format("Você tem %d aluguéis ativos", numeroAlugueis));
+		Console.printaCentro(String.format("Dívida: R$ %.2f", divida));
+		if (numeroAlugueis == 1) {
+			Console.printaCentro("Você tem 1 aluguel ativo");
+		} else {
+			Console.printaCentro(String.format("Você tem %d aluguéis ativos", numeroAlugueis));
+		}
 	}
 
 }

@@ -214,7 +214,7 @@ public abstract class Formulario {
 		Console.printaCentro(String.format("  Valor do aluguel: R$ %.2f  ", finalizando.calculaPreco()), '$');
 		System.out.println();
 
-		Console.printaCentro("Confirmar término do aluguel?");
+		Console.printaCentro("Confirmar término do aluguel (s/n)?");
 		String resposta = Console.sc.nextLine().toLowerCase();
 		return (resposta.equals("s") ||
 				resposta.equals("sim"));
@@ -225,20 +225,17 @@ public abstract class Formulario {
 		List<Aluguel> alugueis = Tela.agencia.getCadastro(cliente).getAlugueis();
 
 		// mostrar os aluguéis
-		if (alugueis.isEmpty()) {
-			System.out.println("Sem aluguéis para essa conta...");
-		} else {
-			int i = 1;
-			for (Aluguel daVez : alugueis) {
-				System.out.printf(
-						"%d: %s, %d dias, R$%.2f%n",
-						i++,
-						daVez.getVeiculo(),
-						daVez.getDias().intValue(),
-						daVez.calculaPreco());
-			}
-			System.out.println();
+		int i = 1;
+		for (Aluguel daVez : alugueis) {
+			System.out.printf(
+					"%d: %s, %d dias, R$%.2f%n",
+					i++,
+					daVez.getVeiculo(),
+					daVez.getDias().intValue(),
+					daVez.calculaPreco());
 		}
+		System.out.println();
+
 		return alugueis;
 	}
 
