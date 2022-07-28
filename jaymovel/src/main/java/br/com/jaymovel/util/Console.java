@@ -11,12 +11,14 @@ public abstract class Console {
 		while (true) {
 			try {
 				valor = Integer.parseInt(sc.nextLine());
+				if (valor >= min && valor <= max)
+					break;
+				else
+					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
+				System.out.print("Tente novamente... ");
 				continue;
 			}
-			if (valor >= min && valor <= max)
-				break;
-			System.out.print("Tente novamente... ");
 		}
 		return valor;
 	}
