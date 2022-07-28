@@ -1,5 +1,6 @@
 package br.com.jaymovel.telas;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,8 +9,10 @@ import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.excecoes.VeiculoIndisponivelException;
 import br.com.jaymovel.excecoes.VeiculoNaoCadastradoException;
 import br.com.jaymovel.modelos.Aluguel;
+import br.com.jaymovel.modelos.CadastroCliente;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
+import br.com.jaymovel.util.Console;
 import br.com.jaymovel.util.Formulario;
 
 public class TelaLogada extends Tela {
@@ -91,7 +94,21 @@ public class TelaLogada extends Tela {
 
 	@Override
 	protected void mostraInfo() {
-
+		int numeroAlugueis;
+		BigDecimal divida;
+		try {
+			CadastroCliente cadstro = Tela.agencia.getCadastro(cliente);
+			numeroAlugueis = cadstro.getAlugueis().size();
+			divida = cadstro.getDivida();
+		} catch (ClienteNaoCadastradoException e) {
+			Console.printaCentro("CLIENTE NAO CADASTRADO");
+			return;
+		}
+		Console.printaCentro(cliente.getNome());
+		Console.printaCentro(String.valueOf(cliente.getDocumento()));
+		System.out.println();
+		Console.printaCentro(String.format("Dívida: R$%.2f", divida));
+		Console.printaCentro(String.format("Você tem %d aluguéis ativos", numeroAlugueis));
 	}
 
 }
