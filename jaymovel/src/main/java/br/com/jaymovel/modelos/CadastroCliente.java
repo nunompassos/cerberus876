@@ -1,8 +1,10 @@
 package br.com.jaymovel.modelos;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CadastroCliente {
@@ -25,7 +27,11 @@ public class CadastroCliente {
 		return this.alugueis.remove(idAluguel);
 	}
 
-	public Map<Long, Aluguel> getAlugueis() {
-		return Collections.unmodifiableMap(alugueis);
+	public boolean contem(long idAluguel) {
+		return this.alugueis.containsKey(idAluguel);
+	}
+
+	public List<Aluguel> getAlugueis() {
+		return Collections.unmodifiableList(new ArrayList<Aluguel>(alugueis.values()));
 	}
 }
