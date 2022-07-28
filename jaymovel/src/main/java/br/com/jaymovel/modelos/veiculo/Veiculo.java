@@ -1,7 +1,5 @@
 package br.com.jaymovel.modelos.veiculo;
 
-import br.com.jaymovel.enums.TipoVeiculo;
-
 public class Veiculo {
 	private final TipoVeiculo tipo;
 	private final int chassi;

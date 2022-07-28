@@ -1,11 +1,11 @@
 package br.com.jaymovel;
 
-import br.com.jaymovel.enums.TipoVeiculo;
 import br.com.jaymovel.excecoes.JayMovelException;
 import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
+import br.com.jaymovel.modelos.veiculo.TipoVeiculo;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 import br.com.jaymovel.telas.TelaInicial;
 

@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.jaymovel.enums.TipoVeiculo;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
+import br.com.jaymovel.modelos.veiculo.TipoVeiculo;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 
 public class Aluguel {
