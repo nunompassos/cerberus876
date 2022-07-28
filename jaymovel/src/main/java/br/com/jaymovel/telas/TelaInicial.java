@@ -57,21 +57,6 @@ public class TelaInicial extends Tela {
 	}
 
 	@Override
-	protected void opcao4() throws SairDaTelaException {}
-
-	@Override
-	protected void opcao5() throws SairDaTelaException {}
-
-	@Override
-	protected void opcao6() throws SairDaTelaException {}
-
-	@Override
-	protected void opcao7() throws SairDaTelaException {}
-
-	@Override
-	protected void opcao8() throws SairDaTelaException {}
-
-	@Override
 	protected void mostraInfo() {
 	};
 

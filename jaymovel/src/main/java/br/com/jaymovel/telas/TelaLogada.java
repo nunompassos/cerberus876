@@ -69,22 +69,6 @@ public class TelaLogada extends Tela {
 	}
 
 	@Override
-	protected void opcao5() {
-	}
-
-	@Override
-	protected void opcao6() {
-	}
-
-	@Override
-	protected void opcao7() {
-	}
-
-	@Override
-	protected void opcao8() {
-	}
-
-	@Override
 	protected void mostraInfo() {
 
 	}

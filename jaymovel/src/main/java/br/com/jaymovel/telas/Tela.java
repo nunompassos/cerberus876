@@ -37,14 +37,14 @@ public abstract class Tela {
 		// private void opcao7() {};
 		// private void opcao8() {};
 		
-	protected abstract void opcao1() throws SairDaTelaException;
-	protected abstract void opcao2() throws SairDaTelaException;
-	protected abstract void opcao3() throws SairDaTelaException;
-	protected abstract void opcao4() throws SairDaTelaException;
-	protected abstract void opcao5() throws SairDaTelaException;
-	protected abstract void opcao6() throws SairDaTelaException;
-	protected abstract void opcao7() throws SairDaTelaException;
-	protected abstract void opcao8() throws SairDaTelaException;
+	protected void opcao1() throws SairDaTelaException {};
+	protected void opcao2() throws SairDaTelaException {};
+	protected void opcao3() throws SairDaTelaException {};
+	protected void opcao4() throws SairDaTelaException {};
+	protected void opcao5() throws SairDaTelaException {};
+	protected void opcao6() throws SairDaTelaException {};
+	protected void opcao7() throws SairDaTelaException {};
+	protected void opcao8() throws SairDaTelaException {};
 	protected abstract void mostraInfo();
 	
 	protected void iniciar() {
