@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.jaymovel.excecoes.JayMovelException;
+import br.com.jaymovel.excecoes.PessoaDuplicadaException;
 import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
@@ -41,6 +42,12 @@ public class TelaInicial extends Tela {
 	@Override
 	protected void opcao2() {
 		Pessoa cliente = Formulario.cadastrarCliente();
+		try {
+			Tela.agencia.adicionaCliente(cliente);
+		} catch (PessoaDuplicadaException e) {
+			this.setMensagem("Cliente já cadastrado...");
+			return;
+		}
 		new TelaLogada(cliente).iniciar();
 	}
 
