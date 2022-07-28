@@ -3,7 +3,7 @@ package br.com.jaymovel.util;
 import java.util.Scanner;
 
 public abstract class Console {
-	
+
 	public static Scanner sc = new Scanner(System.in);
 
 	public static int lerInt(int min, int max) {
@@ -11,7 +11,8 @@ public abstract class Console {
 		while (true) {
 			try {
 				valor = Integer.parseInt(sc.nextLine());
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
+				continue;
 			}
 			if (valor >= min && valor <= max)
 				break;
@@ -38,7 +39,6 @@ public abstract class Console {
 		return valor;
 	}
 
-	
 	public static void printaCentro(String s) {
 		printaCentro(s, ' ');
 	}
@@ -85,6 +85,5 @@ public abstract class Console {
 			System.out.println(e);
 		}
 	}
-
 
 }
