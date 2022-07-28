@@ -60,6 +60,10 @@ public class TelaLogada extends Tela {
 		Aluguel finalizando;
 		try {
 			finalizando = Formulario.selecionaAluguelParaFinalizar(cliente);
+			if (finalizando == null) {
+				this.setMensagem("Sem aluguéis para essa conta...");
+				return;
+			}
 			if (Formulario.confirmaFinalizacaoAluguel(finalizando)) {
 				Tela.agencia.terminaAluguel(finalizando.getId());
 				this.setMensagem("Aluguel com código " + finalizando.getId() + " finalizado com sucesso!");

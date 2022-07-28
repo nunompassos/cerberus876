@@ -193,6 +193,9 @@ public abstract class Formulario {
 
 	public static Aluguel selecionaAluguelParaFinalizar(Pessoa cliente) throws ClienteNaoCadastradoException {
 		List<Aluguel> alugueis = mostraRetornaAlugueisDoCliente(cliente);
+		if (alugueis.isEmpty()) {
+			return null;
+		}
 		Console.printaCentro("Escolha um aluguel para finalizar");
 
 		int escolha = Console.lerInt(1, alugueis.size());
@@ -222,23 +225,27 @@ public abstract class Formulario {
 		List<Aluguel> alugueis = Tela.agencia.getCadastro(cliente).getAlugueis();
 
 		// mostrar os aluguéis
-		int i = 1;
-		for (Aluguel daVez : alugueis) {
-			System.out.printf(
-					"%d: %s, %d dias, R$%.2f%n",
-					i++,
-					daVez.getVeiculo(),
-					daVez.getDias().intValue(),
-					daVez.calculaPreco());
+		if (alugueis.isEmpty()) {
+			System.out.println("Sem aluguéis para essa conta...");
+		} else {
+			int i = 1;
+			for (Aluguel daVez : alugueis) {
+				System.out.printf(
+						"%d: %s, %d dias, R$%.2f%n",
+						i++,
+						daVez.getVeiculo(),
+						daVez.getDias().intValue(),
+						daVez.calculaPreco());
+			}
+			System.out.println();
 		}
-		System.out.println();
 		return alugueis;
 	}
 
-public static void mostraAlugueisDoCliente(Pessoa cliente) throws ClienteNaoCadastradoException {
-	mostraRetornaAlugueisDoCliente(cliente);
-	Console.printaCentro("Aperte ENTER para continuar...");
-	Console.sc.nextLine();
-}
+	public static void mostraAlugueisDoCliente(Pessoa cliente) throws ClienteNaoCadastradoException {
+		mostraRetornaAlugueisDoCliente(cliente);
+		Console.printaCentro("Aperte ENTER para continuar...");
+		Console.sc.nextLine();
+	}
 
 }
