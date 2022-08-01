@@ -28,17 +28,11 @@ public class TelaInicial extends Tela {
 				true);
 		Tela.agencia = agencia;
 		super.iniciar();
-
 	}
 
 	@Override
 	protected void opcao0() {
-		try{
-			new TelaAdmin(Tela.agencia);
-		} catch(JayMovelException e){
-			super.setMensagem("Erro ao exibir tela Admin.");
-			return;
-		}
+		new TelaAdmin();
 	}
 
 	@Override

@@ -3,10 +3,8 @@ package br.com.jaymovel.telas;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.jaymovel.excecoes.JayMovelException;
 import br.com.jaymovel.excecoes.SairDaTelaException;
 import br.com.jaymovel.excecoes.VeiculoDuplicadoException;
-import br.com.jaymovel.modelos.Agencia;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 import br.com.jaymovel.util.Formulario;
 
@@ -17,14 +15,12 @@ public class TelaAdmin extends Tela {
 		opcoes.put(2, "Sair");
 	}
 
-	public TelaAdmin(Agencia agencia) throws JayMovelException {
+	public TelaAdmin() {
 		super(
 				"Tela Auto Administrativa (TAA)",
 				opcoes,
 				true);
-		Tela.agencia = agencia;
 		super.iniciar();
-
 	}
 
 	@Override
@@ -36,7 +32,7 @@ public class TelaAdmin extends Tela {
 			this.setMensagem("Veículo já cadastrado...");
 			return;
 		}
-		System.out.println("Veículo cadastrado com sucesso!");
+		this.setMensagem("Veículo cadastrado com sucesso!");
 	}
 
 	@Override
