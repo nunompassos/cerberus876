@@ -26,10 +26,14 @@ public class TelaAdmin extends Tela {
 	@Override
 	protected void opcao1() {
 		Veiculo veiculo = Formulario.cadastrarVeiculo();
+		if (!Formulario.confirmaCadastroVeiculo(veiculo)) {
+			this.setMensagem("Operação cancelada pelo usuário");
+			return;
+		}
 		try {
 			Tela.agencia.adicionaVeiculo(veiculo);
 		} catch (VeiculoDuplicadoException e) {
-			this.setMensagem("Veículo já cadastrado...");
+			this.setMensagem("ERRO: Veículo com mesmo chassi já cadastrado...");
 			return;
 		}
 		this.setMensagem("Veículo cadastrado com sucesso!");

@@ -76,7 +76,6 @@ public abstract class Formulario {
 		Console.limparConsole();
 		System.out.println();
 		Console.printaCentro("Informe os dados do cliente");
-		// Console.printaCentro("(escreva CANCELAR para sair)");
 		System.out.println();
 		System.out.printf("%-30s", "Nome :");
 		String nome = Console.sc.nextLine();
@@ -216,6 +215,18 @@ public abstract class Formulario {
 		Veiculo novoVeiculo = new Veiculo(tipo, chassi, marca, modelo, ano, cor);
 		return novoVeiculo;
 	}
+
+	public static boolean confirmaCadastroVeiculo(Veiculo v) {
+		Console.limparConsole();
+		Console.printaCentro("Novo veículo:");
+		Console.printaCentro(v.toString());
+
+		Console.printaCentro("Confirma operação (s/n) ?");
+		String escolha = Console.sc.nextLine().toLowerCase();
+
+		return (escolha.equals("s") ||
+				escolha.equals("sim"));
+	} 
 
 	public static boolean confimaAluguel(Aluguel novoAluguel) {
 		Console.limparConsole();
