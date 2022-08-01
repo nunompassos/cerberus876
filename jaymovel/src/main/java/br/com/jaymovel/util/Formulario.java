@@ -10,6 +10,7 @@ import br.com.jaymovel.modelos.Aluguel;
 import br.com.jaymovel.modelos.pessoa.Pessoa;
 import br.com.jaymovel.modelos.pessoa.PessoaFisica;
 import br.com.jaymovel.modelos.pessoa.PessoaJuridica;
+import br.com.jaymovel.modelos.veiculo.TipoVeiculo;
 import br.com.jaymovel.modelos.veiculo.Veiculo;
 import br.com.jaymovel.telas.Tela;
 
@@ -171,6 +172,42 @@ public abstract class Formulario {
 		Console.printaCentro("(Máximo de " + Agencia.MAXIMO_DIAS_POR_LOCACAO + " dias por locação)");
 		return Console.lerInt(1, Agencia.MAXIMO_DIAS_POR_LOCACAO);
 
+	}
+
+	public static Veiculo cadastrarVeiculo() {
+		Console.limparConsole();
+		System.out.println();
+		Console.printaCentro("Informe os dados do veículo");
+		// Console.printaCentro("(escreva CANCELAR para sair)");
+		System.out.println();
+		System.out.printf("%-30s", "Qual o tipo do veículo?");
+		System.out.println("Pequeno (P) / Medio (M) / SUV (S)");
+		String escolha = Console.sc.nextLine();
+		TipoVeiculo tipo = null;
+
+		if(escolha.toLowerCase().equals("p")){
+			tipo = TipoVeiculo.PEQUENO;
+		}
+		if(escolha.toLowerCase().equals("m")){
+			tipo = TipoVeiculo.MEDIO;
+		}
+		if(escolha.toLowerCase().equals("s")){
+			tipo = TipoVeiculo.SUV;
+		}
+
+		System.out.printf("%-30s", "Chassi:");
+		int chassi = Console.lerInt(0, Integer.MAX_VALUE);
+		System.out.printf("%-30s", "Marca:");
+		String marca = Console.sc.nextLine();
+		System.out.printf("%-30s", "Modelo:");
+		String modelo = Console.sc.nextLine();
+		System.out.printf("%-30s", "Ano:");
+		int ano = Console.lerInt(0, Integer.MAX_VALUE);
+		System.out.printf("%-30s", "Cor:");
+		String cor = Console.sc.nextLine();
+
+		Veiculo novoVeiculo = new Veiculo(tipo, chassi, marca, modelo, ano, cor);
+		return novoVeiculo;
 	}
 
 	public static boolean confimaAluguel(Aluguel novoAluguel) {

@@ -15,6 +15,7 @@ public class TelaInicial extends Tela {
 
 	private static final Map<Integer, String> opcoes = new HashMap<>();
 	{
+		opcoes.put(0, "Admin");
 		opcoes.put(1, "Entrar");
 		opcoes.put(2, "Cadastrar");
 		opcoes.put(3, "Sair");
@@ -28,6 +29,16 @@ public class TelaInicial extends Tela {
 		Tela.agencia = agencia;
 		super.iniciar();
 
+	}
+
+	@Override
+	protected void opcao0() {
+		try{
+			new TelaAdmin(Tela.agencia);
+		} catch(JayMovelException e){
+			super.setMensagem("Erro ao exibir tela Admin.");
+			return;
+		}
 	}
 
 	@Override

@@ -37,6 +37,7 @@ public abstract class Tela {
 		// private void opcao7() {};
 		// private void opcao8() {};
 		
+	protected void opcao0() throws SairDaTelaException {};
 	protected void opcao1() throws SairDaTelaException {};
 	protected void opcao2() throws SairDaTelaException {};
 	protected void opcao3() throws SairDaTelaException {};
@@ -57,7 +58,10 @@ public abstract class Tela {
 				System.out.println(this.mensagem);
 				System.out.println();
 				this.setMensagem("");
-				switch (Console.lerInt(1, this.opcoes.size())) {
+				switch (Console.lerInt(0, this.opcoes.size())) {
+					case 0:
+					this.opcao0();
+					break;
 					case 1:
 					this.opcao1();
 					break;
