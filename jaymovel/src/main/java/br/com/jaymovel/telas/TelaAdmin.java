@@ -43,7 +43,4 @@ public class TelaAdmin extends Tela {
 	protected void opcao2() throws SairDaTelaException {
 		throw new SairDaTelaException();
 	}
-
-    @Override
-    protected void mostraInfo() {}
 }

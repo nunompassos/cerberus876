@@ -46,7 +46,7 @@ public abstract class Tela {
 	protected void opcao6() throws SairDaTelaException {};
 	protected void opcao7() throws SairDaTelaException {};
 	protected void opcao8() throws SairDaTelaException {};
-	protected abstract void mostraInfo();
+	protected void mostraInfo() {};
 	
 	protected void iniciar() {
 		while (true) {
@@ -117,18 +117,6 @@ public abstract class Tela {
 			i++;
 		}
 		Console.printaCentro(linha);
-		// for (int i = 0; i < opcoes.length; i += opcoesPorLinha) {
-		// 	String linha = "";
-		// 	for (int j = 0; j < opcoesPorLinha; j++) {
-		// 		try {
-		// 			linha += String.format("%d: %s    ", i + j + 1, opcoes[j + i]);
-		// 		} catch (ArrayIndexOutOfBoundsException e) {
-		// 			break;
-		// 		}
-		// 	}
-		// 	Console.printaCentro(linha);
-		// 	System.out.println();
-		// }
 	}
 	
 	private void mostraCabecalho() {
