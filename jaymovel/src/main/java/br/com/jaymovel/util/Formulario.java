@@ -178,22 +178,28 @@ public abstract class Formulario {
 		Console.limparConsole();
 		System.out.println();
 		Console.printaCentro("Informe os dados do veículo");
-		// Console.printaCentro("(escreva CANCELAR para sair)");
 		System.out.println();
+
 		System.out.printf("%-30s", "Qual o tipo do veículo?");
 		System.out.println("Pequeno (P) / Medio (M) / SUV (S)");
-		String escolha = Console.sc.nextLine();
 		TipoVeiculo tipo = null;
-
-		if(escolha.toLowerCase().equals("p")){
-			tipo = TipoVeiculo.PEQUENO;
-		}
-		if(escolha.toLowerCase().equals("m")){
-			tipo = TipoVeiculo.MEDIO;
-		}
-		if(escolha.toLowerCase().equals("s")){
-			tipo = TipoVeiculo.SUV;
-		}
+		do {
+			String escolha = Console.sc.nextLine();
+			if (escolha.toLowerCase().equals("p") ||
+					escolha.toLowerCase().equals("pequeno")) {
+				tipo = TipoVeiculo.PEQUENO;
+			}
+			else if (escolha.toLowerCase().equals("m") ||
+					escolha.toLowerCase().equals("medio")) {
+				tipo = TipoVeiculo.MEDIO;
+			}
+			else if (escolha.toLowerCase().equals("s") ||
+					escolha.toLowerCase().equals("suv")) {
+				tipo = TipoVeiculo.SUV;
+			} else {
+				System.out.print("\rTipo inválido...");
+			}
+		} while (tipo == null);
 
 		System.out.printf("%-30s", "Chassi:");
 		int chassi = Console.lerInt(0, Integer.MAX_VALUE);
@@ -201,8 +207,9 @@ public abstract class Formulario {
 		String marca = Console.sc.nextLine();
 		System.out.printf("%-30s", "Modelo:");
 		String modelo = Console.sc.nextLine();
+		//Tem carro que é lançado com modelo do ano que vem
 		System.out.printf("%-30s", "Ano:");
-		int ano = Console.lerInt(0, Integer.MAX_VALUE);
+		int ano = Console.lerInt(1900, LocalDate.now().getYear() + 1);
 		System.out.printf("%-30s", "Cor:");
 		String cor = Console.sc.nextLine();
 
