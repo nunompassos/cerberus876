@@ -54,7 +54,7 @@ class Lotes {
 
     public void contabilizarLotesVendidos() {
         for (int i = 0; i < this.largura-1; i++) {
-            for (int j = 0; j < this.comprimento-1; j++) {                
+            for (int j = 0; j < this.comprimento-1; j++) {
                 
             }
         }
